@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyAppAnimalesTropicales());
+  runApp(MyApp());
 }
 
-class MyAppAnimalesTropicales extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<String> menuItems = [
+    "Pagina principal",
+    "Animales",
+    "Codigo QR",
+    "Ubicacion",
+    "Ajustes",
+  ];
+
+  String selectedMenuItem = "Animales";
+  final TextEditingController searchController = TextEditingController();
+
   final List<TropicalCardData> cardData = [
     TropicalCardData("Túcan", "assets/tucan.jpg"),
     TropicalCardData("Mandrill", "assets/mandrill.jpg"),
@@ -12,23 +30,69 @@ class MyAppAnimalesTropicales extends StatelessWidget {
     TropicalCardData("Tigre", "assets/tigre.jpg"),
   ];
 
+  List<TropicalCardData> filteredCardData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredCardData = List.from(cardData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: GreenAppBar(
-          title: "Animales",
-          titleColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
+          ),
+          title: Text(
+            selectedMenuItem,
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
+        ),
+        drawer: MyDrawerMenu(
+          items: menuItems,
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                selectedMenuItem = newValue;
+              });
+              print("Item seleccionado en el cajón: $newValue");
+            }
+          },
         ),
         body: Column(
-          children: [
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: searchController,
+                onChanged: filterByKeyword,
                 decoration: InputDecoration(
                   hintText: 'Buscar por nombre',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -40,9 +104,9 @@ class MyAppAnimalesTropicales extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
-                itemCount: cardData.length,
+                itemCount: filteredCardData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return AnimalCard(data: cardData[index]);
+                  return AnimalCard(data: filteredCardData[index]);
                 },
               ),
             ),
@@ -51,39 +115,15 @@ class MyAppAnimalesTropicales extends StatelessWidget {
       ),
     );
   }
-}
 
-class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final Color titleColor;
-
-  GreenAppBar({required this.title, this.titleColor = Colors.white});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.green,
-      elevation: 0,
-      centerTitle: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
-        ),
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          color: titleColor,
-        ),
-      ),
-    );
+  void filterByKeyword(String keyword) {
+    setState(() {
+      filteredCardData = cardData
+          .where((animal) =>
+              animal.habitat.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+    });
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class TropicalCardData {
@@ -123,6 +163,36 @@ class AnimalCard extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyDrawerMenu extends StatelessWidget {
+  final List<String> items;
+  final ValueChanged<String?> onChanged;
+
+  MyDrawerMenu({
+    required this.items,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          ...items.map((item) {
+            return ListTile(
+              title: Text(item),
+              onTap: () {
+                onChanged(item);
+                Navigator.pop(context);
+              },
+            );
+          }).toList(),
+        ],
       ),
     );
   }

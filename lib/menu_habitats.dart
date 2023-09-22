@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'menu_desplegable.dart';
-import 'animales_tropicales.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,8 +8,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final List<TropicalCardData> cardData = [
     TropicalCardData("Tropical", "assets/tropical_habitat.jpg"),
-    TropicalCardData("Desierto", "assets/desierto_habitat.jpg"),
-    TropicalCardData("Sabana", "assets/sabana_habitat.jpg"),
+    TropicalCardData("Desierto", "assets/desierto.jpg"),
+    TropicalCardData("Sabana", "assets/sabana.jpg"),
   ];
 
   final List<String> menuItems = [
@@ -56,7 +55,9 @@ class MyApp extends StatelessWidget {
                 items: menuItems,
                 selectedItem: selectedMenuItem,
                 onChanged: (String? newValue) {
-                  if (newValue != null) {}
+                  if (newValue != null) {
+                    print("Item seleccionado: $newValue");
+                  }
                 },
               );
             },
@@ -65,7 +66,9 @@ class MyApp extends StatelessWidget {
         drawer: MyDrawerMenu(
           items: menuItems,
           onChanged: (String? newValue) {
-            if (newValue != null) {}
+            if (newValue != null) {
+              print("Item seleccionado en el cajón: $newValue");
+            }
           },
         ),
         body: Center(
@@ -74,7 +77,7 @@ class MyApp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 const Text(
-                  "Selecciona un Hábitat:",
+                  "Selecciona un hábitat:",
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
@@ -121,39 +124,26 @@ class AnimalCard extends StatelessWidget {
     return Card(
       elevation: 4.0,
       margin: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(data.imagePath),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(20.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(data.imagePath),
+              fit: BoxFit.cover,
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0),
-            ),
-            child: Center(
-              child: Text(
-                data.habitat,
-                style: const TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black,
-                      blurRadius: 50,
-                    ),
-                  ],
-                ),
+          child: Center(
+            child: Text(
+              data.habitat,
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
