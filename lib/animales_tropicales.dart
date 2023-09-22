@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+class AnimalesTropicales extends StatefulWidget {
+  const AnimalesTropicales({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<AnimalesTropicales> createState() => _AnimalesTropicales();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AnimalesTropicales extends State<AnimalesTropicales> {
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
@@ -136,7 +132,7 @@ class TropicalCardData {
 class AnimalCard extends StatelessWidget {
   final TropicalCardData data;
 
-  AnimalCard({required this.data});
+  const AnimalCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +168,7 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  MyDrawerMenu({
+  const MyDrawerMenu({super.key, 
     required this.items,
     required this.onChanged,
   });

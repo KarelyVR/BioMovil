@@ -8,7 +8,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 // import 'package:permission_handler/permission_handler.dart';
 
-
 class UbicacionAnimal extends StatefulWidget {
   const UbicacionAnimal({super.key});
 

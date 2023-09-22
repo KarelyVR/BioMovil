@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:biomovil/animales_tropicales.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/ubicacion_animales.dart';
 import 'package:biomovil/animales_detalles.dart';
@@ -12,10 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainScreen(),
+      home: const MainScreen(),
       routes: {
         '/animales_detalles': (context) => const AnimalesDetalles(),
         '/ubicacion_animales': (context) => const UbicacionAnimal(),
+        '/animales_tropicales': (context) => const AnimalesTropicales(),
       },
     );
   }
@@ -36,6 +38,12 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
+                Navigator.pushNamed(context, '/animales_tropicales');
+              },
+              child: const Text('Ir a habitats'),
+            ),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, '/animales_detalles');
               },
               child: const Text('Ir a Detalles de Animales'),
@@ -52,7 +60,3 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
