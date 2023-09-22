@@ -38,4 +38,3 @@ final kPoppinsRegular = GoogleFonts.poppins(
   color: kDarkBlue,
   fontWeight: FontWeight.w400,
 );
-
