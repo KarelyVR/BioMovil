@@ -1,8 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Otros elementos del manifest -->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Opcional: Usar features relacionadas con la ubicación -->
+    <uses-feature android:name="android.hardware.location" />
+    <uses-feature android:name="android.hardware.location.gps" />
+    
     <application
         android:label="biomovil"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+         <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyB0TLjPkqVU3gavsbEFl_29z85d_3FnUnM"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

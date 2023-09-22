@@ -1,65 +1,58 @@
-// ignore_for_file: unused_import
+// ignore_for_file: library_private_types_in_public_api
 
-import 'package:biomovil/animales_detalles.dart';
 import 'package:flutter/material.dart';
-import 'app_styles.dart';
-import 'size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/animales_detalles.dart';
 
-void main() {
-  runApp(
-    const MyApp(),
-  );
-}
+void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: kLighterWhite,
-        body: AnimalesDetalles(),
-      ),
+    return MaterialApp(
+      home: MainScreen(),
+      routes: {
+        '/animales_detalles': (context) => const AnimalesDetalles(),
+        '/ubicacion_animales': (context) => const UbicacionAnimal(),
+      },
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 30,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pantalla Principal'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/animales_detalles');
+              },
+              child: const Text('Ir a Detalles de Animales'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/ubicacion_animales');
+              },
+              child: const Text('Ir a Ubicación de Animales'),
+            ),
+          ],
         ),
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 51,
-                width: 51,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: kLightBlue,
-                  image: const DecorationImage(
-                    image: AssetImage('assets/toucan1.jpg'),
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
       ),
     );
   }
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
