@@ -9,9 +9,9 @@ import 'package:biomovil/animales_sabana.dart';
 
 class MenuHabitats extends StatelessWidget {
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Tropical", "assets/tropical_habitat.jpg"),
-    TropicalCardData("Desierto", "assets/desierto.jpg"),
-    TropicalCardData("Sabana", "assets/sabana.jpg"),
+    TropicalCardData("Tropical", "assets/animales/tropical/tropical_habitat.jpg"),
+    TropicalCardData("Desierto", "assets/animales/desierto/desierto.jpg"),
+    TropicalCardData("Sabana", "assets/animales/sabana/sabana.jpg"),
   ];
 
   final List<String> menuItems = [

@@ -1,5 +1,6 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
+import 'package:biomovil/ubicacion_animales.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,7 +45,7 @@ class AnimalesDetalles extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: kPaddingHorizontal,
+                      horizontal: 15,
                       vertical: 40,
                     ),
                     child: Row(
@@ -52,34 +53,38 @@ class AnimalesDetalles extends StatelessWidget {
                       children: [
                         //boton para volver atras
                         Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              kBorderRadius,
-                            ),
-                            border: Border.all(
-                              color: kWhite,
-                            ),
-                          ),
                           padding: const EdgeInsets.all(10),
-                          child: SvgPicture.asset('assets/arrow_back_icon.svg'
+                          decoration: BoxDecoration(
+                            color:  kWhite,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: kDarkBlue,
+                                blurRadius: 6,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Icon(
+                            Icons.arrow_back_ios_new,
+                            size: 28,
                           ),
                         ),
                         //boton de pagina principal
                         Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              kBorderRadius,
-                            ),
-                            border: Border.all(
-                              color: kWhite,
-                            ),
-                          ),
                           padding: const EdgeInsets.all(10),
-                          child: SvgPicture.asset('assets/home_selected_icon.svg'
+                          decoration: BoxDecoration(
+                            color:  kWhite,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: kDarkBlue,
+                                blurRadius: 6,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Icon(
+                            Icons.sort_rounded,
+                            size: 28,
                           ),
                         ),
                       ],
@@ -88,22 +93,12 @@ class AnimalesDetalles extends StatelessWidget {
                 )
               ],
             ),
-<<<<<<< Updated upstream
-            ElevatedButton(
-            onPressed: () {
-//              playAudio(); // Llama al método playAudio cuando se presiona el botón
-            },
-            child: const Text("Reproducir Audio"),
-            ),
-            Container(
-=======
           ),
           Expanded(
           child: ListView.builder(
           itemCount: 1, // Puedes ajustar esto según tu contenido
           itemBuilder: (context, index) {
             return Padding(
->>>>>>> Stashed changes
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,
               ),
@@ -126,7 +121,6 @@ class AnimalesDetalles extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    transform: Matrix4.translationValues(0, -20, 0),
                     margin: const EdgeInsets.symmetric(
                       horizontal: kPaddingHorizontal,
                       vertical: 11,
@@ -134,7 +128,7 @@ class AnimalesDetalles extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.blockSizeHorizontal!*2.5,
                     ),
-                    height: 54,
+                    height: 40,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
@@ -155,14 +149,25 @@ class AnimalesDetalles extends StatelessWidget {
                   Padding(
                     padding:const EdgeInsets.symmetric(
                       horizontal: kPaddingHorizontal,
+                      vertical: 10,
                     ),
                     child: Text(
                     'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
                     textAlign: TextAlign.justify,  
                       style: kPoppinsRegular.copyWith(
-                        fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
                         color: kDarkBlue,
                       ),
+                    ),
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const UbicacionAnimal(),
+                        ));
+                      },
+                      child: const Text('Ver Ubicación'),
                     ),
                   ),
                 ]),
@@ -179,22 +184,10 @@ class AnimalesDetalles extends StatelessWidget {
 }
 }
 
-<<<<<<< Updated upstream
-//void playAudio() async {
-//  int result = await audioPlayer.play(" URL_DEL_ARCHIVO_DE_AUDIO.mp3");
-//  if (result == 1) {
-//    // La reproducción del audio se inició con éxito
-//    print('Reproduciendo audio');
-//  }
-//}
-=======
-
->>>>>>> Stashed changes
-
 final List<String> imageList = [
-  'assets/toucan1.jpg',
-  'assets/toucan2.jpg',
-  'assets/toucan3.jpg'
+  'assets/animales/tropical/toucan1.jpg',
+  'assets/animales/tropical/toucan2.jpg',
+  'assets/animales/tropical/toucan3.jpg'
   ];
 
 class FullScreenSlider extends StatefulWidget {

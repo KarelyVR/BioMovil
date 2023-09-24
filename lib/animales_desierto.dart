@@ -22,10 +22,10 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Camello", "assets/camello.jpg"),
-    TropicalCardData("Coyote", "assets/coyote.jpg"),
-    TropicalCardData("Serpiente de cascabel", "assets/serpiente_cascabel.jpg"),
-    TropicalCardData("Liebre", "assets/liebre.jpeg"),
+    TropicalCardData("Camello", "assets/animales/desierto/camello.jpg"),
+    TropicalCardData("Coyote", "assets/animales/desierto/coyote.jpg"),
+    TropicalCardData("Serpiente de cascabel", "assets/animales/desierto/serpiente_cascabel.jpg"),
+    TropicalCardData("Liebre", "assets/animales/desierto/liebre.jpeg"),
   ];
 
   List<TropicalCardData> filteredCardData = [];

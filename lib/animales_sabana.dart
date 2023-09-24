@@ -22,10 +22,10 @@ class _AnimalesSabana extends State<AnimalesSabana> {
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
-    TropicalCardData("León", "assets/leon.jpg"),
-    TropicalCardData("Jirafa", "assets/jirafa.jpg"),
-    TropicalCardData("Elefante", "assets/elefante.jpg"),
-    TropicalCardData("Avestruz", "assets/avestruz.jpg"),
+    TropicalCardData("León", "assets/animales/sabana/leon.jpg"),
+    TropicalCardData("Jirafa", "assets/animales/sabana/jirafa.jpg"),
+    TropicalCardData("Elefante", "assets/animales/sabana/elefante.jpg"),
+    TropicalCardData("Avestruz", "assets/animales/sabana/avestruz.jpg"),
   ];
 
   List<TropicalCardData> filteredCardData = [];

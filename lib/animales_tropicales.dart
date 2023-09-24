@@ -23,10 +23,10 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Túcan", "assets/tucan.jpg"),
-    TropicalCardData("Mandrill", "assets/mandrill.jpg"),
-    TropicalCardData("Puma", "assets/puma.jpg"),
-    TropicalCardData("Tigre", "assets/tigre.jpg"),
+    TropicalCardData("Túcan", "assets/animales/tropical/tucan.jpg"),
+    TropicalCardData("Mandrill", "assets/animales/tropical/mandrill.jpg"),
+    TropicalCardData("Puma", "assets/animales/tropical/puma.jpg"),
+    TropicalCardData("Tigre", "assets/animales/tropical/tigre.jpg"),
   ];
 
   List<TropicalCardData> filteredCardData = [];

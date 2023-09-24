@@ -37,3 +37,6 @@ flutter:
   assets:
     - assets/
     - assets/locations.json
+    - assets/animales/tropical/
+    - assets/animales/sabana/
+    - assets/animales/desierto/
