@@ -9,7 +9,7 @@ class Recorridos extends StatelessWidget {
     "Pagina principal",
     "Animales",
     "Codigo QR",
-    "Ubicacion",
+    "Recorridos",
     "Ajustes",
   ];
 

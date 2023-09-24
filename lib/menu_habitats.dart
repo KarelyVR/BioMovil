@@ -18,7 +18,7 @@ class MenuHabitats extends StatelessWidget {
     "Pagina principal",
     "Animales",
     "Codigo QR",
-    "Ubicacion",
+    "Recorridos",
     "Ajustes",
   ];
 
