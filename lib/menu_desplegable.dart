@@ -121,7 +121,7 @@ class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
               "Pagina principal",
               "Animales",
               "Codigo QR",
-              "Ubicacion",
+              "Recorridos",
               "Ajustes",
             ],
             selectedItem:

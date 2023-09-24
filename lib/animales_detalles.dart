@@ -90,7 +90,7 @@ class AnimalesDetalles extends StatelessWidget {
             ),
             ElevatedButton(
             onPressed: () {
-              playAudio(); // Llama al método playAudio cuando se presiona el botón
+//              playAudio(); // Llama al método playAudio cuando se presiona el botón
             },
             child: const Text("Reproducir Audio"),
             ),
@@ -166,13 +166,13 @@ class AnimalesDetalles extends StatelessWidget {
   }
 }
 
-void playAudio() async {
-  int result = await audioPlayer.play("URL_DEL_ARCHIVO_DE_AUDIO.mp3");
-  if (result == 1) {
-    // La reproducción del audio se inició con éxito
-    print('Reproduciendo audio');
-  }
-}
+//void playAudio() async {
+//  int result = await audioPlayer.play(" URL_DEL_ARCHIVO_DE_AUDIO.mp3");
+//  if (result == 1) {
+//    // La reproducción del audio se inició con éxito
+//    print('Reproduciendo audio');
+//  }
+//}
 
 final List<String> imageList = [
   'assets/toucan1.jpg',
