@@ -9,7 +9,8 @@ import 'package:biomovil/animales_sabana.dart';
 
 class MenuHabitats extends StatelessWidget {
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Tropical", "assets/animales/tropical/tropical_habitat.jpg"),
+    TropicalCardData(
+        "Tropical", "assets/animales/tropical/tropical_habitat.jpg"),
     TropicalCardData("Desierto", "assets/animales/desierto/desierto.jpg"),
     TropicalCardData("Sabana", "assets/animales/sabana/sabana.jpg"),
   ];
@@ -89,25 +90,29 @@ class MenuHabitats extends StatelessWidget {
                 ...cardData.map((data) {
                   return Expanded(
                     child: GestureDetector(
-                    onTap: () {
-                      if (data.habitat == "Tropical") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
-                        );
-                      } else if (data.habitat == "Desierto") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AnimalesDesierto()),
-                        );
-                      } else if (data.habitat == "Sabana") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AnimalesSabana()),
-                        );
-                      }
-                    },
-                    child: AnimalCard(data: data),
+                      onTap: () {
+                        if (data.habitat == "Tropical") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const AnimalesTropicales()),
+                          );
+                        } else if (data.habitat == "Desierto") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AnimalesDesierto()),
+                          );
+                        } else if (data.habitat == "Sabana") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AnimalesSabana()),
+                          );
+                        }
+                      },
+                      child: AnimalCard(data: data),
                     ),
                   );
                 }).toList(),
@@ -127,32 +132,88 @@ class TropicalCardData {
   TropicalCardData(this.habitat, this.imagePath);
 }
 
-class AnimalCard extends StatelessWidget {
+class AnimalCard extends StatefulWidget {
   final TropicalCardData data;
 
-  const AnimalCard({super.key, required this.data});
+  const AnimalCard({Key? key, required this.data}) : super(key: key);
+
+  @override
+  _AnimalCardState createState() => _AnimalCardState();
+}
+
+class _AnimalCardState extends State<AnimalCard> {
+  bool _isTapped = false;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(data.imagePath),
-              fit: BoxFit.cover,
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          _isTapped = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          _isTapped = false;
+        });
+      },
+      child: InkWell(
+        onTap: () {
+          if (widget.data.habitat == "Tropical") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const AnimalesTropicales()),
+            );
+          } else if (widget.data.habitat == "Desierto") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AnimalesDesierto()),
+            );
+          } else if (widget.data.habitat == "Sabana") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AnimalesSabana()),
+            );
+          }
+        },
+        child: Card(
+          elevation: _isTapped ? 8.0 : 4.0,
+          margin: const EdgeInsets.all(8.0),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: _isTapped
+                      ? const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5)
+                      : Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
-          ),
-          child: Center(
-            child: Text(
-              data.habitat,
-              style: const TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(widget.data.imagePath),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    widget.data.habitat,
+                    style: const TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
