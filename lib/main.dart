@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const MainScreen(),
       routes: {
-        '/animales_detalles': (context) => const AnimalesDetalles(),
+        '/animales_detalles': (context) => AnimalesDetalles(),
         '/ubicacion_animales': (context) => const UbicacionAnimal(),
         '/menu_habitats': (context) => MenuHabitats(),
       },

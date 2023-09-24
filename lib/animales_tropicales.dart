@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:biomovil/animales_detalles.dart';
 import 'package:flutter/material.dart';
 
 class AnimalesTropicales extends StatefulWidget {
@@ -118,17 +119,17 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
     setState(() {
       filteredCardData = cardData
           .where((animal) =>
-              animal.habitat.toLowerCase().contains(keyword.toLowerCase()))
+              animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
   }
 }
 
 class TropicalCardData {
-  final String habitat;
+  final String animalIndex;
   final String imagePath;
 
-  TropicalCardData(this.habitat, this.imagePath);
+  TropicalCardData(this.animalIndex, this.imagePath);
 }
 
 class AnimalCard extends StatelessWidget {
@@ -152,7 +153,7 @@ class AnimalCard extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              data.habitat,
+              data.animalIndex,
               style: const TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,

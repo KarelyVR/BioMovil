@@ -8,86 +8,87 @@ import 'package:audioplayers/audioplayers.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class AnimalesDetalles extends StatelessWidget {
-  const AnimalesDetalles({super.key});
+ AnimalesDetalles({super.key});
+
+  final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: kLightWhite,
-      body:SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: SizeConfig.blockSizeVertical! * 50,
-              child: Stack(
-                children: [
-                  const FullScreenSlider(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(42),
-                          topRight: Radius.circular(42),
-                        ),
-                        color: kLighterWhite,
+      body:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: SizeConfig.blockSizeVertical! * 50,
+            child: Stack(
+              children: [
+                const FullScreenSlider(), //carrusel
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 35,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(42),
+                        topRight: Radius.circular(42),
                       ),
+                      color: kLighterWhite,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: kPaddingHorizontal,
-                        vertical: 60,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
-                        children: [
-                          //boton para volver atras
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                kBorderRadius,
-                              ),
-                              border: Border.all(
-                                color: kWhite,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            child: SvgPicture.asset('assets/arrow_back_icon.svg'
-                            ),
-                          ),
-                          //boton de pagina principal
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                kBorderRadius,
-                              ),
-                              border: Border.all(
-                                color: kWhite,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            child: SvgPicture.asset('assets/home_selected_icon.svg'
-                            ),
-                          ),
-                        ],
-                      ),
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: kPaddingHorizontal,
+                      vertical: 40,
                     ),
-                  )
-                ],
-              ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
+                      children: [
+                        //boton para volver atras
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              kBorderRadius,
+                            ),
+                            border: Border.all(
+                              color: kWhite,
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: SvgPicture.asset('assets/arrow_back_icon.svg'
+                          ),
+                        ),
+                        //boton de pagina principal
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              kBorderRadius,
+                            ),
+                            border: Border.all(
+                              color: kWhite,
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: SvgPicture.asset('assets/home_selected_icon.svg'
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
+<<<<<<< Updated upstream
             ElevatedButton(
             onPressed: () {
 //              playAudio(); // Llama al método playAudio cuando se presiona el botón
@@ -95,77 +96,90 @@ class AnimalesDetalles extends StatelessWidget {
             child: const Text("Reproducir Audio"),
             ),
             Container(
+=======
+          ),
+          Expanded(
+          child: ListView.builder(
+          itemCount: 1, // Puedes ajustar esto según tu contenido
+          itemBuilder: (context, index) {
+            return Padding(
+>>>>>>> Stashed changes
               padding: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
+                horizontal: 10,
               ),
-              transform: Matrix4.translationValues(0, -14, 0),
-              child: Text(
-                'Tucan',
-                style: kPoppinsBold.copyWith(
-                  color:kDarkBlue,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-                vertical: 16,
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.blockSizeHorizontal!*2.5,
-              ),
-              height: 54,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  kBorderRadius,
-                ),
-                border: Border.all(
-                  color: kBorderColor,
-                ),
-              ),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 13,
-                    backgroundColor: kBlue,
-                    backgroundImage: AssetImage(
-                      'assets/icono-tucan.jpg',
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      transform: Matrix4.translationValues(0, -30, 0),
+                      child: Text(
+                        'Tucán',
+                        style: kPoppinsBold.copyWith(
+                          color:kDarkBlue,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 7,
+                        ),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 2.5,
-                  ),
-                  Text(
-                    'Nombre cientifico peso altura',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: kPoppinsRegular.copyWith(
-                      color: kGrey,
-                      fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                  Container(
+                    transform: Matrix4.translationValues(0, -20, 0),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: kPaddingHorizontal,
+                      vertical: 11,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.blockSizeHorizontal!*2.5,
+                    ),
+                    height: 54,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        kBorderRadius,
+                      ),
+                      border: Border.all(
+                        color: kBorderColor,
+                      ),
+                    ),
+                    //boton para escuchar el sonido del animal
+                    child: ElevatedButton(
+                      child: const Text('¡Escucha su sonido!'),
+                        onPressed: (){
+                        playAudio();
+                      },
                     ),
                   ),
-              ]),
-            ),
-            Padding(
-              padding:const EdgeInsets.symmetric(
-                horizontal: 40,
-              ),
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis enim lobortis scelerisque fermentum dui faucibus. Aliquet eget sit amet tellus cras adipiscing enim eu turpis. Dolor sit amet consectetur adipiscing elit ut aliquam. Tellus rutrum tellus pellentesque eu. Tincidunt dui ut ornare lectus sit. Urna nunc id cursus metus aliquam eleifend mi. Aliquet risus feugiat in ante metus dictum at tempor. Congue nisi vitae suscipit tellus mauris a diam. Ac felis donec et odio pellentesque.\n\nFringilla est ullamcorper eget nulla. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Id leo in vitae turpis. Sit amet dictum sit amet justo donec enim diam vulputate. Sapien pellentesque habitant morbi tristique senectus et netus. Nunc sed augue lacus viverra vitae congue. A erat nam at lectus. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Quisque egestas diam in arcu cursus euismod quis. Enim sed faucibus turpis in eu mi. Ullamcorper sit amet risus nullam eget. Est ante in nibh mauris cursus mattis molestie a iaculis. Ullamcorper sit amet risus nullam. Etiam dignissim diam quis enim lobortis scelerisque. Et odio pellentesque diam volutpat.',
-                style: kPoppinsMedium.copyWith(
-                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                  color: kDarkBlue,
-                ),
-              ),
-            )
-          ]),
+                  Padding(
+                    padding:const EdgeInsets.symmetric(
+                      horizontal: kPaddingHorizontal,
+                    ),
+                    child: Text(
+                    'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
+                    textAlign: TextAlign.justify,  
+                      style: kPoppinsRegular.copyWith(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                        color: kDarkBlue,
+                      ),
+                    ),
+                  ),
+                ]),
+              );
+            },
+          ),
+          ),
+        ],
       ),
     );
   }
+  void playAudio() async {
+  await player.play(AssetSource('tucan.mp3'));
+}
 }
 
+<<<<<<< Updated upstream
 //void playAudio() async {
 //  int result = await audioPlayer.play(" URL_DEL_ARCHIVO_DE_AUDIO.mp3");
 //  if (result == 1) {
@@ -173,6 +187,9 @@ class AnimalesDetalles extends StatelessWidget {
 //    print('Reproduciendo audio');
 //  }
 //}
+=======
+
+>>>>>>> Stashed changes
 
 final List<String> imageList = [
   'assets/toucan1.jpg',
@@ -199,25 +216,26 @@ class  _FullScreenSliderState extends State<FullScreenSlider> {
         CarouselSlider(
           carouselController: _controller,
           options: CarouselOptions(
-            height: SizeConfig.blockSizeVertical!*50,
+            height: SizeConfig.blockSizeVertical! * 50,
             viewportFraction: 1.0,
             enlargeCenterPage: false,
-            onPageChanged: (index, reason){
+            onPageChanged: (index, reason) {
               setState(() {
                 _current = index;
               });
             },
             initialPage: _current,
+            autoPlay: true, // Activar la reproducción automática
+            autoPlayInterval: const Duration(seconds: 3), // Intervalo entre cambios de imagen
           ),
           items: imageList.map((item) => Center(
             child: Image.asset(
               item,
               fit: BoxFit.cover,
-              height: SizeConfig.blockSizeVertical!*50,
+              height: SizeConfig.blockSizeVertical! * 50,
               width: double.infinity,
-              ),
             ),
-          ).toList(),
+          )).toList(),
         ),
         Align(
           alignment: Alignment.bottomCenter,
