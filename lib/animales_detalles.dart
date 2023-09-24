@@ -3,6 +3,9 @@ import 'package:biomovil/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+AudioPlayer audioPlayer = AudioPlayer();
 
 class AnimalesDetalles extends StatelessWidget {
   const AnimalesDetalles({super.key});
@@ -85,6 +88,12 @@ class AnimalesDetalles extends StatelessWidget {
                 ],
               ),
             ),
+            ElevatedButton(
+            onPressed: () {
+              playAudio(); // Llama al método playAudio cuando se presiona el botón
+            },
+            child: const Text("Reproducir Audio"),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: kPaddingHorizontal,
@@ -154,6 +163,14 @@ class AnimalesDetalles extends StatelessWidget {
           ]),
       ),
     );
+  }
+}
+
+void playAudio() async {
+  int result = await audioPlayer.play("URL_DEL_ARCHIVO_DE_AUDIO.mp3");
+  if (result == 1) {
+    // La reproducción del audio se inició con éxito
+    print('Reproduciendo audio');
   }
 }
 

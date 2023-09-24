@@ -1,11 +1,13 @@
+// ignore_for_file: avoid_print
+
+import 'package:biomovil/menu_desplegable.dart';
 import 'package:flutter/material.dart';
-import 'menu_desplegable.dart';
+import 'menu_desplegable.dart' as menu;
+import 'package:biomovil/animales_tropicales.dart';
+import 'package:biomovil/animales_desierto.dart';
+import 'package:biomovil/animales_sabana.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class MenuHabitats extends StatelessWidget {
   final List<TropicalCardData> cardData = [
     TropicalCardData("Tropical", "assets/tropical_habitat.jpg"),
     TropicalCardData("Desierto", "assets/desierto.jpg"),
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
 
   final String selectedMenuItem;
 
-  MyApp({Key? key})
+  MenuHabitats({Key? key})
       : selectedMenuItem = "Animales",
         super(key: key);
 
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
             },
           ),
         ),
-        drawer: MyDrawerMenu(
+        drawer: menu.MyDrawerMenu(
           items: menuItems,
           onChanged: (String? newValue) {
             if (newValue != null) {
@@ -87,14 +89,25 @@ class MyApp extends StatelessWidget {
                 ...cardData.map((data) {
                   return Expanded(
                     child: GestureDetector(
-                      onTap: () {
+                    onTap: () {
+                      if (data.habitat == "Tropical") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => MyAppAnimalesTropicales()),
+                          MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
                         );
-                      },
-                      child: AnimalCard(data: data),
+                      } else if (data.habitat == "Desierto") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AnimalesDesierto()),
+                        );
+                      } else if (data.habitat == "Sabana") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AnimalesSabana()),
+                        );
+                      }
+                    },
+                    child: AnimalCard(data: data),
                     ),
                   );
                 }).toList(),
@@ -117,7 +130,7 @@ class TropicalCardData {
 class AnimalCard extends StatelessWidget {
   final TropicalCardData data;
 
-  AnimalCard({required this.data});
+  const AnimalCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

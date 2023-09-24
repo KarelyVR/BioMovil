@@ -1,9 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:biomovil/animales_tropicales.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/ubicacion_animales.dart';
 import 'package:biomovil/animales_detalles.dart';
+import 'package:biomovil/menu_habitats.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/animales_detalles': (context) => const AnimalesDetalles(),
         '/ubicacion_animales': (context) => const UbicacionAnimal(),
-        '/animales_tropicales': (context) => const AnimalesTropicales(),
+        '/menu_habitats': (context) => MenuHabitats(),
       },
     );
   }
@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/animales_tropicales');
+                Navigator.pushNamed(context, '/menu_habitats');
               },
               child: const Text('Ir a habitats'),
             ),

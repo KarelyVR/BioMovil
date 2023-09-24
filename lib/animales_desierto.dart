@@ -1,17 +1,15 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+class AnimalesDesierto extends StatefulWidget {
+  const AnimalesDesierto({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<AnimalesDesierto> createState() => _AnimalesDesierto();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AnimalesDesierto extends State<AnimalesDesierto> {
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
@@ -136,7 +134,7 @@ class TropicalCardData {
 class AnimalCard extends StatelessWidget {
   final TropicalCardData data;
 
-  AnimalCard({required this.data});
+  const AnimalCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +170,7 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  MyDrawerMenu({
+  const MyDrawerMenu({super.key, 
     required this.items,
     required this.onChanged,
   });

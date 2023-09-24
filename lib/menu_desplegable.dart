@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'package:flutter/material.dart';
 
 class MyDropdownMenu extends StatelessWidget {
@@ -5,7 +7,7 @@ class MyDropdownMenu extends StatelessWidget {
   final String selectedItem;
   final ValueChanged<String?> onChanged;
 
-  MyDropdownMenu({
+  const MyDropdownMenu({super.key, 
     required this.items,
     required this.selectedItem,
     required this.onChanged,
@@ -26,7 +28,7 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  MyDrawerMenu({
+  const MyDrawerMenu({super.key, 
     required this.items,
     required this.onChanged,
   });
@@ -51,10 +53,12 @@ class MyDrawerMenu extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyAppAnimalesTropicales());
+  runApp(const MyAppAnimalesTropicales());
 }
 
 class MyAppAnimalesTropicales extends StatefulWidget {
+  const MyAppAnimalesTropicales({super.key});
+
   @override
   _MyAppAnimalesTropicalesState createState() =>
       _MyAppAnimalesTropicalesState();
@@ -113,7 +117,7 @@ class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
             ),
           ),
           leading: MyDropdownMenu(
-            items: [
+            items: const [
               "Pagina principal",
               "Animales",
               "Codigo QR",
@@ -172,7 +176,7 @@ class TropicalCardData {
 class AnimalCard extends StatelessWidget {
   final TropicalCardData data;
 
-  AnimalCard({required this.data});
+  const AnimalCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
