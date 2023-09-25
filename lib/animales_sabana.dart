@@ -1,15 +1,19 @@
 // ignore_for_file: avoid_print
 
+import 'package:biomovil/animales/habitat_sabana/leon.dart';
+import 'package:biomovil/animales/habitat_sabana/jirafa.dart';
+import 'package:biomovil/animales/habitat_sabana/elefante.dart';
+import 'package:biomovil/animales/habitat_sabana/avestruz.dart';
 import 'package:flutter/material.dart';
 
 class AnimalesSabana extends StatefulWidget {
-  const AnimalesSabana({Key? key}) : super(key: key);
+  const AnimalesSabana({super.key});
 
   @override
-  State<AnimalesSabana> createState() => _AnimalesSabana();
+  State<AnimalesSabana> createState() => _AnimalesTropicales();
 }
 
-class _AnimalesSabana extends State<AnimalesSabana> {
+class _AnimalesTropicales extends State<AnimalesSabana> {
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
@@ -104,7 +108,33 @@ class _AnimalesSabana extends State<AnimalesSabana> {
                 ),
                 itemCount: filteredCardData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return AnimalCard(data: filteredCardData[index]);
+                  final data = filteredCardData[index];
+                  return GestureDetector(
+                    onTap: () {
+                      if (data.animalIndex == "León") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Leon()),
+                        );
+                      } else if (data.animalIndex == "Jirafa") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Jirafa()),
+                        );
+                      } else if (data.animalIndex == "Elefante") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Elefante()),
+                        );
+                      } else if (data.animalIndex == "Avestruz") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Avestruz()),
+                        );
+                      }
+                    },
+                    child: AnimalCard(data: data),
+                  );
                 },
               ),
             ),
@@ -118,17 +148,17 @@ class _AnimalesSabana extends State<AnimalesSabana> {
     setState(() {
       filteredCardData = cardData
           .where((animal) =>
-              animal.habitat.toLowerCase().contains(keyword.toLowerCase()))
+              animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
   }
 }
 
 class TropicalCardData {
-  final String habitat;
+  final String animalIndex;
   final String imagePath;
 
-  TropicalCardData(this.habitat, this.imagePath);
+  TropicalCardData(this.animalIndex, this.imagePath);
 }
 
 class AnimalCard extends StatelessWidget {
@@ -152,7 +182,7 @@ class AnimalCard extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              data.habitat,
+              data.animalIndex,
               style: const TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
@@ -170,10 +200,11 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  const MyDrawerMenu({super.key, 
+  const MyDrawerMenu({
+    Key? key,
     required this.items,
     required this.onChanged,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

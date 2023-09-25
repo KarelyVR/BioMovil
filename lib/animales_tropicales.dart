@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
-import 'package:biomovil/animales_detalles.dart';
+import 'package:biomovil/animales/habitat_tropical/mandrill.dart';
+import 'package:biomovil/animales/habitat_tropical/puma.dart';
+import 'package:biomovil/animales/habitat_tropical/tigre.dart';
+import 'package:biomovil/animales/habitat_tropical/tucan.dart';
 import 'package:flutter/material.dart';
 
 class AnimalesTropicales extends StatefulWidget {
@@ -105,7 +108,33 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
                 ),
                 itemCount: filteredCardData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return AnimalCard(data: filteredCardData[index]);
+                  final data = filteredCardData[index];
+                  return GestureDetector(
+                    onTap: () {
+                      if (data.animalIndex == "Túcan") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Tucan()),
+                        );
+                      } else if (data.animalIndex == "Mandrill") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Mandrill()),
+                        );
+                      } else if (data.animalIndex == "Tigre") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Tigre()),
+                        );
+                      } else if (data.animalIndex == "Puma") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Puma()),
+                        );
+                      }
+                    },
+                    child: AnimalCard(data: data),
+                  );
                 },
               ),
             ),
@@ -171,10 +200,11 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  const MyDrawerMenu({super.key, 
+  const MyDrawerMenu({
+    Key? key,
     required this.items,
     required this.onChanged,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

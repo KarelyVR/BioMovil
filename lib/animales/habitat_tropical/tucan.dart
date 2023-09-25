@@ -8,8 +8,8 @@ import 'package:audioplayers/audioplayers.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class AnimalesDetalles extends StatelessWidget {
-  AnimalesDetalles({super.key});
+class Tucan extends StatelessWidget {
+  Tucan({super.key});
 
   final player = AudioPlayer();
 
