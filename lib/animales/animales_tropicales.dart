@@ -1,20 +1,20 @@
 // ignore_for_file: avoid_print
 
-import 'package:biomovil/animales/habitat_sabana/leon.dart';
-import 'package:biomovil/animales/habitat_sabana/jirafa.dart';
-import 'package:biomovil/animales/habitat_sabana/elefante.dart';
-import 'package:biomovil/animales/habitat_sabana/avestruz.dart';
-import 'package:biomovil/menu_habitats.dart';
+import 'package:biomovil/animales/habitat_tropical/mandrill.dart';
+import 'package:biomovil/animales/habitat_tropical/puma.dart';
+import 'package:biomovil/animales/habitat_tropical/tigre.dart';
+import 'package:biomovil/animales/habitat_tropical/tucan.dart';
+import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:flutter/material.dart';
 
-class AnimalesSabana extends StatefulWidget {
-  const AnimalesSabana({super.key});
+class AnimalesTropicales extends StatefulWidget {
+  const AnimalesTropicales({super.key});
 
   @override
-  State<AnimalesSabana> createState() => _AnimalesTropicales();
+  State<AnimalesTropicales> createState() => _AnimalesTropicales();
 }
 
-class _AnimalesTropicales extends State<AnimalesSabana> {
+class _AnimalesTropicales extends State<AnimalesTropicales> {
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
@@ -27,10 +27,10 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
-    TropicalCardData("León", "assets/animales/sabana/leon.jpg"),
-    TropicalCardData("Jirafa", "assets/animales/sabana/jirafa.jpg"),
-    TropicalCardData("Elefante", "assets/animales/sabana/elefante.jpg"),
-    TropicalCardData("Avestruz", "assets/animales/sabana/avestruz.jpg"),
+    TropicalCardData("Túcan", "assets/animales/tropical/tucan.jpg"),
+    TropicalCardData("Mandrill", "assets/animales/tropical/mandrill.jpg"),
+    TropicalCardData("Puma", "assets/animales/tropical/puma.jpg"),
+    TropicalCardData("Tigre", "assets/animales/tropical/tigre.jpg"),
   ];
 
   List<TropicalCardData> filteredCardData = [];
@@ -138,25 +138,25 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
                   final data = filteredCardData[index];
                   return GestureDetector(
                     onTap: () {
-                      if (data.animalIndex == "León") {
+                      if (data.animalIndex == "Túcan") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Leon()),
+                          MaterialPageRoute(builder: (context) => Tucan()),
                         );
-                      } else if (data.animalIndex == "Jirafa") {
+                      } else if (data.animalIndex == "Mandrill") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Jirafa()),
+                          MaterialPageRoute(builder: (context) => Mandrill()),
                         );
-                      } else if (data.animalIndex == "Elefante") {
+                      } else if (data.animalIndex == "Tigre") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Elefante()),
+                          MaterialPageRoute(builder: (context) => Tigre()),
                         );
-                      } else if (data.animalIndex == "Avestruz") {
+                      } else if (data.animalIndex == "Puma") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Avestruz()),
+                          MaterialPageRoute(builder: (context) => Puma()),
                         );
                       }
                     },

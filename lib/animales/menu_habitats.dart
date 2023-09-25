@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_print
 
-import 'package:biomovil/menu_desplegable.dart';
+import 'package:biomovil/animales/menu_desplegable.dart';
 import 'package:flutter/material.dart';
 import 'menu_desplegable.dart' as menu;
-import 'package:biomovil/animales_tropicales.dart';
-import 'package:biomovil/animales_desierto.dart';
-import 'package:biomovil/animales_sabana.dart';
+import 'package:biomovil/animales/animales_tropicales.dart';
+import 'package:biomovil/animales/animales_desierto.dart';
+import 'package:biomovil/animales/animales_sabana.dart';
 
 class MenuHabitats extends StatelessWidget {
   final List<TropicalCardData> cardData = [

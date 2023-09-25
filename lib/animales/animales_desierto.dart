@@ -4,7 +4,7 @@ import 'package:biomovil/animales/habitat_desierto/camello.dart';
 import 'package:biomovil/animales/habitat_desierto/coyote.dart';
 import 'package:biomovil/animales/habitat_desierto/liebre.dart';
 import 'package:biomovil/animales/habitat_desierto/serpiente.dart';
-import 'package:biomovil/menu_habitats.dart';
+import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:flutter/material.dart';
 
 class AnimalesDesierto extends StatefulWidget {

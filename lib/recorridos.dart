@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
-import 'package:biomovil/menu_desplegable.dart';
+import 'package:biomovil/animales/menu_desplegable.dart';
 import 'package:flutter/material.dart';
-import 'menu_desplegable.dart' as menu;
+import 'animales/menu_desplegable.dart' as menu;
 
 class Recorridos extends StatelessWidget {
   final List<String> menuItems = [
