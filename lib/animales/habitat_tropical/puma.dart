@@ -1,6 +1,7 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,8 +46,8 @@ class Puma extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 40,
+                      horizontal: 10,
+                      vertical: 15,
                     ),
                     child: Row(
                       mainAxisAlignment:
@@ -54,7 +55,7 @@ class Puma extends StatelessWidget {
                       children: [
                         //boton para volver atras
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(3.5),
                           decoration: BoxDecoration(
                             color: kWhite,
                             boxShadow: const [
@@ -65,9 +66,15 @@ class Puma extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 28,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 27,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(
+                                  context); // Esto volverá a la pantalla anterior
+                            },
                           ),
                         ),
                         //boton de pagina principal
@@ -83,9 +90,18 @@ class Puma extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.sort_rounded,
-                            size: 28,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuPrincipal()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.sort_rounded,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ],
@@ -153,7 +169,7 @@ class Puma extends StatelessWidget {
                             vertical: 10,
                           ),
                           child: Text(
-                            'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
+                            'Nombre cientifico: Puma concolor\nFamilia: Felidae\nClase: Mammalia\nPromedio de vida: 8 a 13 años\nAltura: 60 a 76 cm\nPeso: 29 a 80 kg\nColores: El pelaje es generalmente \n de color uniforme y puede variar \n en tonalidades de marrón, desde \n un marrón claro hasta un marrón \n oscuro.',
                             textAlign: TextAlign.justify,
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 3,
@@ -187,9 +203,9 @@ class Puma extends StatelessWidget {
 }
 
 final List<String> imageList = [
-  'assets/animales/tropical/puma1.jpeg',
+  'assets/animales/tropical/puma4.jpg',
   'assets/animales/tropical/puma2.jpg',
-  'assets/animales/tropical/puma3.jpg'
+  'assets/animales/tropical/puma5.jpeg'
 ];
 
 class FullScreenSlider extends StatefulWidget {

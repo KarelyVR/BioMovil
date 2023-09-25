@@ -1,6 +1,7 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,8 +46,8 @@ class Tucan extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 40,
+                      horizontal: 10,
+                      vertical: 15,
                     ),
                     child: Row(
                       mainAxisAlignment:
@@ -54,7 +55,7 @@ class Tucan extends StatelessWidget {
                       children: [
                         //boton para volver atras
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(3.5),
                           decoration: BoxDecoration(
                             color: kWhite,
                             boxShadow: const [
@@ -65,9 +66,15 @@ class Tucan extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 28,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 27,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(
+                                  context); // Esto volverá a la pantalla anterior
+                            },
                           ),
                         ),
                         //boton de pagina principal
@@ -83,9 +90,18 @@ class Tucan extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.sort_rounded,
-                            size: 28,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuPrincipal()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.sort_rounded,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ],

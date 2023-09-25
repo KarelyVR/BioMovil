@@ -1,6 +1,7 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,8 +46,8 @@ class Avestruz extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 40,
+                      horizontal: 10,
+                      vertical: 15,
                     ),
                     child: Row(
                       mainAxisAlignment:
@@ -54,7 +55,7 @@ class Avestruz extends StatelessWidget {
                       children: [
                         //boton para volver atras
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(3.5),
                           decoration: BoxDecoration(
                             color: kWhite,
                             boxShadow: const [
@@ -65,9 +66,15 @@ class Avestruz extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 28,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 27,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(
+                                  context); // Esto volverá a la pantalla anterior
+                            },
                           ),
                         ),
                         //boton de pagina principal
@@ -83,9 +90,18 @@ class Avestruz extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.sort_rounded,
-                            size: 28,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuPrincipal()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.sort_rounded,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ],
@@ -153,8 +169,7 @@ class Avestruz extends StatelessWidget {
                             vertical: 10,
                           ),
                           child: Text(
-                            'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
-                            textAlign: TextAlign.justify,
+                            'Nombre cientifico: Struthio camelus\nFamilia: Struthionidae\nClase: Aves\nPromedio de vida: 30 a 40 años\nAltura:  2.5 a 3 metros\nPeso: 140 a 160 kg\nColores: Tienen plumaje de color marrón \n a gris, con algunas plumas negras en \n las alas y la cola. La cabeza y el cuello carecen de plumas y son de color rosa \n o gris claro.',
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 3,
                               color: kDarkBlue,

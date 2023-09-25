@@ -1,6 +1,7 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,8 +46,8 @@ class Leon extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 40,
+                      horizontal: 10,
+                      vertical: 15,
                     ),
                     child: Row(
                       mainAxisAlignment:
@@ -54,7 +55,7 @@ class Leon extends StatelessWidget {
                       children: [
                         //boton para volver atras
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(3.5),
                           decoration: BoxDecoration(
                             color: kWhite,
                             boxShadow: const [
@@ -65,9 +66,15 @@ class Leon extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 28,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 27,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(
+                                  context); // Esto volverá a la pantalla anterior
+                            },
                           ),
                         ),
                         //boton de pagina principal
@@ -83,9 +90,18 @@ class Leon extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Icon(
-                            Icons.sort_rounded,
-                            size: 28,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuPrincipal()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.sort_rounded,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ],
@@ -153,7 +169,7 @@ class Leon extends StatelessWidget {
                             vertical: 10,
                           ),
                           child: Text(
-                            'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
+                            'Nombre cientifico: Panthera leo\nFamilia: Felidae\nClase: Mammalia\nPromedio de vida: 10 a 14 años\nAltura: 1 a 1.2 metros\nPeso: 150 y 250 kg\nColores: Tienen un pelaje corto y de \n color amarillo o dorado, que puede \n variar en tonalidad. Tienen una \n melena distintiva alrededor del \n cuello, que es más prominente en los \n machos y que puede variar en \n color, desde un marrón claro hasta \n un negro profundo.',
                             textAlign: TextAlign.justify,
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 3,
@@ -189,7 +205,7 @@ class Leon extends StatelessWidget {
 final List<String> imageList = [
   'assets/animales/sabana/leon1.jpg',
   'assets/animales/sabana/leon2.jpg',
-  'assets/animales/sabana/leon3.jpg'
+  'assets/animales/sabana/leon4.jpg'
 ];
 
 class FullScreenSlider extends StatefulWidget {
