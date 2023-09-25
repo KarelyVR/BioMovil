@@ -19,91 +19,74 @@ class Coyote extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: kLightWhite,
-      body: Column(
+      body:Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: SizeConfig.blockSizeVertical! * 50,
+            height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
                 const FullScreenSlider(), //carrusel
                 Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 35,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(42),
-                        topRight: Radius.circular(42),
-                      ),
-                      color: kLighterWhite,
-                    ),
-                  ),
-                ),
-                Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 15,
+                      horizontal: 15,
+                      vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, //separa los iconos
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
                         //boton para volver atras
-                        Container(
-                          padding: const EdgeInsets.all(3.5),
-                          decoration: BoxDecoration(
-                            color: kWhite,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kDarkBlue,
-                                blurRadius: 6,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back_ios_new,
-                              size: 27,
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: kWhite,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kDarkBlue,
+                                  blurRadius: 6,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            onPressed: () {
-                              Navigator.pop(
-                                  context); // Esto volverá a la pantalla anterior
-                            },
+                            child: const Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 28,
+                            ),
                           ),
                         ),
                         //boton de pagina principal
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: kWhite,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kDarkBlue,
-                                blurRadius: 6,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MenuPrincipal()),
-                              );
-                            },
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MenuPrincipal()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: kWhite,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kDarkBlue,
+                                  blurRadius: 6,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                            ),
                             child: const Icon(
                               Icons.sort_rounded,
                               size: 28,
                             ),
                           ),
-                        ),
+                      ),
                       ],
                     ),
                   ),
@@ -112,67 +95,60 @@ class Coyote extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 1, // Puedes ajustar esto según tu contenido
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+          child: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //texto grande del nombre del animal
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        'Coyote',
+                        style: kPoppinsBold.copyWith(
+                          color:kDarkBlue,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 7,
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            transform: Matrix4.translationValues(0, -30, 0),
-                            child: Text(
-                              'Coyote',
-                              style: kPoppinsBold.copyWith(
-                                color: kDarkBlue,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 11,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
-                          ),
-                          height: 40,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              kBorderRadius,
-                            ),
-                            border: Border.all(
-                              color: kBorderColor,
-                            ),
-                          ),
-                          //boton para escuchar el sonido del animal
-                          child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
-                            onPressed: () {
-                              playAudio();
-                            },
-                          ),
-                        ),
+                  //este es el boton de audio
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: kPaddingHorizontal,
+                      vertical: 10,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.blockSizeHorizontal!*2.5,
+                    ),
+                    height: 40,
+                    width: double.infinity,
+                    //boton para escuchar el sonido del animal
+                    child: ElevatedButton(
+                      child: const Text('¡Escucha su sonido!'),
+                        onPressed: (){
+                        playAudio();
+                      },
+                    ),
+                  ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
-                            vertical: 10,
+                            vertical: 12,
                           ),
                           child: Text(
-                            'Nombre cientifico: Canis latrans deserti\nFamilia: Canidae\nClase: Mammalia\nPromedio de vida: 6 a 8 años\nAltura: 50 a 60 cm\nPeso: 9 a 18 kg\nColores: El pelaje es de color grisáceo \n o marrón.',
+                            'Nombre cientifico: Canis latrans deserti\nFamilia: Canidae\nClase: Mammalia\nPromedio de vida: 6 a 8 años\nAltura: 50 a 60 cm\nPeso: 9 a 18 kg\nColores: El pelaje es de color grisáceo o marrón.',
                             textAlign: TextAlign.justify,
                             style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
                               color: kDarkBlue,
                             ),
                           ),
@@ -184,6 +160,9 @@ class Coyote extends StatelessWidget {
                                 builder: (context) => const UbicacionAnimal(),
                               ));
                             },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber[800], // Cambia el color de fondo aquí
+                            ),
                             child: const Text('Ver Ubicación'),
                           ),
                         ),
@@ -253,7 +232,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 52),
+            padding: const EdgeInsets.only(
+              bottom: 20
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: imageList

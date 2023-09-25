@@ -4,6 +4,7 @@ import 'package:biomovil/animales/habitat_sabana/leon.dart';
 import 'package:biomovil/animales/habitat_sabana/jirafa.dart';
 import 'package:biomovil/animales/habitat_sabana/elefante.dart';
 import 'package:biomovil/animales/habitat_sabana/avestruz.dart';
+import 'package:biomovil/menu_habitats.dart';
 import 'package:flutter/material.dart';
 
 class AnimalesSabana extends StatefulWidget {
@@ -46,45 +47,71 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
-          elevation: 0,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
+        backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: Text(
+          selectedMenuItem,
+          style: const TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MenuHabitats(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
             ),
           ),
-          title: Text(
-            selectedMenuItem,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          leading: Builder(
+        ),
+        actions: [
+          Builder(
             builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
               );
             },
           ),
-        ),
-        drawer: MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              setState(() {
-                selectedMenuItem = newValue;
-              });
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
+        ],
+      ),
+      drawer: MyDrawerMenu(
+        items: menuItems,
+        onChanged: (String? newValue) {
+          if (newValue != null) {
+            setState(() {
+              selectedMenuItem = newValue;
+            });
+            print("Item seleccionado en el cajón: $newValue");
+          }
+        },
+      ),
         body: Column(
           children: <Widget>[
             Padding(
