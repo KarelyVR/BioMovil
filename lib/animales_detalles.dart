@@ -23,24 +23,24 @@ class AnimalesDetalles extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: SizeConfig.blockSizeVertical! * 50,
+            height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
                 const FullScreenSlider(), //carrusel
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 35,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(42),
-                        topRight: Radius.circular(42),
-                      ),
-                      color: kLighterWhite,
-                    ),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Container(
+                //     height: 35,
+                //     width: double.infinity,
+                //     decoration: const BoxDecoration(
+                //       borderRadius: BorderRadius.only(
+                //         topLeft: Radius.circular(42),
+                //         topRight: Radius.circular(42),
+                //       ),
+                //       color: kLightWhite,
+                //     ),
+                //   ),
+                // ),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -96,7 +96,7 @@ class AnimalesDetalles extends StatelessWidget {
           ),
           Expanded(
           child: ListView.builder(
-          itemCount: 1, // Puedes ajustar esto según tu contenido
+          itemCount: 1,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(
@@ -105,12 +105,12 @@ class AnimalesDetalles extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //texto grande del nombre del animal
                   Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
-                      transform: Matrix4.translationValues(0, -30, 0),
                       child: Text(
                         'Tucán',
                         style: kPoppinsBold.copyWith(
@@ -120,24 +120,17 @@ class AnimalesDetalles extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //este es el boton de audio
                   Container(
                     margin: const EdgeInsets.symmetric(
                       horizontal: kPaddingHorizontal,
-                      vertical: 11,
+                      vertical: 10,
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.blockSizeHorizontal!*2.5,
                     ),
                     height: 40,
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        kBorderRadius,
-                      ),
-                      border: Border.all(
-                        color: kBorderColor,
-                      ),
-                    ),
                     //boton para escuchar el sonido del animal
                     child: ElevatedButton(
                       child: const Text('¡Escucha su sonido!'),
@@ -149,13 +142,13 @@ class AnimalesDetalles extends StatelessWidget {
                   Padding(
                     padding:const EdgeInsets.symmetric(
                       horizontal: kPaddingHorizontal,
-                      vertical: 10,
+                      vertical: 12,
                     ),
                     child: Text(
                     'Nombre cientifico: Ramphastos toco\nFamilia: Ramphastidae\nClase: Aves\nPromedio de vida: 15 a 20 años\nAltura: 48 a 61 cm\nPeso: 130 a 680 g\nColores: Tienen plumaje negro con colores brillantes en sus picos y algunas areas del rostro. Incluyen tonos de amarillo, naranja, rojo y verde en sus picos y areas cercanas.',
                     textAlign: TextAlign.justify,  
                       style: kPoppinsRegular.copyWith(
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
                         color: kDarkBlue,
                       ),
                     ),
