@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_field, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, unused_field, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'dart:async';
 import 'package:biomovil/animales/habitat_tropical/tucan.dart';
@@ -28,7 +28,7 @@ class CustomContainer extends StatelessWidget {
         color: Colors.grey.withOpacity(0.5), // Color de la sombra
         spreadRadius: 5, // Radio de propagación de la sombra
         blurRadius: 7, // Radio de desenfoque de la sombra
-        offset: Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+        offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
       ),
     ],
   ),

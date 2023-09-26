@@ -1,6 +1,6 @@
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
-import 'package:biomovil/ubicacion_animales.dart';
+import 'package:biomovil/animales/ubicacion_animales.dart';
 import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class Elefante extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => MenuPrincipal()),
+                              MaterialPageRoute(builder: (context) => const MenuPrincipal()),
                             );
                           },
                           child: Container(
