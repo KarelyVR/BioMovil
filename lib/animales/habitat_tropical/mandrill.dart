@@ -1,6 +1,7 @@
+import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
-import 'package:biomovil/animales/ubicacion_animales.dart';
+import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_mandrill.dart';
 import 'package:biomovil/widgets/menu_principal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,10 @@ class Mandrill extends StatelessWidget {
                         //boton para volver atras
                         InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
@@ -157,7 +161,7 @@ class Mandrill extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionAnimal(),
+                                builder: (context) => const UbicacionMandrill(),
                               ));
                             },
                             style: ElevatedButton.styleFrom(
