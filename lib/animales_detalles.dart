@@ -227,7 +227,7 @@ class  _FullScreenSliderState extends State<FullScreenSlider> {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(
-              bottom: 52
+              bottom: 20,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

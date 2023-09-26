@@ -16,60 +16,60 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.3, // El 40% de la pantalla
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+  height: MediaQuery.of(context).size.height * 0.3, // El 40% de la pantalla
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(30),
+      topRight: Radius.circular(30),
+    ),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.5), // Color de la sombra
+        spreadRadius: 5, // Radio de propagación de la sombra
+        blurRadius: 7, // Radio de desenfoque de la sombra
+        offset: Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+      ),
+    ],
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text(
+        'Tucán',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Color de la sombra
-            spreadRadius: 5, // Radio de propagación de la sombra
-            blurRadius: 7, // Radio de desenfoque de la sombra
-            offset: Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
-          ),
-        ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Tucán',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+      const SizedBox(height: 20),
+      Container(
+        width: 100, // Ancho del círculo
+        height: 100, // Alto del círculo
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.black, // Color del borde (negro)
+            width: 4, // Ancho del borde (ajusta según tus preferencias)
           ),
-          const SizedBox(height: 20),
-          Container(
-            width: 100, // Ancho del círculo
-            height: 100, // Alto del círculo
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.black, // Color del borde (negro)
-                width: 4, // Ancho del borde (ajusta según tus preferencias)
-              ),
-              // boxShadow: [
-              //     BoxShadow(
-              //       color: Colors.grey.withOpacity(0.5), // Color de la sombra
-              //       spreadRadius: 5, // Radio de propagación de la sombra
-              //       blurRadius: 7, // Radio de desenfoque de la sombra
-              //       offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
-              //     ),
-              //   ],
-            ),
-            child: const CircleAvatar(
-              radius: 48, // Radio del círculo interno
-              backgroundColor: Colors.transparent, // Fondo transparente para que el borde sea visible
-              backgroundImage: AssetImage('assets/animales/tropical/tucan.jpg'),
-            ),
-          ),
-        ],
+          // boxShadow: [
+          //     BoxShadow(
+          //       color: Colors.grey.withOpacity(0.5), // Color de la sombra
+          //       spreadRadius: 5, // Radio de propagación de la sombra
+          //       blurRadius: 7, // Radio de desenfoque de la sombra
+          //       offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+          //     ),
+          //   ],
+        ),
+        child: const CircleAvatar(
+          radius: 48, // Radio del círculo interno
+          backgroundColor: Colors.transparent, // Fondo transparente para que el borde sea visible
+          backgroundImage: AssetImage('assets/animales/tropical/tucan.jpg'),
+        ),
       ),
-    );
+    ],
+  ),
+);
   }
 }
 
@@ -106,24 +106,24 @@ class _UbicacionAnimalState extends State<UbicacionAnimal> {
   Future<void> getCurrentLocation() async {
     Location location = Location();
 
-    final ubicacion = await location.getLocation();
+   final ubicacion = await location.getLocation();
     setState(() {
       currentLocation = ubicacion;
     });
-
+   
 
     GoogleMapController googleMapController = await _controller.future;
 
     location.onLocationChanged.listen((newLoc) {
       currentLocation = newLoc;
       googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(
-              zoom: 13.5,
-              target: LatLng(
-                newLoc.latitude!,
-                newLoc.longitude!,
-              )
+        CameraPosition(
+          zoom: 13.5,
+          target: LatLng(
+            newLoc.latitude!,
+            newLoc.longitude!,
           )
+        )
       ));
       setState(() {});
     });
@@ -140,9 +140,9 @@ class _UbicacionAnimalState extends State<UbicacionAnimal> {
 
     if (result.points.isNotEmpty) {
       result.points.forEach(
-              (PointLatLng point) => polylineCoordinates.add(
-            LatLng(point.latitude, point.longitude),
-          )
+        (PointLatLng point) => polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        )
       );
       setState(() {});
     }
@@ -150,20 +150,20 @@ class _UbicacionAnimalState extends State<UbicacionAnimal> {
 
   void setCustomMarkerIcon(){
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration.empty,
-        "assets/pin-origen.png").
+      ImageConfiguration.empty, 
+    "assets/pin-origen.png").
     then((icon){
       sourceIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration.empty,
-        "assets/pin-destino.png").
+      ImageConfiguration.empty, 
+    "assets/pin-destino.png").
     then((icon){
       destinationIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration.empty,
-        "assets/pin-actual.png").
+      ImageConfiguration.empty, 
+    "assets/pin-actual.png").
     then((icon){
       currentLocationIcon = icon;
     });
@@ -243,51 +243,51 @@ class _UbicacionAnimalState extends State<UbicacionAnimal> {
       ),
       body: Stack(
         children: [
-          currentLocation == null
-              ? const Center(child: Text("Cargando"))
-              : GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
-              zoom: 13.5,
-            ),
-            polylines: {
-              Polyline(
-                polylineId: const PolylineId("route"),
-                points: polylineCoordinates,
-                color: Colors.blue,
-                width: 6,
+        currentLocation == null
+          ? const Center(child: Text("Cargando"))
+          : GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+                zoom: 13.5,
               ),
-            },
-            markers: {
-              Marker(
-                markerId: const MarkerId("currentLocation"),
-                icon:currentLocationIcon,
-                position: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!
+              polylines: {
+                Polyline(
+                  polylineId: const PolylineId("route"),
+                  points: polylineCoordinates,
+                  color: Colors.blue,
+                  width: 6,
                 ),
-              ),
-              Marker(
-                markerId: const MarkerId("source"),
-                icon: sourceIcon,
-                position: fuenteUbicacion,
-              ),
-              Marker(
-                markerId: const MarkerId("destination"),
-                icon: destinationIcon,
-                position: destino,
-              ),
-            },
-            onMapCreated: (MapController){
-              _controller.complete(MapController);
-            },
-          ),
-          const Positioned(
+              },
+              markers: {
+                Marker(
+                  markerId: const MarkerId("currentLocation"),
+                  icon:currentLocationIcon,
+                  position: LatLng(
+                    currentLocation!.latitude!, currentLocation!.longitude!
+                  ),
+                ),
+                Marker(
+                  markerId: const MarkerId("source"),
+                  icon: sourceIcon,
+                  position: fuenteUbicacion,
+                ),
+                Marker(
+                  markerId: const MarkerId("destination"),
+                  icon: destinationIcon,
+                  position: destino,
+                ),
+              },
+              onMapCreated: (MapController){
+                _controller.complete(MapController);
+              },
+            ),
+            const Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: CustomContainer(), // Agrega el contenedor personalizado
           ),
-        ],
+          ],
       ),
     );
   }
