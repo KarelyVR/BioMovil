@@ -21,6 +21,7 @@ dependencies:
   flutter_polyline_points: ^2.0.0
   location: ^5.0.3
   audioplayers: ^5.1.0
+  qrscan: ^0.3.3
   
 
 dev_dependencies:
