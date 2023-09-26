@@ -1,87 +1,180 @@
-// ignore_for_file: avoid_print
-
-import 'package:biomovil/animales/menu_desplegable.dart';
 import 'package:flutter/material.dart';
-import 'animales/menu_desplegable.dart' as menu;
 
-class Recorridos extends StatelessWidget {
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Recorridos",
-    "Ajustes",
-  ];
+void main() {
+  runApp(MyApp());
+}
 
-  final String selectedMenuItem;
-
-  Recorridos({Key? key})
-      : selectedMenuItem = "Recorridos",
-        super(key: key);
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-          elevation: 0,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
-            ),
-          ),
-          title: Text(
-            selectedMenuItem,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return MyDropdownMenu(
-                items: menuItems,
-                selectedItem: selectedMenuItem,
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    print("Item seleccionado: $newValue");
-                  }
-                },
-              );
-            },
-          ),
+          title: Text('Lista Desplegable de Formulario'),
         ),
-        drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
+        body: Center(
+          child: Recorridos(),
         ),
-        body: const Center(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  "Selecciona un hábitat:",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+      ),
+    );
+  }
+}
+
+class Recorridos extends StatefulWidget {
+  @override
+  _RecorridosState createState() => _RecorridosState();
+}
+
+class _RecorridosState extends State<Recorridos> {
+  String selectedOption = ''; // Variable para almacenar la opción seleccionada
+  //La cantidad de "bool?" debe coincidir con la de checkbox y deben ir en incremento
+  bool? isCheckedOption1; // Variable para rastrear el estado del Checkbox 1
+  bool? isCheckedOption2; // Variable para rastrear el estado del Checkbox 2
+  bool? isCheckedOption3; // Variable para rastrear el estado del Checkbox 3
+  bool? isCheckedOption4; // Ya dió hueva escribir este comentario, pero se entiende la idea
+  bool? isCheckedOption5;
+  bool? isCheckedOption6;
+  bool? isCheckedOption7;
+  bool? isCheckedOption8;
+
+  final List<String> options = [
+    '',
+    '15 Minutos',
+    '30 Minutos',
+    '45 Minutos',
+    '1 Hora',
+    '1 hora y 30 Minutos',
+    '2 Horas',
+  ]; // Opciones para la lista desplegable
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Recorridos'),
+        backgroundColor: Colors.green,
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Column(
+            children: <Widget>[
+              const Text(
+                "Crea tu propio recorrido:",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                
-              ],
-            ),
+              ),
+              const SizedBox(height: 40,),
+              DropdownButtonFormField<String>(
+                value: selectedOption,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedOption = newValue!;
+                  });
+                },
+                items: options.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(
+                  labelText: 'Selecciona una opción',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Text('Participarán niños en el recorrido?'),
+              const Text('Aquí va el radio button, pero no pude ponerlo, explotaba todo :/',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 30),
+              //Estos son los checkbox
+              buildCheckbox('Leones', isCheckedOption1, (value) {
+                setState(() {
+                  isCheckedOption1 = value;
+                });
+              }),
+              buildCheckbox('Elefantes', isCheckedOption2, (value) {
+                setState(() {
+                  isCheckedOption2 = value;
+                });
+              }),
+              buildCheckbox('Monos', isCheckedOption3, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              buildCheckbox('Tigres', isCheckedOption4, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              buildCheckbox('Jirafas', isCheckedOption5, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              buildCheckbox('Rinocerontes', isCheckedOption6, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              buildCheckbox('Aves', isCheckedOption7, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              buildCheckbox('De Granja', isCheckedOption8, (value) {
+                setState(() {
+                  isCheckedOption3 = value;
+                });
+              }),
+              ElevatedButton(
+                onPressed: () {
+                  // Mostrar la alerta al presionar el botón "Mostrar Alerta"
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Alerta'),
+                        content: Text('Sample Text'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              // Cerrar la alerta al presionar el botón "OK"
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Text('Buscar Recorrido'),
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildCheckbox(String label, bool? value, ValueChanged<bool?> onChanged) {
+    return Row(
+      children: <Widget>[
+        Checkbox(
+          value: value ?? false,
+          onChanged: onChanged,
+        ),
+        Text(label),
+      ],
     );
   }
 }

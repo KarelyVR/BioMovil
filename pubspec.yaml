@@ -40,3 +40,7 @@ flutter:
     - assets/animales/tropical/
     - assets/animales/sabana/
     - assets/animales/desierto/
+    - assets/imagen1.jpg
+    - assets/imagen2.jpg
+    - assets/imagen3.jpg
+    - assets/imagen4.jpg
