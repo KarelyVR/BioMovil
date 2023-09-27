@@ -6,19 +6,21 @@ import 'package:qrscan/qrscan.dart' as scanner;
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-          title: Text('Enfoque el codigo QR dentro del recuadro'),
+          title: const Text('Enfoque el codigo QR dentro del recuadro'),
         ),
-        body: Center(
+        body: const Center(
           child: LectorQR(),
         ),
       ),
@@ -50,17 +52,7 @@ class _LectorQRState extends State<LectorQR>{
           centerTitle: true,
           title: const Text('Lector QR'),
           //Hasta aqui probar menu y boton salir
-
-
-
-
-
-
-
-
-
       ),
-        
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -87,7 +79,7 @@ class _LectorQRState extends State<LectorQR>{
             scanQr();
           },
             style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 37, 136, 202),
+            backgroundColor: const Color.fromARGB(255, 37, 136, 202),
             ),
             child: const Text('Scanear QR'),
             
