@@ -39,6 +39,7 @@ class _RecorridosState extends State<Recorridos> {
   bool? isCheckedOption6;
   bool? isCheckedOption7;
   bool? isCheckedOption8;
+  bool? isCheckedOption9;
 
   final List<String> options = [
     '',
@@ -57,7 +58,7 @@ class _RecorridosState extends State<Recorridos> {
         title: const Text('Recorridos'),
         backgroundColor: Colors.green,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -89,11 +90,31 @@ class _RecorridosState extends State<Recorridos> {
                 ),
               ),
               const SizedBox(height: 30),
-              const Text('Participarán niños en el recorrido?'),
-              const Text('Aquí va el radio button, pero no pude ponerlo, explotaba todo :/',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Participarán niños en el recorrido?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Checkbox(
+                    value: isCheckedOption9 ?? false,
+                    onChanged: (value) {
+                      setState(() {
+                        isCheckedOption9 = value;
+                      });
+                    },
+                  ),
+                  const Text(
+                    'Sí', // Puedes personalizar este texto
+                    style: TextStyle(
+                      fontSize: 16, // Puedes ajustar el tamaño de fuente según tus preferencias
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
               //Estos son los checkbox
