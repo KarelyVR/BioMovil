@@ -128,18 +128,22 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Inicio',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.green,
             icon: Icon(Icons.category),
             label: 'Habitat',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.green,
             icon: Icon(Icons.place),
             label: 'Ubicación',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.green,
             icon: Icon(Icons.directions_walk),
             label: 'Recorridos',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.green,
             icon: Icon(Icons.photo),
             label: 'Galería',
           ),
