@@ -1,16 +1,13 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart';
 import 'package:biomovil/lector_qr.dart';
 import 'package:biomovil/lector_qr.dart' as scan;
 import 'package:qrscan/qrscan.dart' as scanner;
 
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LectorCodigosQR extends StatelessWidget {
+  const LectorCodigosQR({super.key});
 
   @override
   Widget build(BuildContext context) {
