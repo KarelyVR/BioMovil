@@ -1,6 +1,6 @@
-import 'package:biomovil/pantalla_ajustes.dart/ayuda.dart';
-import 'package:biomovil/pantalla_ajustes.dart/comentarios.dart';
-import 'package:biomovil/pantalla_ajustes.dart/terminos_condiciones.dart';
+import 'package:biomovil/pantalla_ajustes/ayuda.dart';
+import 'package:biomovil/pantalla_ajustes/comentarios.dart';
+import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:biomovil/pantalla_ajustes.dart/ajustes.dart';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(Comentarios());
