@@ -24,7 +24,7 @@ class PaginaPrincipal extends StatelessWidget {
         '/menu_habitats': (context) => MenuHabitats(),
         '/recorridos_ubicacion': (context) => const Recorridos(),
         '/galeria_imagenes': (context) => const Galeria(),
-        '/lector_qr': (context) => LectorCodigosQR(),
+        '/lector_qr': (context) => const LectorCQR(),
         '/itinerario': (context) => Itinerario(),
       },
     );
