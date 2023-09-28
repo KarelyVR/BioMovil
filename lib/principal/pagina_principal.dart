@@ -19,10 +19,10 @@ class PaginaPrincipal extends StatelessWidget {
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
-        '/recorridos_ubicacion': (context) => const Recorridos(),
+        '/recorridos_ubicacion': (context) => Recorridos(),
         '/galeria_imagenes': (context) => const Galeria(),
-        '/lector_qr': (context) => const LectorQR(),
-        '/itinerario': (context) => const Itinerario(),
+        '/lector_qr': (context) => LectorCodigosQR(),
+        '/itinerario': (context) => Itinerario(),
       },
     );
   }
@@ -42,9 +42,9 @@ class _MainScreenState extends State<MainScreen> {
     const PantallaInicioWidget(),
     MenuHabitats(),
     const Text('Ubicación de Animales'), // Reemplaza esto con tu contenido
-    const Recorridos(), // Reemplaza esto con tu contenido
+    Recorridos(), // Reemplaza esto con tu contenido
     const Galeria(), // Reemplaza esto con tu contenido
-    const Itinerario(),
+    Itinerario(),
   ];
 
   @override
@@ -62,9 +62,24 @@ class PantallaInicioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pantalla Principal'),
-        backgroundColor: Colors.green,
-      ),
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
+          ),
+          title: const Text(
+            'Inicio',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

@@ -27,7 +27,7 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Túcan", "assets/animales/tropical/tucan.jpg"),
+    TropicalCardData("Tucan", "assets/animales/tropical/tucan.jpg"),
     TropicalCardData("Mandrill", "assets/animales/tropical/mandrill.jpg"),
     TropicalCardData("Puma", "assets/animales/tropical/puma.jpg"),
     TropicalCardData("Tigre", "assets/animales/tropical/tigre.jpg"),
@@ -61,7 +61,7 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
           style: const TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         leading: InkWell(
@@ -138,7 +138,7 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
                   final data = filteredCardData[index];
                   return GestureDetector(
                     onTap: () {
-                      if (data.animalIndex == "Túcan") {
+                      if (data.animalIndex == "Tucan") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Tucan()),

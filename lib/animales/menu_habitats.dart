@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, library_private_types_in_public_api
 
-import 'package:biomovil/animales/menu_desplegable.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'menu_desplegable.dart' as menu;
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
@@ -35,37 +35,60 @@ class MenuHabitats extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
-          elevation: 0,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
+        backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: Text(
+          selectedMenuItem,
+          style: const TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PaginaPrincipal(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
             ),
           ),
-          title: Text(
-            selectedMenuItem,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          leading: Builder(
+        ),
+        actions: [
+          Builder(
             builder: (BuildContext context) {
-              return MyDropdownMenu(
-                items: menuItems,
-                selectedItem: selectedMenuItem,
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    print("Item seleccionado: $newValue");
-                  }
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
+                  Scaffold.of(context).openDrawer();
                 },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
               );
             },
           ),
-        ),
+        ],
+      ),
         drawer: menu.MyDrawerMenu(
           items: menuItems,
           onChanged: (String? newValue) {

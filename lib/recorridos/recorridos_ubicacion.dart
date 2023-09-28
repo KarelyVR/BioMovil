@@ -1,9 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.green,
           title: const Text('Lista Desplegable de Formulario'),
         ),
-        body: const Center(
+        body: Center(
           child: Recorridos(),
         ),
       ),
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Recorridos extends StatefulWidget {
-  const Recorridos({super.key});
+  Recorridos({super.key});
 
   @override
   _RecorridosState createState() => _RecorridosState();
@@ -41,6 +44,14 @@ class _RecorridosState extends State<Recorridos> {
   bool? isCheckedOption8;
   bool? isCheckedOption9;
 
+  final List<String> menuItems = [
+    "Pagina principal",
+    "Animales",
+    "Codigo QR",
+    "Recorridos",
+    "Ajustes",
+  ];
+
   final List<String> options = [
     '',
     '15 Minutos',
@@ -55,9 +66,68 @@ class _RecorridosState extends State<Recorridos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recorridos'),
         backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: const Text(
+          'Crea tu recorrido',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PaginaPrincipal(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
+          ),
+        ),
+        actions: [
+          Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
+      drawer: menu.MyDrawerMenu(
+          items: menuItems,
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              print("Item seleccionado en el cajón: $newValue");
+            }
+          },
+        ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

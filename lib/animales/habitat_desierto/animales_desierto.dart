@@ -62,7 +62,7 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
           style: const TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         leading: InkWell(

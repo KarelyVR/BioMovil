@@ -66,7 +66,7 @@ class MyAppAnimalesTropicales extends StatefulWidget {
 
 class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
   final List<TropicalCardData> cardData = [
-    TropicalCardData("Túcan", "assets/tucan.jpg"),
+    TropicalCardData("Tucan", "assets/tucan.jpg"),
     TropicalCardData("Mandrill", "assets/mandrill.jpg"),
     TropicalCardData("Puma", "assets/puma.jpg"),
     TropicalCardData("Tigre", "assets/tigre.jpg"),
