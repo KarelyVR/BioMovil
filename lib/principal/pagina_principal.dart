@@ -6,6 +6,9 @@ import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/lector_qr.dart';
 
 
+void main() {
+  runApp(const PaginaPrincipal());
+}
 
 class PaginaPrincipal extends StatelessWidget {
   const PaginaPrincipal({super.key});
@@ -48,45 +51,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_currentIndex],
-      // Dejo esto como comentario porque a lo mejor nos puede llegar a servir en un futuro
-      // Además que si quitaba todo el código explotaba la app
-
-      /*bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.category),
-            label: 'Habitat',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.place),
-            label: 'Ubicación',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.directions_walk),
-            label: 'Recorridos',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.photo),
-            label: 'Galería',
-          ),
-        ],
-      ),*/
     );
   }
 }
@@ -139,6 +103,7 @@ class PantallaInicioWidget extends StatelessWidget {
                   SizedBox(width: 10),
                 ],
               ),
+               //caja de boton de menu habitats
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -146,7 +111,7 @@ class PantallaInicioWidget extends StatelessWidget {
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: SizedBox(
-                        height: 60.0, // Cambia la altura del botón aquí
+                        height: 60.0, 
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/menu_habitats');
@@ -156,16 +121,16 @@ class PantallaInicioWidget extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(Colors.white),
                           ),
                           child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(
-                                Icons.qr_code,
-                                color: Colors.black, // Color del icono
-                              ),
-                              SizedBox(width: 8.0), // Espacio entre el icono y el texto
                               Text(
                                 'Conoce a los animales',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.black,fontSize: 17),
+                              ),
+                              Icon(
+                                Icons.pets,
+                                size: 50,
+                                color: Colors.black, // Color del icono
                               ),
                             ],
                           ),
@@ -175,7 +140,7 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-
+              //caja de boton de escanear QR
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -194,16 +159,16 @@ class PantallaInicioWidget extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(Colors.white),
                           ),
                           child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
                                 Icons.qr_code,
+                                size: 50,
                                 color: Colors.black, // Color del icono
                               ),
-                              SizedBox(width: 8.0), // Espacio entre el icono y el texto
                               Text(
                                 'Escanear QR',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.black,fontSize: 17),
                               ),
                             ],
                           ),
@@ -213,8 +178,7 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-
-
+               //caja de boton de recorridos
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -233,16 +197,16 @@ class PantallaInicioWidget extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(Colors.white),
                           ),
                           child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(
-                                Icons.map,
-                                color: Colors.black, // Color del icono
-                              ),
-                              SizedBox(width: 8.0), // Espacio entre el icono y el texto
                               Text(
                                 'Recorridos personalizados',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.black,fontSize: 17),
+                              ),
+                              Icon(
+                                Icons.map,
+                                size: 50,
+                                color: Colors.black, // Color del icono
                               ),
                             ],
                           ),
@@ -252,8 +216,7 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-
-
+               //caja de boton del itinerario
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -272,16 +235,16 @@ class PantallaInicioWidget extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(Colors.white),
                           ),
                           child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
                                 Icons.calendar_month,
+                                size: 50,
                                 color: Colors.black, // Color del icono
                               ),
-                              SizedBox(width: 8.0), // Espacio entre el icono y el texto
                               Text(
                                 'Consulta el itinerario',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.black,fontSize: 17),
                               ),
                             ],
                           ),
@@ -291,7 +254,7 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-
+               //caja de boton explorar articulos
               const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0), // Ajusta el margen horizontal aquí
@@ -308,18 +271,20 @@ class PantallaInicioWidget extends StatelessWidget {
                               Navigator.pushNamed(context, '/galeria_imagenes');
                             },
                             style: ButtonStyle(
-                              alignment: Alignment.center,
                               backgroundColor: MaterialStateProperty.all(Colors.white),
                             ),
                             child: const Text(
-                              'Explora la galeria',
+                              textAlign: TextAlign.center,
+                              'Explora los articulos',
                               style: TextStyle(color: Colors.black,
-                              fontSize: 12),
+                              fontSize: 17,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
+                     //caja de boton de más informacion
                     const SizedBox(width: 20.0), // Espacio horizontal entre los botones
                     Expanded(
                       child: FractionallySizedBox(
@@ -328,17 +293,18 @@ class PantallaInicioWidget extends StatelessWidget {
                           height: 60.0, // Cambia la altura del botón aquí
                           child: ElevatedButton(
                             onPressed: () {
-                              _cambiarPantalla(context, 2); // Cambia al índice del botón 2
-                              // Esta pantalla no existe, por eso no le puse nada
+                              Navigator.pushNamed(context, '/lector_qr');
                             },
                             style: ButtonStyle(
                               alignment: Alignment.center,
                               backgroundColor: MaterialStateProperty.all(Colors.white),
                             ),
                             child: const Text(
-                              'Mas información',
+                              textAlign: TextAlign.center,
+                              'Mas \ninformación',
                               style: TextStyle(color: Colors.black,
-                              fontSize: 12),
+                              fontSize: 17,
+                            ),
                             ),
                           ),
                         ),
@@ -347,24 +313,16 @@ class PantallaInicioWidget extends StatelessWidget {
                   ],
                 ),
               ),
-
-
-
-
-
-
+              Container(
+                child: _carrusel(),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
-  void _cambiarPantalla(BuildContext context, int index) {
-    // Implementa aquí la lógica para cambiar de pantalla
+  Widget _carrusel(){
+    return Container();//AQUI VA LA PROGRAMACION DEL CARRUSEL
   }
-}
-
-void main() {
-  runApp(const PaginaPrincipal());
 }

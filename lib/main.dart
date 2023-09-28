@@ -139,7 +139,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ? TextButton(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20)
+              borderRadius: BorderRadius.circular(5)
             ),
             foregroundColor: Colors.white,
             backgroundColor: Colors.teal.shade700,
