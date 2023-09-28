@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/principal/galeria_imagenes.dart';
+import 'package:biomovil/principal/itinerario.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/lector_qr.dart';
+
 
 
 class PaginaPrincipal extends StatelessWidget {
@@ -17,6 +19,7 @@ class PaginaPrincipal extends StatelessWidget {
         '/recorridos_ubicacion': (context) => const Recorridos(),
         '/galeria_imagenes': (context) => const Galeria(),
         '/lector_qr': (context) => const LectorQR(),
+        '/itinerario': (context) => const Itinerario(),
       },
     );
   }
@@ -38,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
     const Text('Ubicación de Animales'), // Reemplaza esto con tu contenido
     const Recorridos(), // Reemplaza esto con tu contenido
     const Galeria(), // Reemplaza esto con tu contenido
+    const Itinerario(),
   ];
 
   @override
@@ -261,7 +265,7 @@ class PantallaInicioWidget extends StatelessWidget {
                         height: 60.0, // Cambia la altura del botón aquí
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/lector_qr');
+                            Navigator.pushNamed(context, '/itinerario');
                           },
                           style: ButtonStyle(
                             alignment: Alignment.center,
