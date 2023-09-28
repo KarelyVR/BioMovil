@@ -1,51 +1,77 @@
 // ignore_for_file: unused_import, avoid_print
-import 'package:biomovil/animales/menu_desplegable.dart' as menu;
-import 'package:biomovil/principal/pagina_principal.dart';
+
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'package:biomovil/articulos/menu_articulos.dart';
 import 'package:biomovil/lector_qr.dart';
 import 'package:biomovil/lector_qr.dart' as scan;
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:biomovil/principal/pagina_principal.dart';
 
-class LectorCodigosQR extends StatelessWidget {
-  LectorCodigosQR({super.key});
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Recorridos",
-    "Ajustes",
-  ];
-
+class LectorCQR extends StatelessWidget {
+  const LectorCQR({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: const LectorQR(),
+      routes: {
+        '/menu_articulos': (context) =>  MenuArticulos(),
+      },
+    );
+  }
+}
+
+class LectorQR extends StatefulWidget {
+  const LectorQR({Key? key}) : super(key: key);
+
+  @override
+  State<LectorQR> createState() => _LectorQRState();
+}
+
+class _LectorQRState extends State<LectorQR>{
+  
+  //late String scannedMsg= "Enfoque el código QR dentro del recuadro";
+  //TextEditingController controller = TextEditingController();
+  final List<String> menuItems = [
+    "Pagina principal",
+    "Animales",
+    "Codigo QR",
+    "Ubicacion",
+    "Ajustes",
+  ];
+
+  String selectedMenuItem = "Lector QR";
+  final TextEditingController searchController = TextEditingController();
+  
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-        backgroundColor: Colors.green,
-        elevation: 0,
-        centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
-          ),
-        ),
-        title: const Text(
-          'Escanear QR',
-          style: TextStyle(
+        
+      appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          //title: const Text('Lector QR'),
+
+          title: Text(
+          selectedMenuItem,
+          style: const TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
-        leading: InkWell(
+
+          leading: InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const PaginaPrincipal(),
+                builder: (context) =>  const PaginaPrincipal(),
               ),
             );
           },
@@ -77,73 +103,70 @@ class LectorCodigosQR extends StatelessWidget {
           ),
         ],
       ),
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
-        body: const Center(
-          child: LectorQR(),
-        ),
+
+      drawer: MyDrawerMenu(
+        items: menuItems,
+        onChanged: (String? newValue) {
+          if (newValue != null) {
+            setState(() {
+              selectedMenuItem = newValue;
+            });
+            print("Item seleccionado en el cajón: $newValue");
+          }
+        },
       ),
-    );
-  }
-}
-
-class LectorQR extends StatefulWidget {
-  const LectorQR({Key? key}) : super(key: key);
-
-  @override
-  State<LectorQR> createState() => _LectorQRState();
-}
-
-class _LectorQRState extends State<LectorQR>{
-  
-  late String scannedMsg= "Enfoque el código QR dentro del recuadro";
-  TextEditingController controller = TextEditingController();
-
-
-  @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-    home: Scaffold(
+      
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: SizedBox(
+                        
+                        height: 60.0, // Cambia la altura del botón aquí
+                        child: ElevatedButton(
+                          
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/menu_articulos');
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>   MenuArticulos()),
+                          );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 37, 136, 202),
+                            ),
+                            child: const Text('Ir a articulos'), //Boton que manda a articulos
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+                                     
         /*
-        children: <Widget>[
-          
-          const SizedBox(height: 40,),
-
-          TextButton(onPressed: (){
-            scanQr();
-
-          }, child: const Text("Scanear QR")),
-
-          const SizedBox(height: 50,),
-          Text(scannedMsg),
-          
-        ],*/
-        children: <Widget>[
-        
          ElevatedButton(
           onPressed: () {
-            scanQr();
+            //scanQr(); Aqui se pone la direccion a donde va a mandar el boton a la linea de articulos
+            Navigator.pushNamed(context, '/menu_articulos');
           },
             style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 37, 136, 202),
             ),
-            child: const Text('Scanear QR'),
+            child: const Text('Ir a articulos'), //Boton que manda a articulos
             
             ),
-            const SizedBox(height: 30),
-            Text(scannedMsg),
+            */
+            const SizedBox(height: 100),
+            //Text(scannedMsg),
            ],
           ),
         ),
@@ -151,7 +174,7 @@ class _LectorQRState extends State<LectorQR>{
      ),
     );
   }
-  
+  /*
   void scanQr() async{
 
     String? scanResult = await scanner.scan();
@@ -160,6 +183,38 @@ class _LectorQRState extends State<LectorQR>{
          
     });
     
-  }
+  }*/
 
+}
+
+
+class MyDrawerMenu extends StatelessWidget {
+  final List<String> items;
+  final ValueChanged<String?> onChanged;
+
+  const MyDrawerMenu({
+    Key? key,
+    required this.items,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          ...items.map((item) {
+            return ListTile(
+              title: Text(item),
+              onTap: () {
+                onChanged(item);
+                Navigator.pop(context);
+              },
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
 }

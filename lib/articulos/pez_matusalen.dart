@@ -1,44 +1,20 @@
-// ignore_for_file: avoid_print
-
-import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
+import 'menu_articulos.dart';
+import 'package:biomovil/lector_qr.dart';
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
-import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_mandrill.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
-AudioPlayer audioPlayer = AudioPlayer();
 
-class Mandrill extends StatelessWidget {
-  Mandrill({super.key});
+class PezMatusalem extends StatelessWidget {
+  const PezMatusalem({super.key});
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      key: scaffoldKey,
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
       backgroundColor: kLightWhite,
       body:Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +40,7 @@ class Mandrill extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
+                              MaterialPageRoute(builder: (context) =>   MenuArticulos()),
                             );
                           },
                           child: Container(
@@ -88,7 +64,10 @@ class Mandrill extends StatelessWidget {
                         //boton de pagina principal
                         InkWell(
                           onTap: () {
-                            scaffoldKey.currentState?.openDrawer();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LectorQR()),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
@@ -111,7 +90,7 @@ class Mandrill extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -133,7 +112,7 @@ class Mandrill extends StatelessWidget {
                         horizontal: 20,
                       ),
                       child: Text(
-                        'Mandrill',
+                        'Conoce al pez más viejo en un acuario',
                         style: kPoppinsBold.copyWith(
                           color:kDarkBlue,
                           fontSize: SizeConfig.blockSizeHorizontal! * 7,
@@ -141,32 +120,14 @@ class Mandrill extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //este es el boton de audio
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: kPaddingHorizontal,
-                      vertical: 10,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal!*2.5,
-                    ),
-                    height: 40,
-                    width: double.infinity,
-                    //boton para escuchar el sonido del animal
-                    child: ElevatedButton(
-                      child: const Text('¡Escucha su sonido!'),
-                        onPressed: (){
-                        playAudio();
-                      },
-                    ),
-                  ),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
                           child: Text(
-                            'Nombre cientifico: Mandrillus sphinx\nFamilia: Cercopithecidae\nClase: Mammalia\nPromedio de vida: 20 a 30 años\nAltura: 50 a 75 cm\nPeso: 18 a 37 kg\nColores: Tienen pelaje de color oliva o marrón en el cuerpo y patas, el rostro puede ser de un azul brillante y a menudo tiene crestas de color rojo y blanco, las nalgas son de un color rosa brillante o rojo',
+                            'El pangolín se encuentra entre los animales que más sufren de caza ilegal.\nEstas escurridizas criaturas están bajo amenaza, pero el descubrimiento de una especie misteriosa que resulta nueva para la ciencia podría ayudar a los conservacionistas a luchar contra su extinción, dicen los investigadores.\nLos científicos que estudian las escamas obtenidas por contrabando, confiscadas en Hong Kong y la provincia china de Yunnan entre 2012 y 2019, identificaron marcadores genéticos que no se han visto en ningún pangolín conocido.\nEl análisis genómico reveló que se trata de una novena especie, a la que el equipo denominó Manis mysteria.',
                             textAlign: TextAlign.justify,
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
@@ -174,20 +135,8 @@ class Mandrill extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionMandrill(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
-                        ),
-                      ]),
+                        ],
+                      ),
                 );
               },
             ),
@@ -197,15 +146,13 @@ class Mandrill extends StatelessWidget {
     );
   }
 
-  void playAudio() async {
-    await player.play(AssetSource('mandrill.mp3'));
-  }
+  
 }
 
 final List<String> imageList = [
-  'assets/animales/tropical/mandrill1.jpeg',
-  'assets/animales/tropical/mandrill5.jpg',
-  'assets/animales/tropical/mandrill3.jpg'
+  'assets/articulos/pez1.jpg',
+  'assets/articulos/pez2.jpg',
+  'assets/articulos/pez3.jpg',
 ];
 
 class FullScreenSlider extends StatefulWidget {
@@ -273,7 +220,7 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
                         ),
                       ))
                   .toList(),
-            ),
+            )
           ),
         ),
       ],

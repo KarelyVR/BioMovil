@@ -1,44 +1,20 @@
-// ignore_for_file: avoid_print
-
-import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
+import 'package:biomovil/lector_qr.dart';
+import 'menu_articulos.dart';
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
-import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_mandrill.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
-AudioPlayer audioPlayer = AudioPlayer();
 
-class Mandrill extends StatelessWidget {
-  Mandrill({super.key});
+class Tarantula extends StatelessWidget {
+  const Tarantula({super.key});
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      key: scaffoldKey,
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
       backgroundColor: kLightWhite,
       body:Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +40,7 @@ class Mandrill extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
+                              MaterialPageRoute(builder: (context) =>   MenuArticulos()),
                             );
                           },
                           child: Container(
@@ -88,7 +64,10 @@ class Mandrill extends StatelessWidget {
                         //boton de pagina principal
                         InkWell(
                           onTap: () {
-                            scaffoldKey.currentState?.openDrawer();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LectorQR()),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
@@ -111,7 +90,7 @@ class Mandrill extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -133,7 +112,7 @@ class Mandrill extends StatelessWidget {
                         horizontal: 20,
                       ),
                       child: Text(
-                        'Mandrill',
+                        'Descubren en Tailandia una especie de tarántula azul eléctrica',
                         style: kPoppinsBold.copyWith(
                           color:kDarkBlue,
                           fontSize: SizeConfig.blockSizeHorizontal! * 7,
@@ -141,32 +120,14 @@ class Mandrill extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //este es el boton de audio
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: kPaddingHorizontal,
-                      vertical: 10,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal!*2.5,
-                    ),
-                    height: 40,
-                    width: double.infinity,
-                    //boton para escuchar el sonido del animal
-                    child: ElevatedButton(
-                      child: const Text('¡Escucha su sonido!'),
-                        onPressed: (){
-                        playAudio();
-                      },
-                    ),
-                  ),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
                           child: Text(
-                            'Nombre cientifico: Mandrillus sphinx\nFamilia: Cercopithecidae\nClase: Mammalia\nPromedio de vida: 20 a 30 años\nAltura: 50 a 75 cm\nPeso: 18 a 37 kg\nColores: Tienen pelaje de color oliva o marrón en el cuerpo y patas, el rostro puede ser de un azul brillante y a menudo tiene crestas de color rojo y blanco, las nalgas son de un color rosa brillante o rojo',
+                            'Un pez pulmonado de entre 83 y 101 años es la sensación del acuario de Steinhart, en San Francisco (California), a donde llegó en 1938, a bordo de un barco desde Australia y desde entonces ahí ha permanecido convirtiéndose en el pez más viejo que ha vivido en cautiverio.\nPero las curiosidades de esta criatura van más allá, comenzando por su singular nombre, Matusalén en referencia al longevo personaje bíblico, y no solo eso, sino que se trata de un fósil viviente y s ele ha catalogado así debido a que se han hallado fósiles de hace 380 millones de años, con sus mismas características.\nCalcular la edad exacta de un ser vivo, sin hacerle daño o matarlo, es muy complicado por lo que, en el caso de Matusalén, se sabe que lleva 83 años en el acuario, su edad oficial, aunque es probable que ya rondé los 100.\nPara conoce la edad exacta de un pez es necesario examinar los huesos de las orejas, y la extracción de escamas enteras, sin embargo, esto resultaría muy doloroso para el longevo animal.\nEn tanto, la Academia de Ciencias de California desarrolló un nuevo método que utiliza una diminuta muestra de tejido de un recorte de aleta de menos de 0.5 centímetros cuadrados y que no produce ningún daño al animal.',
                             textAlign: TextAlign.justify,
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
@@ -174,20 +135,8 @@ class Mandrill extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionMandrill(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
-                        ),
-                      ]),
+                        ],
+                      ),
                 );
               },
             ),
@@ -197,15 +146,13 @@ class Mandrill extends StatelessWidget {
     );
   }
 
-  void playAudio() async {
-    await player.play(AssetSource('mandrill.mp3'));
-  }
+  
 }
 
 final List<String> imageList = [
-  'assets/animales/tropical/mandrill1.jpeg',
-  'assets/animales/tropical/mandrill5.jpg',
-  'assets/animales/tropical/mandrill3.jpg'
+  'assets/articulos/tarantula1.jpg',
+  'assets/articulos/tarantula2.jpg',
+  'assets/articulos/tarantula3.jpg',
 ];
 
 class FullScreenSlider extends StatefulWidget {
@@ -273,7 +220,7 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
                         ),
                       ))
                   .toList(),
-            ),
+            )
           ),
         ),
       ],
