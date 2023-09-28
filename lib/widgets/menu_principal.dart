@@ -1,3 +1,8 @@
+import 'package:biomovil/animales/menu_habitats.dart';
+import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
+import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,35 +37,60 @@ class MyMenu extends StatelessWidget {
                   leading: const Icon(Icons.home),
                   title: const Text('Pagina principal'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PaginaPrincipal(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.pets),
                   title: const Text('Animales'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuHabitats(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.qr_code),
                   title: const Text('Codigo QR'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LectorCodigosQR(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.directions_walk),
                   title: const Text('Recorridos'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Recorridos(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings),
                   title: const Text('Ajustes'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Ajustes(),
+                      ),
+                    );
                   },
                 ),
               ],

@@ -1,5 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
+import 'package:biomovil/animales/menu_habitats.dart';
+import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
+import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
 
 class MyDropdownMenu extends StatelessWidget {
@@ -7,7 +12,8 @@ class MyDropdownMenu extends StatelessWidget {
   final String selectedItem;
   final ValueChanged<String?> onChanged;
 
-  const MyDropdownMenu({super.key, 
+  const MyDropdownMenu({
+    super.key,
     required this.items,
     required this.selectedItem,
     required this.onChanged,
@@ -28,7 +34,8 @@ class MyDrawerMenu extends StatelessWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
 
-  const MyDrawerMenu({super.key, 
+  const MyDrawerMenu({
+    super.key,
     required this.items,
     required this.onChanged,
   });
@@ -53,7 +60,18 @@ class MyDrawerMenu extends StatelessWidget {
 }
 
 void main() {
-  runApp(const MyAppAnimalesTropicales());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/',
+    routes: {
+      '/': (context) => const MyAppAnimalesTropicales(),
+      '/pagina_principal': (context) => const PaginaPrincipal(),
+      '/menu_habitats': (context) => MenuHabitats(),
+      '/lector_qr': (context) => LectorCodigosQR(),
+      '/recorridos': (context) => const Recorridos(),
+      '/ajustes': (context) => const Ajustes(),
+    },
+  ));
 }
 
 class MyAppAnimalesTropicales extends StatefulWidget {
@@ -124,12 +142,27 @@ class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
               "Recorridos",
               "Ajustes",
             ],
-            selectedItem:
-                "Pagina principal", // Puedes seleccionar el elemento inicial aquí
+            selectedItem: "Pagina principal",
             onChanged: (String? item) {
-              // Lógica para manejar la selección del menú
               print("Item seleccionado: $item");
-              // Puedes agregar lógica adicional para manejar la selección aquí
+
+              switch (item) {
+                case "Pagina principal":
+                  Navigator.of(context).pushReplacementNamed('/');
+                  break;
+                case "Animales":
+                  Navigator.of(context).pushReplacementNamed('/menu_habitats');
+                  break;
+                case "Codigo QR":
+                  Navigator.of(context).pushReplacementNamed('/lector_qr');
+                  break;
+                case "Recorridos":
+                  Navigator.of(context).pushReplacementNamed('/recorridos');
+                  break;
+                case "Ajustes":
+                  Navigator.of(context).pushReplacementNamed('/ajustes');
+                  break;
+              }
             },
           ),
         ),
