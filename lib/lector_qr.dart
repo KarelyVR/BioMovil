@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, avoid_print
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';

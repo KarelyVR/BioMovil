@@ -1,18 +1,24 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(Ayuda());
+void main() => runApp(const Ayuda());
 
 class Ayuda extends StatelessWidget {
+  const Ayuda({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: FeedbackScreen(),
     );
   }
 }
 
 class FeedbackScreen extends StatefulWidget {
+  const FeedbackScreen({super.key});
+
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
 }
@@ -23,7 +29,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   Future<void> _onBackPressed() async {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Ajustes()),
+      MaterialPageRoute(builder: (context) => const Ajustes()),
     );
   }
 

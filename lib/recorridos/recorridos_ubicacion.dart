@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.green,
           title: const Text('Lista Desplegable de Formulario'),
         ),
-        body: Center(
+        body: const Center(
           child: Recorridos(),
         ),
       ),
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Recorridos extends StatefulWidget {
-  Recorridos({super.key});
+  const Recorridos({super.key});
 
   @override
   _RecorridosState createState() => _RecorridosState();
@@ -162,7 +162,7 @@ class _RecorridosState extends State<Recorridos> {
               const SizedBox(height: 30),
               Row(
                 children: <Widget>[
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Participarán niños en el recorrido?',
                       style: TextStyle(

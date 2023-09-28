@@ -1,15 +1,20 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
 import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Ajustes(),
   ));
 }
 
 class Ajustes extends StatefulWidget {
+  const Ajustes({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -25,19 +30,39 @@ class _MyAppState extends State<Ajustes> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-          shape: const ContinuousRectangleBorder(
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(60.0),
-              bottomRight: Radius.circular(60.0),
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
             ),
           ),
-          title: const Center(
-            child: Text(
-              'Ajustes',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          title: const Text(
+            'Ajustes',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
+          leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PaginaPrincipal(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
+          ),
+        ),
         ),
         body: Column(
           children: [
@@ -153,7 +178,7 @@ class _MyAppState extends State<Ajustes> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Comentarios(),
+                            builder: (context) => const Comentarios(),
                           ),
                         );
                       },
@@ -181,7 +206,7 @@ class _MyAppState extends State<Ajustes> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Ayuda(),
+                            builder: (context) => const Ayuda(),
                           ),
                         );
                       },
@@ -209,7 +234,7 @@ class _MyAppState extends State<Ajustes> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => terminosCondiciones(),
+                            builder: (context) => const TerminosCondiciones(),
                           ),
                         );
                       },
@@ -219,17 +244,17 @@ class _MyAppState extends State<Ajustes> {
               ),
             ),
             const SizedBox(height: 16.0),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'Contáctanos:',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.green),
                   ),
-                  const SizedBox(height: 30.0),
+                  SizedBox(height: 30.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -238,7 +263,7 @@ class _MyAppState extends State<Ajustes> {
                         iconColor: Colors.blue,
                         label: 'Bioparque',
                       ),
-                      const SizedBox(width: 15.0),
+                      SizedBox(width: 15.0),
                       SocialMediaIcon(
                         icon: Icons.phone,
                         label: '55 5089 9990',
@@ -261,8 +286,8 @@ class SocialMediaIcon extends StatelessWidget {
   final String label;
   final Color iconColor;
 
-  SocialMediaIcon(
-      {required this.icon, required this.label, this.iconColor = Colors.black});
+  const SocialMediaIcon(
+      {super.key, required this.icon, required this.label, this.iconColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {

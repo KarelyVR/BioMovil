@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/principal/galeria_imagenes.dart';
@@ -19,7 +22,7 @@ class PaginaPrincipal extends StatelessWidget {
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
-        '/recorridos_ubicacion': (context) => Recorridos(),
+        '/recorridos_ubicacion': (context) => const Recorridos(),
         '/galeria_imagenes': (context) => const Galeria(),
         '/lector_qr': (context) => LectorCodigosQR(),
         '/itinerario': (context) => Itinerario(),
@@ -36,13 +39,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   static final List<Widget> _screens = [
     const PantallaInicioWidget(),
     MenuHabitats(),
     const Text('Ubicación de Animales'), // Reemplaza esto con tu contenido
-    Recorridos(), // Reemplaza esto con tu contenido
+    const Recorridos(), // Reemplaza esto con tu contenido
     const Galeria(), // Reemplaza esto con tu contenido
     Itinerario(),
   ];
@@ -62,24 +65,43 @@ class PantallaInicioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.green,
-          elevation: 0,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
-            ),
-          ),
-          title: const Text(
-            'Inicio',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+        backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
           ),
         ),
+        title: const Text(
+          'Inicio',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Ajustes(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Icon(
+                Icons.settings,
+                size: 28,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

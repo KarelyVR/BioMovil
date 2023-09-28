@@ -1,12 +1,16 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 void main() {
-  runApp(terminosCondiciones());
+  runApp(const TerminosCondiciones());
 }
 
-class terminosCondiciones extends StatelessWidget {
+class TerminosCondiciones extends StatelessWidget {
+  const TerminosCondiciones({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,12 +18,14 @@ class terminosCondiciones extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: TermsAndConditionsScreen(),
+      home: const TermsAndConditionsScreen(),
     );
   }
 }
 
 class TermsAndConditionsScreen extends StatefulWidget {
+  const TermsAndConditionsScreen({super.key});
+
   @override
   _TermsAndConditionsScreenState createState() =>
       _TermsAndConditionsScreenState();
@@ -102,12 +108,12 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
             MarkdownBody(
               data: termsAndConditionsText,
               styleSheet: MarkdownStyleSheet(
-                h1: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                h2: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                h3: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                h4: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                h5: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                h6: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h1: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h2: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h3: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h4: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h5: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                h6: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -125,7 +131,7 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
                 if (acceptedTerms) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Ajustes()),
+                    MaterialPageRoute(builder: (context) => const Ajustes()),
                   );
                 } else {
                   showDialog(

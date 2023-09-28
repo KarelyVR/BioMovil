@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class GaleriaFotos extends StatelessWidget {
@@ -56,9 +58,8 @@ List<String> imagePaths = [
 ];
 
 class DetalleImagen extends StatelessWidget {
-  final String imagePath;
-
   const DetalleImagen({required this.imagePath, Key? key});
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {

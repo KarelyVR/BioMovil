@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
