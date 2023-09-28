@@ -222,7 +222,7 @@ class PantallaInicioWidget extends StatelessWidget {
                         height: 60.0, // Cambia la altura del botón aquí
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/recorridos_unicacion');
+                            Navigator.pushNamed(context, '/recorridos_ubicacion');
                           },
                           style: ButtonStyle(
                             alignment: Alignment.center,
