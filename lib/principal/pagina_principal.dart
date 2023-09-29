@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers
 
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/lector_qr.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 
 void main() {
@@ -350,16 +351,74 @@ class PantallaInicioWidget extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 20,),
+              const Text('¡Mira nuestra galería de fotos!',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),),
+              const SizedBox(height: 20,),
               Container(
-                child: _carrusel(),
+                child: ImageCarouselWidget(),
               ),
+              const SizedBox(height: 20,),
             ],
           ),
         ),
       ),
     );
   }
-  Widget _carrusel(){
-    return Container();//AQUI VA LA PROGRAMACION DEL CARRUSEL
+}
+class ImageCarouselWidget extends StatelessWidget {
+  final CarouselController _carouselController = CarouselController();
+
+  ImageCarouselWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> imagePaths = [
+      'assets/animales/tropical/toucan1.jpg',
+      'assets/animales/tropical/mandrill5.jpg',
+      'assets/animales/tropical/puma.jpg',
+    ];
+
+    final double imageWidth = MediaQuery.of(context).size.width * 0.8;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Galeria(),
+          ),
+        );
+      },
+      child: CarouselSlider(
+        carouselController: _carouselController,
+        options: CarouselOptions(
+          height: 200,
+          enlargeCenterPage: true,
+          autoPlay: true,
+        ),
+        items: imagePaths.map((imageUrl) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Container(
+                width: imageWidth,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: const BoxDecoration(
+                  color: Colors.amber,
+                ),
+                child: Image.asset(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  width: imageWidth,
+                ),
+              );
+            },
+          );
+        }).toList(),
+      ),
+    );
   }
 }
