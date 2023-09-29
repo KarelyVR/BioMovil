@@ -67,7 +67,7 @@ void main() {
       '/': (context) => const MyAppAnimalesTropicales(),
       '/pagina_principal': (context) => const PaginaPrincipal(),
       '/menu_habitats': (context) => MenuHabitats(),
-      '/lector_qr': (context) => LectorCodigosQR(),
+      '/lector_qr': (context) => const LectorCQR(),
       '/recorridos': (context) => const Recorridos(),
       '/ajustes': (context) => const Ajustes(),
     },
