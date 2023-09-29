@@ -166,6 +166,7 @@ class _LectorQRState extends State<LectorQR>{
                 child: const Text('Scanear'),
               ),
 
+              /*
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -195,7 +196,7 @@ class _LectorQRState extends State<LectorQR>{
                     ),
                   ),
                 ],
-              ),
+              ),*/
 
            ],
           ),
