@@ -122,15 +122,60 @@ class _LectorQRState extends State<LectorQR>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
+          Image.asset('assets/articulos/imagenqr.png', width: 300, height: 300),
+          
+                                     
+        /*
+         ElevatedButton(
+          onPressed: () {
+            //scanQr(); Aqui se pone la direccion a donde va a mandar el boton a la linea de articulos
+            Navigator.pushNamed(context, '/menu_articulos');
+          },
+            style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 37, 136, 202),
+            ),
+            child: const Text('Ir a articulos'), //Boton que manda a articulos
+            
+            ),
+            */
+            const SizedBox(height: 20),
+            //Text(scannedMsg),
+
+            ElevatedButton(
+                onPressed: () {
+                  // Mostrar la alerta al presionar el botón "Mostrar Alerta"
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Alerta'),
+                        content: const Text('No disponible por el momento.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              // Cerrar la alerta al presionar el botón "OK"
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: const Text('Scanear'),
+              ),
+
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+ 
                   Expanded(
                     child: FractionallySizedBox(
-                      widthFactor: 0.8,
+                      widthFactor: 0.3,
                       child: SizedBox(
                         
-                        height: 60.0, // Cambia la altura del botón aquí
+                        height: 40.0, // Cambia la altura del botón aquí
                         child: ElevatedButton(
                           
                           onPressed: () {
@@ -151,22 +196,7 @@ class _LectorQRState extends State<LectorQR>{
                   ),
                 ],
               ),
-                                     
-        /*
-         ElevatedButton(
-          onPressed: () {
-            //scanQr(); Aqui se pone la direccion a donde va a mandar el boton a la linea de articulos
-            Navigator.pushNamed(context, '/menu_articulos');
-          },
-            style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 37, 136, 202),
-            ),
-            child: const Text('Ir a articulos'), //Boton que manda a articulos
-            
-            ),
-            */
-            const SizedBox(height: 100),
-            //Text(scannedMsg),
+
            ],
           ),
         ),
