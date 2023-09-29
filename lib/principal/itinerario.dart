@@ -53,7 +53,7 @@ class Itinerario extends StatelessWidget {
           ),
         ),
         title: const Text(
-          'Crea tu recorrido',
+          'Consulta el itinerario',
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,

@@ -64,7 +64,7 @@ class MyMenu extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LectorCQR(),
+                        builder: (context) => const LectorCQR(),
                       ),
                     );
                   },
