@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:biomovil/articulos/pangolin.dart';
 import 'package:biomovil/articulos/pez_matusalen.dart';
 import 'package:biomovil/articulos/tarantula.dart';
@@ -116,17 +118,17 @@ class MenuArticulos extends StatelessWidget {
                       if (data.habitat == "Pangolin") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Pangolin()),
+                          MaterialPageRoute(builder: (context) =>  Pangolin()),
                         );
                       } else if (data.habitat == "Pez") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const PezMatusalem()),
+                          MaterialPageRoute(builder: (context) =>  PezMatusalem()),
                         );
                       } else if (data.habitat == "Tarantula") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Tarantula()),
+                          MaterialPageRoute(builder: (context) =>  Tarantula()),
                         );
                       }
                     },

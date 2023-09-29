@@ -1,20 +1,40 @@
+// ignore_for_file: avoid_print
+
 import 'menu_articulos.dart';
-import 'package:biomovil/lector_qr.dart';
 import 'package:biomovil/app_styles.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 
 class PezMatusalem extends StatelessWidget {
-  const PezMatusalem({super.key});
+  PezMatusalem({super.key});
 
+  final List<String> menuItems = [
+    "Pagina principal",
+    "Animales",
+    "Codigo QR",
+    "Ubicacion",
+    "Ajustes",
+  ];
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      key: scaffoldKey,
+      drawer: menu.MyDrawerMenu(
+          items: menuItems,
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              print("Item seleccionado en el cajón: $newValue");
+            }
+          },
+        ),
       backgroundColor: kLightWhite,
       body:Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -64,10 +84,7 @@ class PezMatusalem extends StatelessWidget {
                         //boton de pagina principal
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const LectorQR()),
-                            );
+                            scaffoldKey.currentState?.openDrawer();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
