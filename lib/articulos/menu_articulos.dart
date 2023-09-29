@@ -1,45 +1,33 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api
-/*
+import 'package:biomovil/articulos/pangolin.dart';
 import 'package:biomovil/articulos/pez_matusalen.dart';
 import 'package:biomovil/articulos/tarantula.dart';
-import 'package:biomovil/articulos/pangolin.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
-import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 
-class MenuArticulos extends StatefulWidget {
-  const MenuArticulos({super.key});
+class MenuArticulos extends StatelessWidget {
 
-  @override
-  State<MenuArticulos> createState() => _MenuArticulos();
-}
+  final List<ArticulosCardData> cardData = [
+    ArticulosCardData("Pangolin", "assets/articulos/pangolin.jpg"),
+    ArticulosCardData("Pez", "assets/articulos/pez.jpg"),
+    ArticulosCardData("Tarantula", "assets/articulos/tarantula.jpg"),
+    
+  ];
 
-class _MenuArticulos extends State<MenuArticulos> {
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
     "Codigo QR",
-    "Ubicacion",
+    "Recorridos",
     "Ajustes",
   ];
 
-  String selectedMenuItem = "Ultima Noticias";
-  final TextEditingController searchController = TextEditingController();
+  final String selectedMenuItem;
 
-  final List<TropicalCardData> cardData = [
-    TropicalCardData("Conservación del pangolín", "assets/articulos/pangolin/pangolin.jpg"),
-    TropicalCardData("Conoce al pez más viejo en un acuario", "assets/articulos/pez_matusalem/pez.jpg"),
-    TropicalCardData("Descubren en Tailandia una especie de tarántula azul eléctrica", "assets/articulos/tarantula/tarantula.jpg"),
-    
-  ];
-
-  List<TropicalCardData> filteredCardData = [];
-
-  @override
-  void initState() {
-    super.initState();
-    filteredCardData = List.from(cardData);
-  }
+  MenuArticulos({Key? key})
+      : selectedMenuItem = "Ultimas noticias",
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +38,18 @@ class _MenuArticulos extends State<MenuArticulos> {
         backgroundColor: Colors.green,
         elevation: 0,
         centerTitle: true,
-        
-        title: Text(
-          selectedMenuItem,
-          style: const TextStyle(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: const Text(
+          'Ultimas noticias',
+          style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         leading: InkWell(
@@ -64,7 +57,7 @@ class _MenuArticulos extends State<MenuArticulos> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const LectorQR(),
+                builder: (context) => const PaginaPrincipal(),
               ),
             );
           },
@@ -96,214 +89,7 @@ class _MenuArticulos extends State<MenuArticulos> {
           ),
         ],
       ),
-      drawer: MyDrawerMenu(
-        items: menuItems,
-        onChanged: (String? newValue) {
-          if (newValue != null) {
-            setState(() {
-              selectedMenuItem = newValue;
-            });
-            print("Item seleccionado en el cajón: $newValue");
-          }
-        },
-      ),
-        body: Column(
-          children: <Widget>[
-            
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: filteredCardData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final data = filteredCardData[index];
-                  return GestureDetector(
-                    onTap: () {
-                      if (data.animalIndex == "Pangolin") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>   Pangolin()),
-                        );
-                      } else if (data.animalIndex == "Pez_Matusalem") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  PezMatusalem()),
-                        );
-                      } else if (data.animalIndex == "Tarantula") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  Tarantula()),
-                        );
-                      }
-                    },
-                    child: AnimalCard(data: data),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void filterByKeyword(String keyword) {
-    setState(() {
-      filteredCardData = cardData
-          .where((animal) =>
-              animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
-          .toList();
-    });
-  }
-}
-
-class TropicalCardData {
-  final String animalIndex;
-  final String imagePath;
-
-  TropicalCardData(this.animalIndex, this.imagePath);
-}
-
-class AnimalCard extends StatelessWidget {
-  final TropicalCardData data;
-
-  const AnimalCard({super.key, required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(data.imagePath),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              data.animalIndex,
-              style: const TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyDrawerMenu extends StatelessWidget {
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
-
-  const MyDrawerMenu({
-    Key? key,
-    required this.items,
-    required this.onChanged,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          ...items.map((item) {
-            return ListTile(
-              title: Text(item),
-              onTap: () {
-                onChanged(item);
-                Navigator.pop(context);
-              },
-            );
-          }).toList(),
-        ],
-      ),
-    );
-  }
-}*/
-
-//////////////////////////////////////////
-///2DO DISEÑO DE PANTALLAS
-
-
-import 'package:biomovil/animales/menu_desplegable.dart';
-import 'package:biomovil/articulos/pangolin.dart';
-import 'package:biomovil/articulos/pez_matusalen.dart';
-import 'package:biomovil/articulos/tarantula.dart';
-import 'package:flutter/material.dart';
-import 'package:biomovil/animales/menu_desplegable.dart' as menu;
-
-
-class MenuArticulos extends StatelessWidget {
-
-  final List<ArticulosCardData> cardData = [
-    ArticulosCardData("Conservación del pangolín", "assets/articulos/pangolin.jpg"),
-    ArticulosCardData("Conoce al pez más viejo en un acuario", "assets/articulos/pez.jpg"),
-    ArticulosCardData("Descubren en Tailandia una especie de tarántula azul eléctrica", "assets/articulos/tarantula.jpg"),
-    
-  ];
-
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Recorridos",
-    "Ajustes",
-  ];
-
-  final String selectedMenuItem;
-
-  MenuArticulos({Key? key})
-      : selectedMenuItem = "Ultimas noticias",
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          elevation: 0,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
-            ),
-          ),
-          title: Text(
-            selectedMenuItem,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return MyDropdownMenu(
-                items: menuItems,
-                selectedItem: selectedMenuItem,
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    print("Item seleccionado: $newValue");
-                  }
-                },
-              );
-            },
-          ),
-        ),
-        drawer: menu.MyDrawerMenu(
+      drawer: menu.MyDrawerMenu(
           items: menuItems,
           onChanged: (String? newValue) {
             if (newValue != null) {
@@ -323,7 +109,7 @@ class MenuArticulos extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),*/
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 40.0),
                 ...cardData.map((data) {
                   return GestureDetector(
                     onTap: () {
@@ -376,6 +162,7 @@ class AnimalCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
+          height: 170,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(data.imagePath),

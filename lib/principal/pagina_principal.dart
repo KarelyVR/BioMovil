@@ -309,7 +309,7 @@ class PantallaInicioWidget extends StatelessWidget {
                           height: 60.0, // Cambia la altura del botón aquí
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/galeria_imagenes');
+                              Navigator.pushNamed(context, '/menu_articulos');
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(Colors.white),
