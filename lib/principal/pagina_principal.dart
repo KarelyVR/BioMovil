@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:biomovil/articulos/menu_articulos.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -25,6 +26,7 @@ class PaginaPrincipal extends StatelessWidget {
         '/recorridos_ubicacion': (context) => const Recorridos(),
         '/galeria_imagenes': (context) => const Galeria(),
         '/lector_qr': (context) => const LectorCQR(),
+        '/menu_articulos': (context) =>  MenuArticulos(),
         '/itinerario': (context) => Itinerario(),
       },
     );
@@ -48,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
     const Recorridos(), // Reemplaza esto con tu contenido
     const Galeria(), // Reemplaza esto con tu contenido
     Itinerario(),
+    MenuArticulos(),
   ];
 
   @override
@@ -330,13 +333,14 @@ class PantallaInicioWidget extends StatelessWidget {
                           height: 60.0, // Cambia la altura del botón aquí
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/lector_qr');
+                              Navigator.pushNamed(context, '/menu_articulos');
                             },
                             style: ButtonStyle(
                               alignment: Alignment.center,
                               backgroundColor: MaterialStateProperty.all(Colors.white),
                             ),
                             child: const Text(
+                              
                               textAlign: TextAlign.center,
                               'Mas \ninformación',
                               style: TextStyle(color: Colors.black,

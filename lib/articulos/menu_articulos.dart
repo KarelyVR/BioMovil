@@ -246,9 +246,9 @@ import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 class MenuArticulos extends StatelessWidget {
 
   final List<ArticulosCardData> cardData = [
-    ArticulosCardData("Pangolin", "assets/articulos/pangolin.jpg"),
-    ArticulosCardData("Pez", "assets/articulos/pez.jpg"),
-    ArticulosCardData("Tarantula", "assets/articulos/tarantula.jpg"),
+    ArticulosCardData("Conservación del pangolín", "assets/articulos/pangolin.jpg"),
+    ArticulosCardData("Conoce al pez más viejo en un acuario", "assets/articulos/pez.jpg"),
+    ArticulosCardData("Descubren en Tailandia una especie de tarántula azul eléctrica", "assets/articulos/tarantula.jpg"),
     
   ];
 
@@ -313,7 +313,7 @@ class MenuArticulos extends StatelessWidget {
         ),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               children: <Widget>[
                /* const Text(
