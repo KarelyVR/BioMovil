@@ -2,7 +2,12 @@
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tigre.dart';
+import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/app_styles.dart';
+import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
+import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +29,21 @@ class Tigre extends StatelessWidget {
     "Ajustes",
   ];
 
+  void main() {
+    runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Tigre(),
+        '/pagina_principal': (context) => const PaginaPrincipal(),
+        '/menu_habitats': (context) => MenuHabitats(),
+        '/lector_qr': (context) => const LectorCQR(),
+        '/recorridos': (context) => const Recorridos(),
+        '/ajustes': (context) => const Ajustes(),
+      },
+    ));
+  }
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -32,15 +52,31 @@ class Tigre extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
+        items: menuItems,
+        onChanged: (String? item) {
+          print("Item seleccionado: $item");
+
+          switch (item) {
+            case "Pagina principal":
+              Navigator.of(context).pushReplacementNamed('/pagina_principal');
+              break;
+            case "Animales":
+              Navigator.of(context).pushReplacementNamed('/menu_habitats');
+              break;
+            case "Codigo QR":
+              Navigator.of(context).pushReplacementNamed('/lector_qr');
+              break;
+            case "Recorridos":
+              Navigator.of(context).pushReplacementNamed('/recorridos');
+              break;
+            case "Ajustes":
+              Navigator.of(context).pushReplacementNamed('/ajustes');
+              break;
+          }
+        },
+      ),
       backgroundColor: kLightWhite,
-      body:Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -57,14 +93,17 @@ class Tigre extends StatelessWidget {
                       vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
                         //boton para volver atras
                         InkWell(
                           onTap: () {
-                             Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AnimalesTropicales()),
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AnimalesTropicales()),
                             );
                           },
                           child: Container(
@@ -107,7 +146,7 @@ class Tigre extends StatelessWidget {
                               size: 28,
                             ),
                           ),
-                      ),
+                        ),
                       ],
                     ),
                   ),
@@ -116,50 +155,50 @@ class Tigre extends StatelessWidget {
             ),
           ),
           Expanded(
-          child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //texto grande del nombre del animal
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Text(
-                        'Tigre',
-                        style: kPoppinsBold.copyWith(
-                          color:kDarkBlue,
-                          fontSize: SizeConfig.blockSizeHorizontal! * 7,
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //texto grande del nombre del animal
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Text(
+                              'Tigre',
+                              style: kPoppinsBold.copyWith(
+                                color: kDarkBlue,
+                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  //este es el boton de audio
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: kPaddingHorizontal,
-                      vertical: 10,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal!*2.5,
-                    ),
-                    height: 40,
-                    width: double.infinity,
-                    //boton para escuchar el sonido del animal
-                    child: ElevatedButton(
-                      child: const Text('¡Escucha su sonido!'),
-                        onPressed: (){
-                        playAudio();
-                      },
-                    ),
-                  ),
+                        //este es el boton de audio
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: kPaddingHorizontal,
+                            vertical: 10,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
+                          ),
+                          height: 40,
+                          width: double.infinity,
+                          //boton para escuchar el sonido del animal
+                          child: ElevatedButton(
+                            child: const Text('¡Escucha su sonido!'),
+                            onPressed: () {
+                              playAudio();
+                            },
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -182,7 +221,8 @@ class Tigre extends StatelessWidget {
                               ));
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber[800], // Cambia el color de fondo aquí
+                              backgroundColor: Colors
+                                  .amber[800], // Cambia el color de fondo aquí
                             ),
                             child: const Text('Ver Ubicación'),
                           ),
