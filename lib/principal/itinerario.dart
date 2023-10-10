@@ -97,14 +97,7 @@ class Itinerario extends StatelessWidget {
           ),
         ],
       ),
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
+      drawer: const menu.NavigationDrawer(),
       body: const SingleChildScrollView(
         child: Center(
           child: Column(

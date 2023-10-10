@@ -6,6 +6,7 @@ import 'package:biomovil/animales/habitat_sabana/elefante.dart';
 import 'package:biomovil/animales/habitat_sabana/avestruz.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:flutter/material.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class AnimalesSabana extends StatefulWidget {
   const AnimalesSabana({super.key});
@@ -23,7 +24,7 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
     "Ajustes",
   ];
 
-  String selectedMenuItem = "Animales";
+  String selectedMenuItem = "Sabana";
   final TextEditingController searchController = TextEditingController();
 
   final List<TropicalCardData> cardData = [
@@ -101,17 +102,7 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
           ),
         ],
       ),
-      drawer: MyDrawerMenu(
-        items: menuItems,
-        onChanged: (String? newValue) {
-          if (newValue != null) {
-            setState(() {
-              selectedMenuItem = newValue;
-            });
-            print("Item seleccionado en el cajón: $newValue");
-          }
-        },
-      ),
+      drawer: const menu.NavigationDrawer(),
         body: Column(
           children: <Widget>[
             Padding(

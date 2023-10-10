@@ -5,7 +5,7 @@ import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
-import 'menu_desplegable.dart' as menu;
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
@@ -106,30 +106,7 @@ class MenuHabitats extends StatelessWidget {
             ),
           ],
         ),
-        drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? item) {
-            print("Item seleccionado: $item");
-
-            switch (item) {
-              case "Pagina principal":
-                Navigator.of(context).pushReplacementNamed('/');
-                break;
-              case "Animales":
-                Navigator.of(context).pushReplacementNamed('/menu_habitats');
-                break;
-              case "Codigo QR":
-                Navigator.of(context).pushReplacementNamed('/lector_qr');
-                break;
-              case "Recorridos":
-                Navigator.of(context).pushReplacementNamed('/recorridos');
-                break;
-              case "Ajustes":
-                Navigator.of(context).pushReplacementNamed('/ajustes');
-                break;
-            }
-          },
-        ),
+        drawer: const menu.NavigationDrawer(),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

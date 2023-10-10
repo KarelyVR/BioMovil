@@ -104,18 +104,7 @@ class _LectorQRState extends State<LectorQR>{
         ],
       ),
 
-      drawer: MyDrawerMenu(
-        items: menuItems,
-        onChanged: (String? newValue) {
-          if (newValue != null) {
-            setState(() {
-              selectedMenuItem = newValue;
-            });
-            print("Item seleccionado en el cajón: $newValue");
-          }
-        },
-      ),
-      
+      drawer: const menu.NavigationDrawer(),
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(8.0),

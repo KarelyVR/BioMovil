@@ -27,14 +27,7 @@ class Tarantula extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       key: scaffoldKey,
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
+      drawer: const menu.NavigationDrawer(),
       backgroundColor: kLightWhite,
       body:Column(
         mainAxisAlignment: MainAxisAlignment.start,

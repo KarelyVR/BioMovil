@@ -51,30 +51,7 @@ class Puma extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       key: scaffoldKey,
-      drawer: menu.MyDrawerMenu(
-        items: menuItems,
-        onChanged: (String? item) {
-          print("Item seleccionado: $item");
-
-          switch (item) {
-            case "Pagina principal":
-              Navigator.of(context).pushReplacementNamed('/pagina_principal');
-              break;
-            case "Animales":
-              Navigator.of(context).pushReplacementNamed('/menu_habitats');
-              break;
-            case "Codigo QR":
-              Navigator.of(context).pushReplacementNamed('/lector_qr');
-              break;
-            case "Recorridos":
-              Navigator.of(context).pushReplacementNamed('/recorridos');
-              break;
-            case "Ajustes":
-              Navigator.of(context).pushReplacementNamed('/ajustes');
-              break;
-          }
-        },
-      ),
+      drawer: const menu.NavigationDrawer(),
       backgroundColor: kLightWhite,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

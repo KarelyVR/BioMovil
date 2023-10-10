@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'package:biomovil/animales/habitat_sabana/leon.dart';
-import 'package:biomovil/animales/menu_desplegable.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
@@ -167,17 +167,7 @@ class _UbicacionLeonState extends State<UbicacionLeon> {
           ),
         ],
       ),
-      drawer: MyDrawerMenu(
-        items: menuItems,
-        onChanged: (String? newValue) {
-          if (newValue != null) {
-            setState(() {
-              selectedMenuItem = newValue;
-            });
-            print("Item seleccionado en el cajón: $newValue");
-          }
-        },
-      ),
+      drawer: const menu.NavigationDrawer(),
       body: Stack(
         children: [
         currentLocation == null

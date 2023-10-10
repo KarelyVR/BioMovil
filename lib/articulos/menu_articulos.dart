@@ -91,14 +91,7 @@ class MenuArticulos extends StatelessWidget {
           ),
         ],
       ),
-      drawer: menu.MyDrawerMenu(
-          items: menuItems,
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              print("Item seleccionado en el cajón: $newValue");
-            }
-          },
-        ),
+      drawer: const menu.NavigationDrawer(),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(10.0),

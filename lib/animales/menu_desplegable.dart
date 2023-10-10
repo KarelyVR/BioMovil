@@ -29,50 +29,136 @@ class MyDropdownMenu extends StatelessWidget {
     );
   }
 }
-
+/*
 class MyDrawerMenu extends StatelessWidget {
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
-
-  const MyDrawerMenu({
-    super.key,
-    required this.items,
-    required this.onChanged,
-  });
+  const MyDrawerMenu({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: items.map((String item) {
-          return ListTile(
-            title: Text(item),
-            onTap: () {
-              onChanged(item);
-              Navigator.pop(context);
-            },
-          );
-        }).toList(),
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: const Text('Inicio'),
+      backgroundColor: Colors.blue.shade700,
+    ),
+    drawer: const NavigationDrawer(),
+  ); 
+}*/
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) => Drawer(
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          buildHeader(context),
+          buildMenuItems(context),
+        ],
       ),
-    );
-  }
+    ),
+  );
+  Widget buildHeader(BuildContext context) => Container(
+    padding: EdgeInsets.only(
+      top: MediaQuery.of(context).padding.top,
+    ),
+  );
+  Widget buildMenuItems(BuildContext context) => Container(
+    padding: const EdgeInsets.all(24),
+    child: Wrap(
+      runSpacing: 16,
+      children: [
+        ListTile(
+          leading: const Icon(Icons.home_outlined),
+          title: const Text('Pagina principal'),
+          onTap: ()=>
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context)=>const PaginaPrincipal(),
+            )),
+        ),
+        ListTile(
+          leading: const Icon(Icons.pets_outlined),
+          title: const Text('Animales'),
+          onTap: ()=>
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context)=> MenuHabitats(),
+            )),
+        ),
+        const Divider(color: Colors.black54),
+        ListTile(
+          leading: const Icon(Icons.qr_code_2_outlined),
+          title: const Text('Escanear QR'),
+          onTap: ()=>
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context)=>const LectorQR(),
+            )),
+        ),
+        ListTile(
+          leading: const Icon(Icons.map_outlined),
+          title: const Text('Recorridos'),
+          onTap: ()=>
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context)=>const Recorridos(),
+            )),
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings_applications_outlined),
+          title: const Text('Ajustes'),
+          onTap: ()=>
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context)=>const Ajustes(),
+            )),
+        ),
+      ],
+    ),
+  );
 }
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    initialRoute: '/',
-    routes: {
-      '/': (context) => const MyAppAnimalesTropicales(),
-      '/pagina_principal': (context) => const PaginaPrincipal(),
-      '/menu_habitats': (context) => MenuHabitats(),
-      '/lector_qr': (context) => const LectorCQR(),
-      '/recorridos': (context) => const Recorridos(),
-      '/ajustes': (context) => const Ajustes(),
-    },
-  ));
+
+/*
+class MyDrawerMenu extends StatelessWidget {
+final List<String> items;
+final ValueChanged<String?> onChanged;
+
+const MyDrawerMenu({
+  super.key,
+  required this.items,
+  required this.onChanged,
+});
+
+@override
+Widget build(BuildContext context) {
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: items.map((String item) {
+        return ListTile(
+          title: Text(item),
+          onTap: () {
+            onChanged(item);
+            Navigator.pop(context);
+          },
+        );
+      }).toList(),
+    ),
+  );
 }
+}
+*/
+void main() {
+runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  initialRoute: '/',
+  routes: {
+    '/': (context) => const MyAppAnimalesTropicales(),
+    '/pagina_principal': (context) => const PaginaPrincipal(),
+    '/menu_habitats': (context) => MenuHabitats(),
+    '/lector_qr': (context) => const LectorCQR(),
+    '/recorridos': (context) => const Recorridos(),
+    '/ajustes': (context) => const Ajustes(),
+  },
+));
+}
+
 
 class MyAppAnimalesTropicales extends StatefulWidget {
   const MyAppAnimalesTropicales({super.key});
