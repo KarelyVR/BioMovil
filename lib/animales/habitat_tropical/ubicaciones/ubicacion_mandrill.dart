@@ -30,8 +30,8 @@ class _UbicacionMandrillState extends State<UbicacionMandrill> {
 
   String google_api_key =
       "AIzaSyB0TLjPkqVU3gavsbEFl_29z85d_3FnUnM";
-  static const LatLng fuenteUbicacion = LatLng(37.33500926, -122.03272188);
-  static const LatLng destino = LatLng(37.33429383, -122.06600055);
+  static const LatLng fuenteUbicacion = LatLng(25.72494, -100.31341);
+  static const LatLng destino = LatLng(25.719376595627796, -100.31620581883989);
 
   List<LatLng> polylineCoordinates = [];
   LocationData? currentLocation;
@@ -51,19 +51,19 @@ class _UbicacionMandrillState extends State<UbicacionMandrill> {
 
     GoogleMapController googleMapController = await _controller.future;
 
-    location.onLocationChanged.listen((newLoc) {
-      currentLocation = newLoc;
-      googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-          zoom: 13.5,
-          target: LatLng(
-            newLoc.latitude!,
-            newLoc.longitude!,
-          )
-        )
-      ));
-      setState(() {});
-    });
+    // location.onLocationChanged.listen((newLoc) {
+    //   currentLocation = newLoc;
+    //   googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+    //     CameraPosition(
+    //       zoom: 13.5,
+    //       target: LatLng(
+    //         newLoc.latitude!,
+    //         newLoc.longitude!,
+    //       )
+    //     )
+    //   ));
+    //   setState(() {});
+    // });
   }
 
   Future<void> getPolyPoints() async {
@@ -85,22 +85,22 @@ class _UbicacionMandrillState extends State<UbicacionMandrill> {
     }
   }
 
-  void setCustomMarkerIcon(){
+    void setCustomMarkerIcon(){
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty, 
-    "assets/pin-origen.png").
+    "assets/pin-destino.png").
     then((icon){
       sourceIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty, 
-    "assets/pin-destino.png").
+    "assets/pin-actual.png").
     then((icon){
       destinationIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty, 
-    "assets/pin-actual.png").
+    "assets/pin-origen.png").
     then((icon){
       currentLocationIcon = icon;
     });

@@ -3,21 +3,31 @@
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:biomovil/themes/theme_provider.dart';
+import 'package:biomovil/themes/app_theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const TerminosCondiciones());
+  runApp(
+    const ProviderScope(
+      child: MaterialApp(
+        home: TerminosCondiciones(),
+      ),
+    ),
+  );
 }
 
-class TerminosCondiciones extends StatelessWidget {
+class TerminosCondiciones extends HookConsumerWidget {
   const TerminosCondiciones({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,  WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
     return MaterialApp(
       title: 'Términos y Condiciones',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: const TermsAndConditionsScreen(),
     );
   }
@@ -139,22 +149,45 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
             ),
             const SizedBox(height: 16.0),
             CheckboxListTile(
-              title: const Text('Acepto los términos y condiciones'),
+              title: Text(
+                'Acepto los términos y condiciones',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
+                ),
               value: acceptedTerms,
               onChanged: (value) {
                 setState(() {
                   acceptedTerms = value!;
                 });
               },
+              controlAffinity: ListTileControlAffinity.leading, 
+              tileColor: Theme.of(context).checkboxTheme.fillColor?.resolve({}), 
+              checkColor: Colors.white,
+              activeColor: Colors.green,
+              overlayColor: Theme.of(context).checkboxTheme.overlayColor,
             ),
             ElevatedButton(
               onPressed: () {
                 if (acceptedTerms) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
-                  );
-                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                    return AlertDialog(
+                       title: const Text('Gracias'),
+                         content: const Text('Los terminos y condiciones han sido aceptados.'),
+                         actions: [
+                         TextButton(
+                          onPressed: () {
+                             Navigator.of(context).pop();
+                             },
+                          child: const Text('OK'),
+                          ),
+                        ],
+                    );
+                    },
+                   );
+                  } else {
                   showDialog(
                     context: context,
                     builder: (context) {
