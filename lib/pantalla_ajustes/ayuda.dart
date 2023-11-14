@@ -44,6 +44,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
           preferredSize: const Size.fromHeight(60.0),
           child: AppBar(
             backgroundColor: Colors.green,
+            elevation: 0,
+            centerTitle: true,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20.0),
@@ -53,9 +55,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             title: const Text(
               'Ayuda',
               style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25),
+                  color: Colors.white,
+                  fontSize: 20),
             ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -85,22 +86,45 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  Future.delayed(const Duration(seconds: 2), () {
-                    setState(() {
-                      _confirmationMessage = 'Se ha enviado exitosamente';
-                    });
-                  });
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Función en desarrollo'),
+                        content: const Text(
+                            'La función de ayuda actualmente se encuentra en desarrollo.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: const Text('Enviar'),
               ),
+              // ElevatedButton(
+              //   onPressed: () {
+                  // Future.delayed(const Duration(seconds: 2), () {
+                  //   setState(() {
+                  //     _confirmationMessage = 'Se ha enviado exitosamente';
+                  //   });
+                  // });
+              //   },
+              //   child: const Text('Enviar'),
+              // ),
               const SizedBox(height: 10.0),
-              Text(
-                _confirmationMessage,
-                style: const TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // Text(
+              //   _confirmationMessage,
+              //   style: const TextStyle(
+              //     color: Colors.green,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
             ],
           ),
         ),

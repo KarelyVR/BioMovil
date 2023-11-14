@@ -87,17 +87,38 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Términos y condiciones',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
           ),
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
+          title: const Text(
+            'Terminos y Condiciones',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Ajustes(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
           ),
         ),
       ),

@@ -2,12 +2,12 @@
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
-import 'package:biomovil/app_styles.dart';
-import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/themes/app_styles.dart';
+import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
-import 'package:biomovil/size_config.dart';
+import 'package:biomovil/themes/size_config.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_mandrill.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +37,8 @@ class Mandrill extends StatelessWidget {
         '/': (context) => Mandrill(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) => const LectorCQR(),
-        '/recorridos': (context) => const Recorridos(),
+        '/lector_qr': (context) =>  LectorCQR(),
+        '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
     ));

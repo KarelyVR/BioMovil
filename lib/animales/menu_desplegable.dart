@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:biomovil/animales/menu_habitats.dart';
-import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
@@ -89,7 +89,7 @@ class NavigationDrawer extends StatelessWidget {
           title: const Text('Escanear QR'),
           onTap: ()=>
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const LectorQR(),
+            builder: (context)=> LectorCQR(),
             )),
         ),
         ListTile(
@@ -97,7 +97,7 @@ class NavigationDrawer extends StatelessWidget {
           title: const Text('Recorridos'),
           onTap: ()=>
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const Recorridos(),
+            builder: (context)=>const RouteMap(),
             )),
         ),
         ListTile(
@@ -152,8 +152,8 @@ runApp(MaterialApp(
     '/': (context) => const MyAppAnimalesTropicales(),
     '/pagina_principal': (context) => const PaginaPrincipal(),
     '/menu_habitats': (context) => MenuHabitats(),
-    '/lector_qr': (context) => const LectorCQR(),
-    '/recorridos': (context) => const Recorridos(),
+    '/lector_qr': (context) => LectorCQR(),
+    '/recorridos': (context) => const RouteMap(),
     '/ajustes': (context) => const Ajustes(),
   },
 ));

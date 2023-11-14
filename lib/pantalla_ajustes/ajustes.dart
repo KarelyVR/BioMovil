@@ -5,28 +5,43 @@ import 'package:biomovil/pantalla_ajustes/comentarios.dart';
 import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
+import 'package:biomovil/themes/theme_provider.dart';
+import 'package:biomovil/themes/app_theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:provider/provider.dart';
+
 
 void main() {
-  runApp(const MaterialApp(
-    home: Ajustes(),
-  ));
+  runApp(
+    const ProviderScope(
+      child: MaterialApp(
+        home: Ajustes(),
+      ),
+    ),
+  );
 }
 
-class Ajustes extends StatefulWidget {
-  const Ajustes({super.key});
+// class Ajustes extends StatefulWidget {
+//   const Ajustes({super.key});
+
+//   @override
+//   _MyAppState createState() => _MyAppState();
+// }
+
+class Ajustes extends HookConsumerWidget  {
+   const Ajustes({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
+    bool notificationsEnabled = false;
+    bool locationAccessEnabled = false;
+    // bool darkModeEnabled = false;
 
-class _MyAppState extends State<Ajustes> {
-  bool notificationsEnabled = false;
-  bool locationAccessEnabled = false;
-  bool darkModeEnabled = false;
-
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
@@ -75,11 +90,11 @@ class _MyAppState extends State<Ajustes> {
                     ListTile(
                       title: Row(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 50.0),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 50.0),
                             child: Text(
                               'Notificaciones',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -88,9 +103,23 @@ class _MyAppState extends State<Ajustes> {
                           Switch(
                             value: notificationsEnabled,
                             onChanged: (value) {
-                              setState(() {
-                                notificationsEnabled = value;
-                              });
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Función en desarrollo'),
+                                    content: const Text('La función de Notificaciones actualmente se encuentra en desarrollo.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             activeColor: Colors.green,
                           ),
@@ -103,75 +132,82 @@ class _MyAppState extends State<Ajustes> {
                     ),
                     ListTile(
                       title: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              'Acceso a ubicación',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Switch(
-                            value: locationAccessEnabled,
-                            onChanged: (value) {
-                              setState(() {
-                                locationAccessEnabled = value;
-                              });
-                            },
-                            activeColor: Colors.green,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Color.fromARGB(255, 194, 189, 189),
-                      thickness: 2.0,
-                    ),
-                    ListTile(
-                      title: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              'Modo oscuro',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Switch(
-                            value: darkModeEnabled,
-                            onChanged: (value) {
-                              setState(() {
-                                darkModeEnabled = value;
-                              });
-                            },
-                            activeColor: Colors.green,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Color.fromARGB(255, 194, 189, 189),
-                      thickness: 2.0,
-                    ),
-                    ListTile(
-                      title: const Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 16.0),
+                            padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
-                              'Comentarios o sugerencias',
-                              style: TextStyle(
+                              'Acceso a ubicación',
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
+                          Switch(
+                            value: notificationsEnabled,
+                            onChanged: (value) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Función en desarrollo'),
+                                    content: const Text('La función de Acceso a Ubicación actualmente se encuentra en desarrollo.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            activeColor: Colors.green,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      color: Color.fromARGB(255, 194, 189, 189),
+                      thickness: 2.0,
+                    ),
+                    //modo oscuro
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Text(
+                              'Modo oscuro',
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          const DarkModeSwitch(),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      color: Color.fromARGB(255, 194, 189, 189),
+                      thickness: 2.0,
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Text(
+                              'Comentarios o sugerencias',
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
                         ],
                       ),
                       onTap: () {
@@ -188,18 +224,18 @@ class _MyAppState extends State<Ajustes> {
                       thickness: 2.0,
                     ),
                     ListTile(
-                      title: const Row(
+                      title: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 16.0),
+                            padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Ayuda',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                       onTap: () {
@@ -216,25 +252,25 @@ class _MyAppState extends State<Ajustes> {
                       thickness: 2.0,
                     ),
                     ListTile(
-                      title: const Row(
+                      title: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 16.0),
+                            padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Términos y condiciones',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const TerminosCondiciones(),
+                            builder: (context) =>  const TerminosCondiciones(),
                           ),
                         );
                       },

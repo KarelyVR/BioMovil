@@ -3,6 +3,7 @@ import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +11,11 @@ Future main() async{
   final prefs = await SharedPreferences.getInstance();
   final showHome = prefs.getBool('showHome') ?? false;
 
-  runApp(MyApp(showHome: showHome));
+  runApp(
+    ProviderScope(
+      child: MyApp(showHome: showHome),
+    ),
+  );
 }
 class MyApp extends StatelessWidget {
   final bool showHome;
@@ -20,6 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+    initialRoute: '/', //flutter mostrara primero la ruta inicial
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primarySwatch: Colors.teal,

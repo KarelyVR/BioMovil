@@ -1,34 +1,43 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers
+// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names
 
-import 'package:biomovil/articulos/menu_articulos.dart';
-import 'package:biomovil/pantalla_ajustes/ajustes.dart';
+import 'package:biomovil/principal/mas_informacion.dart';
+import 'package:biomovil/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:biomovil/articulos/menu_articulos.dart';
+import 'package:biomovil/qr/lector_qr.dart';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
-import 'package:biomovil/lector_qr.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:biomovil/themes/app_theme.dart';
 
 
 void main() {
-  runApp(const PaginaPrincipal());
+  runApp(const ProviderScope(child: PaginaPrincipal()));
 }
 
-class PaginaPrincipal extends StatelessWidget {
+class PaginaPrincipal extends HookConsumerWidget {
   const PaginaPrincipal({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
     return MaterialApp(
+      theme:AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
-        '/recorridos_ubicacion': (context) => const Recorridos(),
+        '/recorridos_ubicacion': (context) => const RouteMap(),
         '/galeria_imagenes': (context) => const Galeria(),
-        '/lector_qr': (context) => const LectorCQR(),
+        '/lector_qr': (context) =>  LectorCQR(),
         '/menu_articulos': (context) =>  MenuArticulos(),
         '/itinerario': (context) => Itinerario(),
+        '/mas_informacion': (context) => MoreInfoScreen(),
       },
     );
   }
@@ -47,9 +56,9 @@ class _MainScreenState extends State<MainScreen> {
   static final List<Widget> _screens = [
     const PantallaInicioWidget(),
     MenuHabitats(),
-    const Text('Ubicación de Animales'), // Reemplaza esto con tu contenido
-    const Recorridos(), // Reemplaza esto con tu contenido
-    const Galeria(), // Reemplaza esto con tu contenido
+    const Text('Ubicación de Animales'), 
+    const RouteMap(),
+    const Galeria(), 
     Itinerario(),
     MenuArticulos(),
   ];
@@ -137,13 +146,14 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(width: 10),
-                ],
-              ),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(width: 10),
+              //       Text('Modo Oscuro'),
+                    // DarkModeSwitch(),
+              //   ],
+              // ),
                //caja de boton de menu habitats
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -334,14 +344,13 @@ class PantallaInicioWidget extends StatelessWidget {
                           height: 60.0, // Cambia la altura del botón aquí
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/menu_articulos');
+                              Navigator.pushNamed(context, '/mas_informacion');
                             },
                             style: ButtonStyle(
                               alignment: Alignment.center,
                               backgroundColor: MaterialStateProperty.all(Colors.white),
                             ),
                             child: const Text(
-                              
                               textAlign: TextAlign.center,
                               'Mas \ninformación',
                               style: TextStyle(color: Colors.black,
@@ -423,6 +432,25 @@ class ImageCarouselWidget extends StatelessWidget {
           );
         }).toList(),
       ),
+    );
+  }
+}
+
+class DarkModeSwitch extends HookConsumerWidget {
+  const DarkModeSwitch({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
+    return Switch(
+      value: appThemeState.isDarkModeEnable,
+      onChanged: (enabled){
+        if(enabled){
+          appThemeState.setDarkTheme();
+        }else{
+          appThemeState.setLightTheme();
+        }
+      },
     );
   }
 }

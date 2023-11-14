@@ -64,13 +64,14 @@ class DetalleImagen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
       appBar: AppBar(
-        title: const Text('Detalle de la Imagen'),
-        backgroundColor: Colors.green,
+        title: const Text(''),
+        backgroundColor: Colors.black87,
       ),
       body: Center(
         child: Hero(
-          tag: imagePath, // Utiliza el mismo tag que en la pantalla de galería
+          tag: imagePath, 
           child: Image.asset(
             imagePath,
             fit: BoxFit.cover,

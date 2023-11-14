@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, library_private_types_in_public_api
 
-import 'package:biomovil/lector_qr.dart';
+import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
@@ -18,8 +18,8 @@ void main() {
       '/': (context) => MenuHabitats(),
       '/pagina_principal': (context) => const PaginaPrincipal(),
       '/menu_habitats': (context) => MenuHabitats(),
-      '/lector_qr': (context) => const LectorCQR(),
-      '/recorridos': (context) => const Recorridos(),
+      '/lector_qr': (context) =>  LectorCQR(),
+      '/recorridos': (context) => const RouteMap(),
       '/ajustes': (context) => const Ajustes(),
     },
   ));

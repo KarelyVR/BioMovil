@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'menu_articulos.dart';
-import 'package:biomovil/app_styles.dart';
-import 'package:biomovil/size_config.dart';
+import 'package:biomovil/themes/app_styles.dart';
+import 'package:biomovil/themes/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

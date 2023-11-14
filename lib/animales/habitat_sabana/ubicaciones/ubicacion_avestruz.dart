@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:biomovil/animales/habitat_sabana/avestruz.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
-import 'package:biomovil/app_styles.dart';
+import 'package:biomovil/themes/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
