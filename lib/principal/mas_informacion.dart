@@ -1,7 +1,16 @@
+import 'package:biomovil/principal/mapa.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:flutter/material.dart';
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MoreInfoScreen(),
+    );
+  }
+}
 
 class MoreInfoScreen extends StatelessWidget {
   MoreInfoScreen({super.key});
@@ -78,7 +87,7 @@ class MoreInfoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              'assets/bioparque.jpg', 
+              'assets/bioparque.jpg',
               height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -112,14 +121,47 @@ class MoreInfoScreen extends StatelessWidget {
               'Montemorelos, Nuevo León, México',
               style: TextStyle(fontSize: 16),
             ),
-            // const SizedBox(height: 16.0),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // Agrega aquí la lógica para abrir un mapa o realizar alguna acción.
-            //     // Puedes utilizar plugins como url_launcher para abrir un mapa.
-            //   },
-            //   child: const Text('Ver en el Mapa'),
-            // ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Mapa()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                minimumSize: Size(150, 50),
+              ),
+              child: const Text(
+                'Ver en el Mapa',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Tarifas y boletos:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              'Adultos: \$340\n'
+              'Niños (de 1 a 12 años): \$260\n'
+              'Estudiantes y personas mayores: \nDescuento del 25% con identificación válida.\n',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 12.0),
+            const Text(
+              'Actividades y exhibiciones:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              'Alimentación de animales: Todos los días de 10am a 4pn horas. \n'
+              'Espectáculo de aves: Sábados y domingos a las 2pm horas en el anfiteatro principal.\n',
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
