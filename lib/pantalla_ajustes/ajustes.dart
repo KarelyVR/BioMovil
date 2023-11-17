@@ -10,12 +10,12 @@ import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:provider/provider.dart';
 
-
 void main() {
   runApp(
     const ProviderScope(
       child: MaterialApp(
         home: Ajustes(),
+        debugShowCheckedModeBanner: false,
       ),
     ),
   );
@@ -28,8 +28,8 @@ void main() {
 //   _MyAppState createState() => _MyAppState();
 // }
 
-class Ajustes extends HookConsumerWidget  {
-   const Ajustes({Key? key}) : super(key: key);
+class Ajustes extends HookConsumerWidget {
+  const Ajustes({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +41,8 @@ class Ajustes extends HookConsumerWidget  {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
+      themeMode:
+          appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
@@ -62,22 +63,22 @@ class Ajustes extends HookConsumerWidget  {
             ),
           ),
           leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const PaginaPrincipal(),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PaginaPrincipal(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 28,
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 28,
             ),
           ),
-        ),
         ),
         body: Column(
           children: [
@@ -94,9 +95,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(
                               'Notificaciones',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -108,7 +112,8 @@ class Ajustes extends HookConsumerWidget  {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: const Text('Función en desarrollo'),
-                                    content: const Text('La función de Notificaciones actualmente se encuentra en desarrollo.'),
+                                    content: const Text(
+                                        'La función de Notificaciones actualmente se encuentra en desarrollo.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
@@ -137,9 +142,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Acceso a ubicación',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -151,7 +159,8 @@ class Ajustes extends HookConsumerWidget  {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: const Text('Función en desarrollo'),
-                                    content: const Text('La función de Acceso a Ubicación actualmente se encuentra en desarrollo.'),
+                                    content: const Text(
+                                        'La función de Acceso a Ubicación actualmente se encuentra en desarrollo.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
@@ -181,9 +190,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Modo oscuro',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -202,9 +214,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Comentarios o sugerencias',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -230,9 +245,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Ayuda',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -258,9 +276,12 @@ class Ajustes extends HookConsumerWidget  {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
                               'Términos y condiciones',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           const Spacer(),
@@ -270,7 +291,7 @@ class Ajustes extends HookConsumerWidget  {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  const TerminosCondiciones(),
+                            builder: (context) => const TerminosCondiciones(),
                           ),
                         );
                       },
@@ -323,7 +344,10 @@ class SocialMediaIcon extends StatelessWidget {
   final Color iconColor;
 
   const SocialMediaIcon(
-      {super.key, required this.icon, required this.label, this.iconColor = Colors.black});
+      {super.key,
+      required this.icon,
+      required this.label,
+      this.iconColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {
