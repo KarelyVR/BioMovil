@@ -25,8 +25,8 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
-  final TextEditingController _feedbackController = TextEditingController();
-  String _confirmationMessage = '';
+  // final TextEditingController _feedbackController = TextEditingController();
+  // String _confirmationMessage = '';
 
   Future<void> _onBackPressed() async {
     Navigator.of(context).pushReplacement(

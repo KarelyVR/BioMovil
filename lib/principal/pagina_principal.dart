@@ -1,7 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names
 
 import 'package:biomovil/principal/mas_informacion.dart';
-import 'package:biomovil/themes/theme_provider.dart';
+import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
+// import 'package:biomovil/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/articulos/menu_articulos.dart';
 import 'package:biomovil/qr/lector_qr.dart';
@@ -12,27 +13,27 @@ import 'package:biomovil/principal/itinerario.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:biomovil/themes/app_theme.dart';
+// import 'package:biomovil/themes/app_theme.dart';
 
 
-void main() {
-  runApp(const ProviderScope(child: PaginaPrincipal()));
-}
+// void main() {
+//   runApp(const ProviderScope(child: PaginaPrincipal()));
+// }
 
 class PaginaPrincipal extends HookConsumerWidget {
   const PaginaPrincipal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appThemeState = ref.watch(appThemeStateNotifier);
+    // final appThemeState = ref.watch(appThemeStateNotifier);
     return MaterialApp(
-      theme:AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
+      // theme:AppTheme.lightTheme,
+      // darkTheme: AppTheme.darkTheme,
+      // themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
-        '/recorridos_ubicacion': (context) => const RouteMap(),
+        '/recorridos_ubicacion': (context) => Polyline1(),
         '/galeria_imagenes': (context) => const Galeria(),
         '/lector_qr': (context) =>  LectorCQR(),
         '/menu_articulos': (context) =>  MenuArticulos(),
@@ -146,14 +147,6 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              // const Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(width: 10),
-              //       Text('Modo Oscuro'),
-                    // DarkModeSwitch(),
-              //   ],
-              // ),
                //caja de boton de menu habitats
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -436,21 +429,21 @@ class ImageCarouselWidget extends StatelessWidget {
   }
 }
 
-class DarkModeSwitch extends HookConsumerWidget {
-  const DarkModeSwitch({super.key});
+// class DarkModeSwitch extends HookConsumerWidget {
+//   const DarkModeSwitch({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appThemeState = ref.watch(appThemeStateNotifier);
-    return Switch(
-      value: appThemeState.isDarkModeEnable,
-      onChanged: (enabled){
-        if(enabled){
-          appThemeState.setDarkTheme();
-        }else{
-          appThemeState.setLightTheme();
-        }
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final appThemeState = ref.watch(appThemeStateNotifier);
+//     return Switch(
+//       value: appThemeState.isDarkModeEnable,
+//       onChanged: (enabled){
+//         if(enabled){
+//           appThemeState.setDarkTheme();
+//         }else{
+//           appThemeState.setLightTheme();
+//         }
+//       },
+//     );
+//   }
+// }

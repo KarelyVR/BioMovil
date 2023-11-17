@@ -3,32 +3,32 @@
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:biomovil/themes/theme_provider.dart';
-import 'package:biomovil/themes/app_theme.dart';
+// import 'package:biomovil/themes/theme_provider.dart';
+// import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MaterialApp(
-        home: TerminosCondiciones(),
-      ),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MaterialApp(
+//         home: TerminosCondiciones(),
+//       ),
+//     ),
+//   );
+// }
 
 class TerminosCondiciones extends HookConsumerWidget {
   const TerminosCondiciones({super.key});
 
   @override
   Widget build(BuildContext context,  WidgetRef ref) {
-    final appThemeState = ref.watch(appThemeStateNotifier);
-    return MaterialApp(
+    // final appThemeState = ref.watch(appThemeStateNotifier);
+    return const MaterialApp(
       title: 'Términos y Condiciones',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
-      home: const TermsAndConditionsScreen(),
+      // theme: AppTheme.lightTheme,
+      // darkTheme: AppTheme.darkTheme,
+      // themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
+      home: TermsAndConditionsScreen(),
     );
   }
 }
@@ -149,11 +149,11 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
             ),
             const SizedBox(height: 16.0),
             CheckboxListTile(
-              title: Text(
+              title: const Text(
                 'Acepto los términos y condiciones',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).textTheme.bodyMedium?.color,
-                ),
+                // style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                //   color: Theme.of(context).textTheme.bodyMedium?.color,
+                // ),
                 ),
               value: acceptedTerms,
               onChanged: (value) {
@@ -162,10 +162,8 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
                 });
               },
               controlAffinity: ListTileControlAffinity.leading, 
-              tileColor: Theme.of(context).checkboxTheme.fillColor?.resolve({}), 
               checkColor: Colors.white,
               activeColor: Colors.green,
-              overlayColor: Theme.of(context).checkboxTheme.overlayColor,
             ),
             ElevatedButton(
               onPressed: () {

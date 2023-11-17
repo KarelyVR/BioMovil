@@ -35,7 +35,7 @@ class Ajustes extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appThemeState = ref.watch(appThemeStateNotifier);
     bool notificationsEnabled = false;
-    bool locationAccessEnabled = false;
+    // bool locationAccessEnabled = false;
     // bool darkModeEnabled = false;
 
     return MaterialApp(
@@ -183,30 +183,30 @@ class Ajustes extends HookConsumerWidget {
                       thickness: 2.0,
                     ),
                     //modo oscuro
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              'Modo oscuro',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          const Spacer(),
-                          const DarkModeSwitch(),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Color.fromARGB(255, 194, 189, 189),
-                      thickness: 2.0,
-                    ),
+                    // ListTile(
+                    //   title: Row(
+                    //     children: [
+                    //       Padding(
+                    //         padding: const EdgeInsets.only(right: 16.0),
+                    //         child: Text(
+                    //           'Modo oscuro',
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .bodyMedium
+                    //               ?.copyWith(
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //         ),
+                    //       ),
+                    //       const Spacer(),
+                    //       const DarkModeSwitch(),
+                    //     ],
+                    //   ),
+                    // ),
+                    // const Divider(
+                    //   color: Color.fromARGB(255, 194, 189, 189),
+                    //   thickness: 2.0,
+                    // ),
                     ListTile(
                       title: Row(
                         children: [
