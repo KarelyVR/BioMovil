@@ -12,9 +12,9 @@
     <uses-feature android:name="android.hardware.location.gps" />
     
     <application
-        android:label="biomovil"
+        android:label="Biomovil"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
 
          <!-- TODO: Add your Google Maps API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"
