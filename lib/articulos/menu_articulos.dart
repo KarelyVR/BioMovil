@@ -1,20 +1,23 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/material.dart';
+import 'package:biomovil/articulos/e_renovable.dart';
+import 'package:biomovil/articulos/marpol.dart';
+import 'package:biomovil/articulos/panda.dart';
 import 'package:biomovil/articulos/pangolin.dart';
 import 'package:biomovil/articulos/pez_matusalen.dart';
 import 'package:biomovil/articulos/tarantula.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
-
 class MenuArticulos extends StatelessWidget {
-
   final List<ArticulosCardData> cardData = [
     ArticulosCardData("Pangolin", "assets/articulos/pangolin.jpg"),
     ArticulosCardData("Pez", "assets/articulos/pez.jpg"),
     ArticulosCardData("Tarantula", "assets/articulos/tarantula.jpg"),
-    
+    ArticulosCardData("Panda", "assets/articulos/panda.jpg"),
+    ArticulosCardData("Contaminación", "assets/articulos/contaminacion.jpg"),
+    ArticulosCardData("Energía Renovable", "assets/articulos/renovables1.jpg"),
   ];
 
   final List<String> menuItems = [
@@ -27,9 +30,7 @@ class MenuArticulos extends StatelessWidget {
 
   final String selectedMenuItem;
 
-  MenuArticulos({Key? key})
-      : selectedMenuItem = "Ultimas noticias",
-        super(key: key);
+  MenuArticulos({Key? key}) : selectedMenuItem = "Ultimas noticias", super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,98 +38,107 @@ class MenuArticulos extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-        backgroundColor: Colors.green,
-        elevation: 0,
-        centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
-          ),
-        ),
-        title: const Text(
-          'Ultimas noticias',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const PaginaPrincipal(),
-              ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 28,
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
             ),
           ),
-        ),
-        actions: [
-          Builder(
-            builder: (BuildContext context) {
-              return InkWell(
-                onTap: () {
-                  // Abre el drawer (menú lateral derecho)
-                  Scaffold.of(context).openDrawer();
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: const Icon(
-                    Icons.sort_rounded,
-                    size: 28,
-                  ),
+          title: const Text(
+            'Ultimas noticias',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          leading: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PaginaPrincipal(),
                 ),
               );
             },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 28,
+              ),
+            ),
           ),
-        ],
-      ),
-      drawer: const menu.NavigationDrawer(),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-               /* const Text(
-                  "Selecciona un hábitat:",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
+          actions: [
+            Builder(
+              builder: (BuildContext context) {
+                return InkWell(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(
+                      Icons.sort_rounded,
+                      size: 28,
+                    ),
                   ),
-                ),*/
-                const SizedBox(height: 40.0),
-                ...cardData.map((data) {
-                  return GestureDetector(
-                    onTap: () {
-                      if (data.habitat == "Pangolin") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  Pangolin()),
-                        );
-                      } else if (data.habitat == "Pez") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  PezMatusalem()),
-                        );
-                      } else if (data.habitat == "Tarantula") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  Tarantula()),
-                        );
-                      }
-                    },
-                    child: AnimalCard(data: data),
-                  );
-                }).toList(),
-              ],
+                );
+              },
+            ),
+          ],
+        ),
+        drawer: const menu.NavigationDrawer(),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(height: 40.0),
+                  ...cardData.map((data) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (data.habitat == "Pangolin") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Pangolin()),
+                          );
+                        } else if (data.habitat == "Pez") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => PezMatusalem()),
+                          );
+                        } else if (data.habitat == "Tarantula") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Tarantula()),
+                          );
+                        } else if (data.habitat == "Panda") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Panda()),
+                          );
+                        } else if (data.habitat == "Contaminación") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Contaminacion()),
+                          );
+                        } else if (data.habitat == "Energía Renovable") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Renovables()),
+                          );
+                        }
+                      },
+                      child: AnimalCard(data: data),
+                    );
+                  }).toList(),
+                ],
+              ),
             ),
           ),
         ),
@@ -179,6 +189,7 @@ class AnimalCard extends StatelessWidget {
     );
   }
 }
+
 
 // class _AnimalCardState extends State<AnimalCard> {
 //   bool _isTapped = false;

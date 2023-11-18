@@ -1,9 +1,59 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+
+class DetalleImagen extends StatelessWidget {
+  const DetalleImagen({required this.imagePath, Key? key}) : super(key: key);
+  final String imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Cerrar la pantalla al tocar fuera de la imagen
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black, // Establecer el color de fondo a negro
+        appBar: AppBar(
+          title: const Text('Detalle de la Imagen'),
+          backgroundColor: Colors.transparent, // Hacer que la barra de la aplicación sea transparente
+          elevation: 0, // Quitar la sombra de la barra de la aplicación
+          automaticallyImplyLeading: false, // Oculta la flecha de retroceso
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Center(
+              child: Text("Presione dos veces para \nacercar la imagen", style: TextStyle(fontSize:16, color: Colors.white),),
+            ),
+            Hero(
+              tag: imagePath,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: PhotoView(
+                  imageProvider: AssetImage(imagePath),
+                  minScale: PhotoViewComputedScale.contained,
+                  maxScale: PhotoViewComputedScale.covered * 2,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16.0), // Espacio entre la imagen y el texto
+            const Center(
+              child: Text(
+                'Presione cualquier lugar fuera \nde la imagen para volver',
+                style: TextStyle(fontSize: 16.0, color: Colors.white), // Establecer el color del texto a blanco
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class GaleriaFotos extends StatelessWidget {
-  const GaleriaFotos({super.key});
+  const GaleriaFotos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +69,12 @@ class GaleriaFotos extends StatelessWidget {
 
 Widget buildImageCell(String imagePath) {
   return Container(
-    margin: const EdgeInsets.all(8.0), // Margen entre las celdas de imagen
+    margin: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8.0), // Borde redondeado
+      borderRadius: BorderRadius.circular(8.0),
       boxShadow: [
         BoxShadow(
-          color: Colors.grey.withOpacity(0.5), // Sombra
+          color: Colors.grey.withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
           offset: const Offset(0, 3),
@@ -35,7 +85,7 @@ Widget buildImageCell(String imagePath) {
       borderRadius: BorderRadius.circular(8.0),
       child: Image.asset(
         imagePath,
-        fit: BoxFit.cover, // Ajusta la imagen al tamaño de la celda
+        fit: BoxFit.cover,
       ),
     ),
   );
@@ -54,40 +104,10 @@ List<String> imagePaths = [
   'assets/animales/sabana/jirafa1.jpeg',
   'assets/animales/sabana/elefante.jpg',
   'assets/animales/sabana/avestruz.jpg',
-  // Agrega más rutas de imágenes según sea necesario
 ];
 
-class DetalleImagen extends StatelessWidget {
-  const DetalleImagen({required this.imagePath, Key? key});
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        title: const Text(''),
-        backgroundColor: Colors.black87,
-      ),
-      body: Center(
-        child: Hero(
-          tag: imagePath, 
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-
 class Galeria extends StatelessWidget {
-  const Galeria({super.key});
-
-  get gridDelegate => null;
+  const Galeria({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +128,6 @@ class Galeria extends StatelessWidget {
         children: imagePaths.map((imagePath) {
           return GestureDetector(
             onTap: () {
-              // Navegar a la pantalla de detalle cuando se toque una imagen
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => DetalleImagen(imagePath: imagePath),
@@ -116,7 +135,7 @@ class Galeria extends StatelessWidget {
               );
             },
             child: Hero(
-              tag: imagePath, // Utiliza la misma ruta de imagen como tag
+              tag: imagePath,
               child: buildImageCell(imagePath),
             ),
           );
