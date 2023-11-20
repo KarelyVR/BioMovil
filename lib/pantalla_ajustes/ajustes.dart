@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:biomovil/themes/theme_provider.dart';
 import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 // import 'package:provider/provider.dart';
 
 void main() {
@@ -31,11 +32,30 @@ void main() {
 class Ajustes extends HookConsumerWidget {
   const Ajustes({Key? key}) : super(key: key);
 
+  Future<Position> determinePosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error("error");
+      }
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
+  void getCurrentLocation() async {
+    Position position = await determinePosition();
+    print(position.altitude);
+    print(position.latitude);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appThemeState = ref.watch(appThemeStateNotifier);
     bool notificationsEnabled = false;
-    // bool locationAccessEnabled = false;
+    bool locationAccessEnabled = true;
     // bool darkModeEnabled = false;
 
     return MaterialApp(
@@ -152,26 +172,11 @@ class Ajustes extends HookConsumerWidget {
                           ),
                           const Spacer(),
                           Switch(
-                            value: notificationsEnabled,
-                            onChanged: (value) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Función en desarrollo'),
-                                    content: const Text(
-                                        'La función de Acceso a Ubicación actualmente se encuentra en desarrollo.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                            value: locationAccessEnabled,
+                            onChanged: (value) async {
+                              if (value) {
+                                getCurrentLocation();
+                              }
                             },
                             activeColor: Colors.green,
                           ),
