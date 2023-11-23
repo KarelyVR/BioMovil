@@ -66,24 +66,20 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
             color: Colors.white,
           ),
         ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MenuHabitats(),
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);  // Utiliza Navigator.pop para volver a la pantalla anterior
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 28,
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 28,
             ),
           ),
-        ),
-        actions: [
+
+          actions: [
           Builder(
             builder: (BuildContext context) {
               return InkWell(

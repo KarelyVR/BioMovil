@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print, library_private_types_in_public_api
 
-import 'package:biomovil/qr/lector_qr.dart';
+//import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
-import 'package:biomovil/principal/pagina_principal.dart';
+//import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
@@ -16,9 +16,9 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => MenuHabitats(),
-      '/pagina_principal': (context) => const PaginaPrincipal(),
+      //'/pagina_principal': (context) => const PaginaPrincipal(),
       '/menu_habitats': (context) => MenuHabitats(),
-      '/lector_qr': (context) =>  LectorCQR(),
+      //'/lector_qr': (context) =>  LectorCQR(),
       '/recorridos': (context) => const RouteMap(),
       '/ajustes': (context) => const Ajustes(),
     },
@@ -34,9 +34,9 @@ class MenuHabitats extends StatelessWidget {
   ];
 
   final List<String> menuItems = [
-    "Pagina principal",
+    //"Pagina principal",
     "Animales",
-    "Codigo QR",
+    //"Codigo QR",
     "Recorridos",
     "Ajustes",
   ];
@@ -72,12 +72,7 @@ class MenuHabitats extends StatelessWidget {
           ),
           leading: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PaginaPrincipal(),
-                ),
-              );
+              Navigator.of(context).pop();
             },
             child: Container(
               padding: const EdgeInsets.all(10),
