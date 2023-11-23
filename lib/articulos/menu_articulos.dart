@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:biomovil/articulos/e_renovable.dart';
 import 'package:biomovil/articulos/marpol.dart';
@@ -12,12 +10,12 @@ import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class MenuArticulos extends StatelessWidget {
   final List<ArticulosCardData> cardData = [
-    ArticulosCardData("Pangolin", "assets/articulos/pangolin.jpg"),
-    ArticulosCardData("Pez", "assets/articulos/pez.jpg"),
-    ArticulosCardData("Tarantula", "assets/articulos/tarantula.jpg"),
-    ArticulosCardData("Panda", "assets/articulos/panda.jpg"),
-    ArticulosCardData("Contaminación", "assets/articulos/contaminacion.jpg"),
-    ArticulosCardData("Energía Renovable", "assets/articulos/renovables1.jpg"),
+    ArticulosCardData("Conservación del Pangolin", "assets/articulos/pangolin.jpg"),
+    ArticulosCardData("Conoce al pez más viejo en un acuario", "assets/articulos/pez.jpg"),
+    ArticulosCardData("Descubren en Tailandia una especie de tarántula azul eléctrica", "assets/articulos/tarantula.jpg"),
+    ArticulosCardData("Oso Panda Gigante: la lenta recuperación de un ícono", "assets/articulos/panda.jpg"),
+    ArticulosCardData("Contaminación del mar y las costas", "assets/articulos/contaminacion.jpg"),
+    ArticulosCardData("La importancia de las energías renovables", "assets/articulos/renovables1.jpg"),
   ];
 
   final List<String> menuItems = [
@@ -102,39 +100,12 @@ class MenuArticulos extends StatelessWidget {
                   ...cardData.map((data) {
                     return GestureDetector(
                       onTap: () {
-                        if (data.habitat == "Pangolin") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Pangolin()),
-                          );
-                        } else if (data.habitat == "Pez") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => PezMatusalem()),
-                          );
-                        } else if (data.habitat == "Tarantula") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Tarantula()),
-                          );
-                        } else if (data.habitat == "Panda") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Panda()),
-                          );
-                        } else if (data.habitat == "Contaminación") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Contaminacion()),
-                          );
-                        } else if (data.habitat == "Energía Renovable") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Renovables()),
-                          );
-                        }
+                        navigateToArticle(context, data.habitat);
                       },
-                      child: AnimalCard(data: data),
+                      child: AnimalCard(
+                        data: data,
+                        sampleText: getSampleText(data.habitat),
+                      ),
                     );
                   }).toList(),
                 ],
@@ -144,6 +115,48 @@ class MenuArticulos extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void navigateToArticle(BuildContext context, String habitat) {
+    switch (habitat) {
+      case "Conservación del Pangolin":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Pangolin()));
+        break;
+      case "Conoce al pez más viejo en un acuario":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PezMatusalem()));
+        break;
+      case "Descubren en Tailandia una especie de tarántula azul eléctrica":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Tarantula()));
+        break;
+      case "Oso Panda Gigante: la lenta recuperación de un ícono":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Panda()));
+        break;
+      case "Contaminación del mar y las costas":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Contaminacion()));
+        break;
+      case "La importancia de las energías renovables":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Renovables()));
+        break;
+    }
+  }
+
+  String getSampleText(String habitat) {
+    switch (habitat) {
+      case "Conservación del Pangolin":
+        return "Estas escurridizas criaturas están bajo amenaza, pero el descubrimiento de una especie misteriosa podría ayudar a los conservacionistas.";
+      case "Conoce al pez más viejo en un acuario":
+        return "Un pez pulmonado de entre 83 y 101 años es la sensación del acuario Steinhart en San Francisco.";
+      case "Descubren en Tailandia una especie de tarántula azul eléctrica":
+        return 'El azul es sorprendentemente raro en la naturaleza, por eso los expertos dicen que esta araña iridiscente "es algo destinado a ser visto".';
+      case "Oso Panda Gigante: la lenta recuperación de un ícono":
+        return "En 2021, los pandas se convirtieron según propagó el Gobierno chino en un éxito de conservación.";
+      case "Contaminación del mar y las costas":
+        return "Se estima que el 80% de los contaminantes presentes en el medio marino proceden de la tierra.";
+      case "La importancia de las energías renovables":
+        return "El desarrollo de las energías límpias es imprescindible para combatir el cambio climatico y limitar sus efectos más devastadores.";
+      default:
+        return "Texto de ejemplo no disponible.";
+    }
   }
 }
 
@@ -156,34 +169,53 @@ class ArticulosCardData {
 
 class AnimalCard extends StatelessWidget {
   final ArticulosCardData data;
+  final String sampleText;
 
-  const AnimalCard({super.key, required this.data});
+  const AnimalCard({Key? key, required this.data, required this.sampleText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4.0,
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(4.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Container(
-          height: 170,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(data.imagePath),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              data.habitat,
-              style: const TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+        borderRadius: BorderRadius.circular(6.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(data.imagePath),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
+            SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                data.habitat,
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                sampleText,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
