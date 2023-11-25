@@ -14,20 +14,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_desierto/api_camello.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Camello extends StatelessWidget {
-  Camello({super.key});
+class Camello extends StatefulWidget {
+  @override
+  _CamelloState createState() => _CamelloState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _CamelloState extends State<Camello> {
+  final APICamello _animalAPI = APICamello(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> CamelloInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCamelloInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchCamelloInfo() async {
+    var info = await _animalAPI.fetchCamelloData(); // Llama al método de la API
+    setState(() {
+      CamelloInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +58,7 @@ class Camello extends StatelessWidget {
         '/': (context) => Camello(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -181,28 +202,72 @@ class Camello extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Camelus dromedarius (para una sola joroba) y Camelus bactrianus (para dos jorobas)\nFamilia: Camelidae\nClase: Mammalia\nPromedio de vida: 40 y 50 años\nAltura: 1.8 a 2 metros\nPeso: 400 a 1000 kg\nColores: Tienen pelaje de colores terrosos, como marrón o beige, la piel de su cuello y patas es más oscura.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionCamello(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: CamelloInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        CamelloInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        CamelloInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Clase',
+                                        CamelloInfo['taxonomy']['class'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Orden',
+                                        CamelloInfo['taxonomy']['order'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        CamelloInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Género',
+                                        CamelloInfo['taxonomy']['genus'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        CamelloInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        CamelloInfo['characteristics']
+                                                ['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        CamelloInfo['characteristics']
+                                                ['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionCamello(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -294,4 +359,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }

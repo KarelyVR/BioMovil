@@ -14,20 +14,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_sabana/api_avestruz.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Avestruz extends StatelessWidget {
-  Avestruz({super.key});
+class Avestruz extends StatefulWidget {
+  @override
+  _AvestruzState createState() => _AvestruzState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _AvestruzState extends State<Avestruz> {
+  final APIAvestruz _animalAPI =
+      APIAvestruz(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> AvestruzInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAvestruzInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchAvestruzInfo() async {
+    var info =
+        await _animalAPI.fetchAvestruzData(); // Llama al método de la API
+    setState(() {
+      AvestruzInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +60,7 @@ class Avestruz extends StatelessWidget {
         '/': (context) => Avestruz(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -180,27 +203,72 @@ class Avestruz extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Struthio camelus\nFamilia: Struthionidae\nClase: Aves\nPromedio de vida: 30 a 40 años\nAltura:  2.5 a 3 metros\nPeso: 140 a 160 kg\nColores: Tienen plumaje de color marrón \n a gris, con algunas plumas negras en \n las alas y la cola. La cabeza y el cuello carecen de plumas y son de color rosa \n o gris claro.',
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionAvestruz(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: AvestruzInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        AvestruzInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        AvestruzInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Clase',
+                                        AvestruzInfo['taxonomy']['class'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Orden',
+                                        AvestruzInfo['taxonomy']['order'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        AvestruzInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Género',
+                                        AvestruzInfo['taxonomy']['genus'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        AvestruzInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        AvestruzInfo['characteristics']
+                                                ['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        AvestruzInfo['characteristics']
+                                                ['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionAvestruz(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -292,4 +360,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }

@@ -1,0 +1,30 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class APIAvestruz {
+  Future<Map<String, dynamic>> fetchAvestruzData() async {
+    String name = 'ostrich'; // Cambia el nombre del animal según tu API
+    String apiKey = 'AmoVOB2sD+OTVOzKLiEGtA==wRuv9HSRzQ9zBlnb';
+    String apiUrl = 'https://api.api-ninjas.com/v1/animals?name=$name';
+
+    var response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {'X-Api-Key': apiKey},
+    );
+
+    if (response.statusCode == 200) {
+      var decodedResponse = json.decode(response.body);
+      if (decodedResponse is List && decodedResponse.isNotEmpty) {
+        return decodedResponse[0];
+      } else {
+        return {
+          'error': 'No se encontró información para el avestruz',
+        };
+      }
+    } else {
+      return {
+        'error': 'Error: ${response.statusCode} ${response.body}',
+      };
+    }
+  }
+}

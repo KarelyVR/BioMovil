@@ -14,20 +14,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_desierto/api_serpiente.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Serpiente extends StatelessWidget {
-  Serpiente({super.key});
+class Serpiente extends StatefulWidget {
+  @override
+  _SerpienteState createState() => _SerpienteState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _SerpienteState extends State<Serpiente> {
+  final APISerpiente _animalAPI =
+      APISerpiente(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> SerpienteInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSerpienteInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchSerpienteInfo() async {
+    var info =
+        await _animalAPI.fetchSerpienteData(); // Llama al método de la API
+    setState(() {
+      SerpienteInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +60,7 @@ class Serpiente extends StatelessWidget {
         '/': (context) => Serpiente(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -181,29 +204,72 @@ class Serpiente extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Crotalus scutulatus\nFamilia: Viperidae\nClase: Reptilia\nPromedio de vida: 10 a 20 años\nAltura: No tienen altura\nPeso: 200 gramos y 1.5 kilogramos\nColores: Tienen colores de fondo que varían de grisáceo a amarillo o marrón, con patrones de manchas oscuras o bandas transversales en la espalda y los flancos. La punta de su cola es más clara que el resto del cuerpo.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const UbicacionSerpiente(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: SerpienteInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        SerpienteInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        SerpienteInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Clase',
+                                        SerpienteInfo['taxonomy']['class'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Orden',
+                                        SerpienteInfo['taxonomy']['order'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        SerpienteInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Género',
+                                        SerpienteInfo['taxonomy']['genus'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        SerpienteInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        SerpienteInfo['characteristics']
+                                                ['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        SerpienteInfo['characteristics']
+                                                ['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionSerpiente(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -295,4 +361,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }

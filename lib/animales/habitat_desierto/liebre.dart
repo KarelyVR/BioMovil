@@ -14,20 +14,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_desierto/api_liebre.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Liebre extends StatelessWidget {
-  Liebre({super.key});
+class Liebre extends StatefulWidget {
+  @override
+  _LiebreState createState() => _LiebreState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _LiebreState extends State<Liebre> {
+  final APILiebre _animalAPI = APILiebre(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> LiebreInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLiebreInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchLiebreInfo() async {
+    var info = await _animalAPI.fetchLiebreData(); // Llama al método de la API
+    setState(() {
+      LiebreInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +58,7 @@ class Liebre extends StatelessWidget {
         '/': (context) => Liebre(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -181,28 +202,72 @@ class Liebre extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Lepus spp\nFamilia: Leporidae\nClase: Mammalia\nPromedio de vida: 2 a 5 años\nAltura: 35 a 50 cm\nPeso: 1.5 y 3.5 kg\nColores: Su pelaje tiende a ser de color marrón o grisáceo.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionLiebre(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: LiebreInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        LiebreInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        LiebreInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Clase',
+                                        LiebreInfo['taxonomy']['class'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Orden',
+                                        LiebreInfo['taxonomy']['order'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        LiebreInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Género',
+                                        LiebreInfo['taxonomy']['genus'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        LiebreInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        LiebreInfo['characteristics']
+                                                ['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        LiebreInfo['characteristics']
+                                                ['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionLiebre(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -294,4 +359,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }

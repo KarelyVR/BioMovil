@@ -14,20 +14,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_tropical/api_mandrill.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Mandrill extends StatelessWidget {
-  Mandrill({super.key});
+class Mandrill extends StatefulWidget {
+  @override
+  _MandrillState createState() => _MandrillState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _MandrillState extends State<Mandrill> {
+  final APIMandrill _animalAPI =
+      APIMandrill(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> mandrillInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMandrillInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchMandrillInfo() async {
+    var info =
+        await _animalAPI.fetchMandrillData(); // Llama al método de la API
+    setState(() {
+      mandrillInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +60,7 @@ class Mandrill extends StatelessWidget {
         '/': (context) => Mandrill(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -181,28 +204,72 @@ class Mandrill extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Mandrillus sphinx\nFamilia: Cercopithecidae\nClase: Mammalia\nPromedio de vida: 20 a 30 años\nAltura: 50 a 75 cm\nPeso: 18 a 37 kg\nColores: Tienen pelaje de color oliva o marrón en el cuerpo y patas, el rostro puede ser de un azul brillante y a menudo tiene crestas de color rojo y blanco, las nalgas son de un color rosa brillante o rojo',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionMandrill(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: mandrillInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        mandrillInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        mandrillInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Clase',
+                                        mandrillInfo['taxonomy']['class'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Orden',
+                                        mandrillInfo['taxonomy']['order'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        mandrillInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Género',
+                                        mandrillInfo['taxonomy']['genus'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        mandrillInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        mandrillInfo['characteristics']
+                                                ['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        mandrillInfo['characteristics']
+                                                ['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionMandrill(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -294,4 +361,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }

@@ -14,20 +14,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
+import 'apis_sabana/api_leon.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
-class Leon extends StatelessWidget {
-  Leon({super.key});
+class Leon extends StatefulWidget {
+  @override
+  _LeonState createState() => _LeonState();
+}
 
-  final player = AudioPlayer();
-  final List<String> menuItems = [
-    "Pagina principal",
-    "Animales",
-    "Codigo QR",
-    "Ubicacion",
-    "Ajustes",
-  ];
+final player = AudioPlayer();
+final List<String> menuItems = [
+  "Pagina principal",
+  "Animales",
+  "Codigo QR",
+  "Ubicacion",
+  "Ajustes",
+];
+
+class _LeonState extends State<Leon> {
+  final APILeon _animalAPI = APILeon(); // Instancia de la clase AnimalAPI
+  Map<String, dynamic> LeonInfo =
+      {}; // Almacenará los datos del tucán desde la API
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLeonInfo(); // Llama a la función para obtener los datos del tucán al inicio
+  }
+
+  void fetchLeonInfo() async {
+    var info = await _animalAPI.fetchLeonData(); // Llama al método de la API
+    setState(() {
+      LeonInfo = info; // Actualiza los datos del tucán en el estado
+    });
+  }
 
   void main() {
     runApp(MaterialApp(
@@ -37,7 +58,7 @@ class Leon extends StatelessWidget {
         '/': (context) => Leon(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) =>  LectorCQR(),
+        '/lector_qr': (context) => LectorCQR(),
         '/recorridos': (context) => const RouteMap(),
         '/ajustes': (context) => const Ajustes(),
       },
@@ -180,28 +201,64 @@ class Leon extends StatelessWidget {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: Text(
-                            'Nombre cientifico: Panthera leo\nFamilia: Felidae\nClase: Mammalia\nPromedio de vida: 10 a 14 años\nAltura: 1 a 1.2 metros\nPeso: 150 y 250 kg\nColores: Tienen un pelaje corto y de color amarillo o dorado, que puede variar en tonalidad. Tienen una melena alrededor del cuello, que puede variar en color, desde un marrón claro hasta un negro profundo.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UbicacionLeon(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .amber[800], // Cambia el color de fondo aquí
-                            ),
-                            child: const Text('Ver Ubicación'),
-                          ),
+                          child: LeonInfo
+                                  .isNotEmpty // Verifica si los datos están presentes
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildInfoRow(
+                                        'Reino',
+                                        LeonInfo['taxonomy']
+                                                ['scientific_name'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Reino',
+                                        LeonInfo['taxonomy']['kingdom'] ??
+                                            'N/A'),
+                                    _buildInfoRow('Clase',
+                                        LeonInfo['taxonomy']['class'] ?? 'N/A'),
+                                    _buildInfoRow('Orden',
+                                        LeonInfo['taxonomy']['order'] ?? 'N/A'),
+                                    _buildInfoRow(
+                                        'Familia',
+                                        LeonInfo['taxonomy']['family'] ??
+                                            'N/A'),
+                                    _buildInfoRow('Género',
+                                        LeonInfo['taxonomy']['genus'] ?? 'N/A'),
+                                    _buildInfoRow(
+                                        'Promedio de vida',
+                                        LeonInfo['characteristics']
+                                                ['lifespan'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Altura',
+                                        LeonInfo['characteristics']['height'] ??
+                                            'N/A'),
+                                    _buildInfoRow(
+                                        'Peso',
+                                        LeonInfo['characteristics']['weight'] ??
+                                            'N/A'),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UbicacionLeon(),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[800],
+                                        ),
+                                        child: const Text('Ver Ubicación'),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -293,4 +350,29 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
+}
+
+Widget _buildInfoRow(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+        children: [
+          TextSpan(
+            text: '$title: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: content,
+          ),
+        ],
+      ),
+    ),
+  );
 }
