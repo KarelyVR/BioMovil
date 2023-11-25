@@ -207,7 +207,7 @@ class _LeonState extends State<Leon> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         LeonInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),

@@ -208,7 +208,7 @@ class _PumaState extends State<Puma> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         PumaInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),

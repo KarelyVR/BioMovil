@@ -209,7 +209,7 @@ class _ElefanteState extends State<Elefante> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         ElefanteInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),

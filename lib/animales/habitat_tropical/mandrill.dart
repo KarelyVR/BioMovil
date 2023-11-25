@@ -210,7 +210,7 @@ class _MandrillState extends State<Mandrill> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         mandrillInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
@@ -240,9 +240,9 @@ class _MandrillState extends State<Mandrill> {
                                                 ['lifespan'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Altura',
+                                        'Velocidad Máxima',
                                         mandrillInfo['characteristics']
-                                                ['height'] ??
+                                                ['top_speed'] ??
                                             'N/A'),
                                     _buildInfoRow(
                                         'Peso',

@@ -208,7 +208,7 @@ class _CoyoteState extends State<Coyote> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         CoyoteInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
@@ -238,9 +238,9 @@ class _CoyoteState extends State<Coyote> {
                                                 ['lifespan'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Altura',
+                                        'Longitud',
                                         CoyoteInfo['characteristics']
-                                                ['height'] ??
+                                                ['length'] ??
                                             'N/A'),
                                     _buildInfoRow(
                                         'Peso',

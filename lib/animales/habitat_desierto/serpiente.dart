@@ -210,7 +210,7 @@ class _SerpienteState extends State<Serpiente> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         SerpienteInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
@@ -240,14 +240,14 @@ class _SerpienteState extends State<Serpiente> {
                                                 ['lifespan'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Altura',
+                                        'Longitud',
                                         SerpienteInfo['characteristics']
-                                                ['height'] ??
+                                                ['length'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Peso',
+                                        '¿Es venenosa?',
                                         SerpienteInfo['characteristics']
-                                                ['weight'] ??
+                                                ['venomous'] ??
                                             'N/A'),
                                     const SizedBox(
                                       height: 30,

@@ -209,7 +209,7 @@ class _AvestruzState extends State<Avestruz> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         AvestruzInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),

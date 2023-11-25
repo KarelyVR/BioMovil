@@ -2,6 +2,7 @@
 
 //import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
+import 'package:biomovil/principal/pagina_principal.dart';
 //import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,12 @@ class MenuHabitats extends StatelessWidget {
           ),
           leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PaginaPrincipal(),
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(10),

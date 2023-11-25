@@ -208,7 +208,7 @@ class _CamelloState extends State<Camello> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         CamelloInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),

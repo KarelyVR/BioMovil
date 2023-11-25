@@ -7,23 +7,29 @@ class APISerpiente {
     String apiKey = 'AmoVOB2sD+OTVOzKLiEGtA==wRuv9HSRzQ9zBlnb';
     String apiUrl = 'https://api.api-ninjas.com/v1/animals?name=$name';
 
-    var response = await http.get(
-      Uri.parse(apiUrl),
-      headers: {'X-Api-Key': apiKey},
-    );
+    try {
+      var response = await http.get(
+        Uri.parse(apiUrl),
+        headers: {'X-Api-Key': apiKey},
+      );
 
-    if (response.statusCode == 200) {
-      var decodedResponse = json.decode(response.body);
-      if (decodedResponse is List && decodedResponse.isNotEmpty) {
-        return decodedResponse[0];
+      if (response.statusCode == 200) {
+        var decodedResponse = json.decode(response.body);
+        if (decodedResponse is List && decodedResponse.isNotEmpty) {
+          return decodedResponse[0];
+        } else {
+          return {
+            'error': 'No se encontró información para la serpiente',
+          };
+        }
       } else {
         return {
-          'error': 'No se encontró información para la serpiente',
+          'error': 'Error: ${response.statusCode} ${response.body}',
         };
       }
-    } else {
+    } catch (e) {
       return {
-        'error': 'Error: ${response.statusCode} ${response.body}',
+        'error': 'Error: $e',
       };
     }
   }

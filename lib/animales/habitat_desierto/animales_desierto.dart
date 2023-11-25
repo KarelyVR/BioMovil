@@ -30,8 +30,7 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
   final List<TropicalCardData> cardData = [
     TropicalCardData("Camello", "assets/animales/desierto/camello.jpg"),
     TropicalCardData("Coyote", "assets/animales/desierto/coyote.jpg"),
-    TropicalCardData("Serpiente de cascabel",
-        "assets/animales/desierto/serpiente_cascabel.jpg"),
+    TropicalCardData("Serpiente de cascabel", "assets/animales/desierto/serpiente_cascabel.jpg"),
     TropicalCardData("Liebre", "assets/animales/desierto/liebre.jpeg"),
   ];
 
@@ -68,7 +67,12 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
         ),
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);  // Utiliza Navigator.pop para volver a la pantalla anterior
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MenuHabitats(),
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(10),

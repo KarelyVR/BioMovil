@@ -208,7 +208,7 @@ class _TigreState extends State<Tigre> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         TigreInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
@@ -238,9 +238,9 @@ class _TigreState extends State<Tigre> {
                                                 ['lifespan'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Altura',
+                                        'Longitud',
                                         TigreInfo['characteristics']
-                                                ['height'] ??
+                                                ['length'] ??
                                             'N/A'),
                                     _buildInfoRow(
                                         'Peso',

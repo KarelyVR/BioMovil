@@ -208,7 +208,7 @@ class _LiebreState extends State<Liebre> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         LiebreInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
@@ -238,9 +238,9 @@ class _LiebreState extends State<Liebre> {
                                                 ['lifespan'] ??
                                             'N/A'),
                                     _buildInfoRow(
-                                        'Altura',
+                                        'Longitud',
                                         LiebreInfo['characteristics']
-                                                ['height'] ??
+                                                ['length'] ??
                                             'N/A'),
                                     _buildInfoRow(
                                         'Peso',

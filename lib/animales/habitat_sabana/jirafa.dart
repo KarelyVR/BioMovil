@@ -207,7 +207,7 @@ class _JirafaState extends State<Jirafa> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildInfoRow(
-                                        'Reino',
+                                        'Nombre científico',
                                         JirafaInfo['taxonomy']
                                                 ['scientific_name'] ??
                                             'N/A'),
