@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
@@ -29,19 +27,7 @@ class MyDropdownMenu extends StatelessWidget {
     );
   }
 }
-/*
-class MyDrawerMenu extends StatelessWidget {
-  const MyDrawerMenu({super.key});
 
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Inicio'),
-      backgroundColor: Colors.blue.shade700,
-    ),
-    drawer: const NavigationDrawer(),
-  ); 
-}*/
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});
 
@@ -113,37 +99,6 @@ class NavigationDrawer extends StatelessWidget {
   );
 }
 
-
-/*
-class MyDrawerMenu extends StatelessWidget {
-final List<String> items;
-final ValueChanged<String?> onChanged;
-
-const MyDrawerMenu({
-  super.key,
-  required this.items,
-  required this.onChanged,
-});
-
-@override
-Widget build(BuildContext context) {
-  return Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: items.map((String item) {
-        return ListTile(
-          title: Text(item),
-          onTap: () {
-            onChanged(item);
-            Navigator.pop(context);
-          },
-        );
-      }).toList(),
-    ),
-  );
-}
-}
-*/
 void main() {
 runApp(MaterialApp(
   debugShowCheckedModeBanner: false,

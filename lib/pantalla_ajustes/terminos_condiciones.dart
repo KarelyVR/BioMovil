@@ -1,33 +1,15 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-// import 'package:biomovil/themes/theme_provider.dart';
-// import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// void main() {
-//   runApp(
-//     const ProviderScope(
-//       child: MaterialApp(
-//         home: TerminosCondiciones(),
-//       ),
-//     ),
-//   );
-// }
 
 class TerminosCondiciones extends HookConsumerWidget {
   const TerminosCondiciones({super.key});
 
   @override
   Widget build(BuildContext context,  WidgetRef ref) {
-    // final appThemeState = ref.watch(appThemeStateNotifier);
     return const MaterialApp(
       title: 'Términos y Condiciones',
-      // theme: AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
-      // themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: TermsAndConditionsScreen(),
     );
   }
@@ -151,9 +133,6 @@ Bienvenido al Bioparque. Antes de ingresar y disfrutar de nuestras instalaciones
             CheckboxListTile(
               title: const Text(
                 'Acepto los términos y condiciones',
-                // style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                //   color: Theme.of(context).textTheme.bodyMedium?.color,
-                // ),
                 ),
               value: acceptedTerms,
               onChanged: (value) {

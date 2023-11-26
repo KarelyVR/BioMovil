@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -25,8 +23,6 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
-  // final TextEditingController _feedbackController = TextEditingController();
-  // String _confirmationMessage = '';
 
   Future<void> _onBackPressed() async {
     Navigator.of(context).pushReplacement(

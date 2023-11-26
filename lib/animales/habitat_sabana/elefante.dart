@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names
-
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_elefante.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -34,21 +32,21 @@ final List<String> menuItems = [
 
 class _ElefanteState extends State<Elefante> {
   final APIElefante _animalAPI =
-      APIElefante(); // Instancia de la clase AnimalAPI
+      APIElefante();
   Map<String, dynamic> ElefanteInfo =
-      {}; // Almacenará los datos del elefante desde la API
+      {};
 
   @override
   void initState() {
     super.initState();
-    fetchElefanteInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    fetchElefanteInfo();
   }
 
   void fetchElefanteInfo() async {
     var info =
-        await _animalAPI.fetchElefanteData(); // Llama al método de la API
+        await _animalAPI.fetchElefanteData();
     setState(() {
-      ElefanteInfo = info; // Actualiza los datos del elefante en el estado
+      ElefanteInfo = info;
     });
   }
 
@@ -84,7 +82,7 @@ class _ElefanteState extends State<Elefante> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(), //carrusel
+                const FullScreenSlider(),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -94,9 +92,8 @@ class _ElefanteState extends State<Elefante> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, //separa los iconos
+                          MainAxisAlignment.spaceBetween,
                       children: [
-                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -123,7 +120,6 @@ class _ElefanteState extends State<Elefante> {
                             ),
                           ),
                         ),
-                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -164,7 +160,6 @@ class _ElefanteState extends State<Elefante> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -179,7 +174,6 @@ class _ElefanteState extends State<Elefante> {
                             ),
                           ),
                         ),
-                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -190,7 +184,6 @@ class _ElefanteState extends State<Elefante> {
                           ),
                           height: 40,
                           width: double.infinity,
-                          //boton para escuchar el sonido del animal
                           child: ElevatedButton(
                             child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
@@ -204,7 +197,7 @@ class _ElefanteState extends State<Elefante> {
                             vertical: 12,
                           ),
                           child: ElefanteInfo
-                                  .isNotEmpty // Verifica si los datos están presentes
+                                  .isNotEmpty
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -268,7 +261,7 @@ class _ElefanteState extends State<Elefante> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : CircularProgressIndicator(),
                         ),
                       ]),
                 );
@@ -318,9 +311,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true, // Activar la reproducción automática
+            autoPlay: true,
             autoPlayInterval:
-                const Duration(seconds: 3), // Intervalo entre cambios de imagen
+                const Duration(seconds: 3),
           ),
           items: imageList
               .map((item) => Center(

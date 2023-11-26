@@ -1,9 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names
-
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
-// import 'package:biomovil/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/articulos/menu_articulos.dart';
 import 'package:biomovil/qr/lector_qr.dart';
@@ -13,23 +10,13 @@ import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:biomovil/themes/app_theme.dart';
-
-
-// void main() {
-//   runApp(const ProviderScope(child: PaginaPrincipal()));
-// }
 
 class PaginaPrincipal extends HookConsumerWidget {
   const PaginaPrincipal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final appThemeState = ref.watch(appThemeStateNotifier);
     return MaterialApp(
-      // theme:AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
-      // themeMode: appThemeState.isDarkModeEnable ? ThemeMode.dark : ThemeMode.light,
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
@@ -125,7 +112,7 @@ class PantallaInicioWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('assets/bioparque.png', width: 100, height: 100),
-                  const SizedBox(width: 10), // Espacio entre la imagen y el texto
+                  const SizedBox(width: 10),
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -147,7 +134,6 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-               //caja de boton de menu habitats
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -174,7 +160,7 @@ class PantallaInicioWidget extends StatelessWidget {
                               Icon(
                                 Icons.pets,
                                 size: 50,
-                                color: Colors.black, // Color del icono
+                                color: Colors.black,
                               ),
                             ],
                           ),
@@ -184,7 +170,6 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              //caja de boton de escanear QR
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +178,7 @@ class PantallaInicioWidget extends StatelessWidget {
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: SizedBox(
-                        height: 60.0, // Cambia la altura del botón aquí
+                        height: 60.0,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/lector_qr');
@@ -208,7 +193,7 @@ class PantallaInicioWidget extends StatelessWidget {
                               Icon(
                                 Icons.qr_code,
                                 size: 50,
-                                color: Colors.black, // Color del icono
+                                color: Colors.black,
                               ),
                               Text(
                                 'Escanear QR',
@@ -222,7 +207,6 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-               //caja de boton de recorridos
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -231,7 +215,7 @@ class PantallaInicioWidget extends StatelessWidget {
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: SizedBox(
-                        height: 60.0, // Cambia la altura del botón aquí
+                        height: 60.0,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/recorridos_ubicacion');
@@ -250,7 +234,7 @@ class PantallaInicioWidget extends StatelessWidget {
                               Icon(
                                 Icons.map,
                                 size: 50,
-                                color: Colors.black, // Color del icono
+                                color: Colors.black,
                               ),
                             ],
                           ),
@@ -260,7 +244,6 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-               //caja de boton del itinerario
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -269,7 +252,7 @@ class PantallaInicioWidget extends StatelessWidget {
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: SizedBox(
-                        height: 60.0, // Cambia la altura del botón aquí
+                        height: 60.0,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/itinerario');
@@ -284,7 +267,7 @@ class PantallaInicioWidget extends StatelessWidget {
                               Icon(
                                 Icons.calendar_month,
                                 size: 50,
-                                color: Colors.black, // Color del icono
+                                color: Colors.black,
                               ),
                               Text(
                                 'Consulta el itinerario',
@@ -298,18 +281,17 @@ class PantallaInicioWidget extends StatelessWidget {
                   ),
                 ],
               ),
-               //caja de boton explorar articulos
               const SizedBox(height: 10,),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0), // Ajusta el margen horizontal aquí
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Alinea los botones al principio y al final
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: FractionallySizedBox(
                         widthFactor: 1,
                         child: SizedBox(
-                          height: 60.0, // Cambia la altura del botón aquí
+                          height: 60.0,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/menu_articulos');
@@ -328,13 +310,12 @@ class PantallaInicioWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                     //caja de boton de más informacion
-                    const SizedBox(width: 20.0), // Espacio horizontal entre los botones
+                    const SizedBox(width: 20.0),
                     Expanded(
                       child: FractionallySizedBox(
                         widthFactor: 1,
                         child: SizedBox(
-                          height: 60.0, // Cambia la altura del botón aquí
+                          height: 60.0,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/mas_informacion');
@@ -428,22 +409,3 @@ class ImageCarouselWidget extends StatelessWidget {
     );
   }
 }
-
-// class DarkModeSwitch extends HookConsumerWidget {
-//   const DarkModeSwitch({super.key});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final appThemeState = ref.watch(appThemeStateNotifier);
-//     return Switch(
-//       value: appThemeState.isDarkModeEnable,
-//       onChanged: (enabled){
-//         if(enabled){
-//           appThemeState.setDarkTheme();
-//         }else{
-//           appThemeState.setLightTheme();
-//         }
-//       },
-//     );
-//   }
-// }

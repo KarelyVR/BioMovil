@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'menu_articulos.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/themes/size_config.dart';
@@ -37,7 +35,7 @@ class Panda extends StatelessWidget {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(), //carrusel
+                const FullScreenSlider(),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -46,9 +44,8 @@ class Panda extends StatelessWidget {
                       vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -74,7 +71,6 @@ class Panda extends StatelessWidget {
                             ),
                           ),
                         ),
-                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -115,7 +111,6 @@ class Panda extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //texto grande del nombre del animal
                   Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -192,9 +187,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true, // Activar la reproducción automática
+            autoPlay: true,
             autoPlayInterval:
-                const Duration(seconds: 3), // Intervalo entre cambios de imagen
+                const Duration(seconds: 3),
           ),
           items: imageList
               .map((item) => Center(

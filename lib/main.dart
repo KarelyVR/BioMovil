@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, unused_import
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    initialRoute: '/', //flutter mostrara primero la ruta inicial
+    initialRoute: '/',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primarySwatch: Colors.teal,
@@ -141,7 +140,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ],
       ),
     ),
-    bottomSheet: isLastPage //indica si se llego al final de las pantallas para colocar un boton
+    bottomSheet: isLastPage
       ? TextButton(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -160,7 +159,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             prefs.setBool('showHome', true);
 
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const PaginaPrincipal()), //lleva directo a la pagina principal
+              MaterialPageRoute(builder: (context) => const PaginaPrincipal()),
             );
           },
         )

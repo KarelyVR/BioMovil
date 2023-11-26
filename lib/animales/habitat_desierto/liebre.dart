@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_liebre.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -33,20 +31,20 @@ final List<String> menuItems = [
 ];
 
 class _LiebreState extends State<Liebre> {
-  final APILiebre _animalAPI = APILiebre(); // Instancia de la clase AnimalAPI
+  final APILiebre _animalAPI = APILiebre();
   Map<String, dynamic> LiebreInfo =
-      {}; // Almacenará los datos del tucán desde la API
+      {};
 
   @override
   void initState() {
     super.initState();
-    fetchLiebreInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    fetchLiebreInfo();
   }
 
   void fetchLiebreInfo() async {
-    var info = await _animalAPI.fetchLiebreData(); // Llama al método de la API
+    var info = await _animalAPI.fetchLiebreData();
     setState(() {
-      LiebreInfo = info; // Actualiza los datos del tucán en el estado
+      LiebreInfo = info;
     });
   }
 
@@ -82,7 +80,7 @@ class _LiebreState extends State<Liebre> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(), //carrusel
+                const FullScreenSlider(),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -92,9 +90,8 @@ class _LiebreState extends State<Liebre> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, //separa los iconos
+                          MainAxisAlignment.spaceBetween,
                       children: [
-                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -122,7 +119,6 @@ class _LiebreState extends State<Liebre> {
                             ),
                           ),
                         ),
-                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -163,7 +159,6 @@ class _LiebreState extends State<Liebre> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -178,7 +173,6 @@ class _LiebreState extends State<Liebre> {
                             ),
                           ),
                         ),
-                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -189,7 +183,7 @@ class _LiebreState extends State<Liebre> {
                           ),
                           height: 40,
                           width: double.infinity,
-                          //boton para escuchar el sonido del animal
+
                           child: ElevatedButton(
                             child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
@@ -203,7 +197,7 @@ class _LiebreState extends State<Liebre> {
                             vertical: 12,
                           ),
                           child: LiebreInfo
-                                  .isNotEmpty // Verifica si los datos están presentes
+                                  .isNotEmpty
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -267,7 +261,7 @@ class _LiebreState extends State<Liebre> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : CircularProgressIndicator(),
                         ),
                       ]),
                 );
@@ -317,9 +311,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true, // Activar la reproducción automática
+            autoPlay: true,
             autoPlayInterval:
-                const Duration(seconds: 3), // Intervalo entre cambios de imagen
+                const Duration(seconds: 3),
           ),
           items: imageList
               .map((item) => Center(

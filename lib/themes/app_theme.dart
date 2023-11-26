@@ -33,9 +33,9 @@ class AppTheme{
     dividerColor: Colors.white,
     checkboxTheme: CheckboxThemeData(
       checkColor: MaterialStateProperty.all(Colors.white), 
-      fillColor: MaterialStateProperty.all(Colors.white), // Color de fondo del checkbox
-      overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.1)), // Color del overlay al presionar
-      side: const BorderSide(color: Colors.white), // Color del borde del checkbox
+      fillColor: MaterialStateProperty.all(Colors.white),
+      overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.1)),
+      side: const BorderSide(color: Colors.white),
     ),
     listTileTheme: const ListTileThemeData(
       textColor: Colors.white,

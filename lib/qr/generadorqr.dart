@@ -9,7 +9,6 @@ class GeneradorQR extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          // ignore: prefer_const_constructors
           title: Text('Generador de QR'),
         ),
         body: Center(

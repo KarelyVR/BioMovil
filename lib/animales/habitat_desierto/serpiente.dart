@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_serpiente.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -34,21 +32,21 @@ final List<String> menuItems = [
 
 class _SerpienteState extends State<Serpiente> {
   final APISerpiente _animalAPI =
-      APISerpiente(); // Instancia de la clase AnimalAPI
+      APISerpiente();
   Map<String, dynamic> SerpienteInfo =
-      {}; // Almacenará los datos del tucán desde la API
+      {};
 
   @override
   void initState() {
     super.initState();
-    fetchSerpienteInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    fetchSerpienteInfo();
   }
 
   void fetchSerpienteInfo() async {
     var info =
-        await _animalAPI.fetchSerpienteData(); // Llama al método de la API
+        await _animalAPI.fetchSerpienteData();
     setState(() {
-      SerpienteInfo = info; // Actualiza los datos del tucán en el estado
+      SerpienteInfo = info;
     });
   }
 
@@ -84,7 +82,7 @@ class _SerpienteState extends State<Serpiente> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(), //carrusel
+                const FullScreenSlider(),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -94,9 +92,8 @@ class _SerpienteState extends State<Serpiente> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, //separa los iconos
+                          MainAxisAlignment.spaceBetween,
                       children: [
-                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -124,7 +121,6 @@ class _SerpienteState extends State<Serpiente> {
                             ),
                           ),
                         ),
-                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -165,7 +161,6 @@ class _SerpienteState extends State<Serpiente> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -180,7 +175,6 @@ class _SerpienteState extends State<Serpiente> {
                             ),
                           ),
                         ),
-                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -191,7 +185,6 @@ class _SerpienteState extends State<Serpiente> {
                           ),
                           height: 40,
                           width: double.infinity,
-                          //boton para escuchar el sonido del animal
                           child: ElevatedButton(
                             child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
@@ -205,7 +198,7 @@ class _SerpienteState extends State<Serpiente> {
                             vertical: 12,
                           ),
                           child: SerpienteInfo
-                                  .isNotEmpty // Verifica si los datos están presentes
+                                  .isNotEmpty
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -269,7 +262,7 @@ class _SerpienteState extends State<Serpiente> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : CircularProgressIndicator(),
                         ),
                       ]),
                 );
@@ -319,9 +312,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true, // Activar la reproducción automática
+            autoPlay: true,
             autoPlayInterval:
-                const Duration(seconds: 3), // Intervalo entre cambios de imagen
+                const Duration(seconds: 3),
           ),
           items: imageList
               .map((item) => Center(

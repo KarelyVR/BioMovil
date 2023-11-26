@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/animales/habitat_desierto/camello.dart';
 import 'package:biomovil/animales/habitat_desierto/coyote.dart';
 import 'package:biomovil/animales/habitat_desierto/liebre.dart';
@@ -88,7 +86,6 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(

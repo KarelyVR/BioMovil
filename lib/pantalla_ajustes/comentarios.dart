@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +23,6 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   final TextEditingController _feedbackController = TextEditingController();
-  // String _confirmationMessage = '';
 
   Future<void> _onBackPressed() async {
     Navigator.of(context).pushReplacement(
@@ -107,25 +104,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 },
                 child: const Text('Enviar'),
               ),
-              // ElevatedButton(
-              //   onPressed: () {
-                  
-                  // Future.delayed(const Duration(seconds: 2), () {
-                  //   setState(() {
-                  //     _confirmationMessage = 'Se ha enviado exitosamente';
-                  //   });
-                  // });
-              //   },
-              //   child: const Text('Enviar'),
-              // ),
               const SizedBox(height: 10.0),
-              // Text(
-              //   _confirmationMessage,
-              //   style: const TextStyle(
-              //     color: Colors.green,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
             ],
           ),
         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_field, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, avoid_print
+
 
 import 'dart:async';
 import 'package:biomovil/animales/habitat_desierto/camello.dart';
@@ -51,19 +51,7 @@ class _UbicacionCamelloState extends State<UbicacionCamello> {
 
     GoogleMapController googleMapController = await _controller.future;
 
-    // location.onLocationChanged.listen((newLoc) {
-    //   currentLocation = newLoc;
-    //   googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-    //     CameraPosition(
-    //       zoom: 15.5,
-    //       target: LatLng(
-    //         newLoc.latitude!,
-    //         newLoc.longitude!,
-    //       )
-    //     )
-    //   ));
-    //   setState(() {});
-    // });
+
   }
 
   Future<void> getPolyPoints() async {
@@ -109,7 +97,7 @@ class _UbicacionCamelloState extends State<UbicacionCamello> {
   @override
   void initState() {
     super.initState();
-    _initializeData(); // Llama a una función para iniciar la obtención de ubicación y puntos polilínea.
+    _initializeData();
   }
 
   Future<void> _initializeData() async {
@@ -152,7 +140,6 @@ class _UbicacionCamelloState extends State<UbicacionCamello> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(
@@ -212,7 +199,7 @@ class _UbicacionCamelloState extends State<UbicacionCamello> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: CustomContainer(), // Agrega el contenedor personalizado
+            child: CustomContainer(),
           ),
           ],
       ),
@@ -225,7 +212,7 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-  height: MediaQuery.of(context).size.height * 0.3, // El 40% de la pantalla
+  height: MediaQuery.of(context).size.height * 0.3,
   decoration: BoxDecoration(
     color: Colors.white,
     borderRadius: const BorderRadius.only(
@@ -234,10 +221,10 @@ class CustomContainer extends StatelessWidget {
     ),
     boxShadow: [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.5), // Color de la sombra
-        spreadRadius: 5, // Radio de propagación de la sombra
-        blurRadius: 7, // Radio de desenfoque de la sombra
-        offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+        color: Colors.grey.withOpacity(0.5),
+        spreadRadius: 5,
+        blurRadius: 7,
+        offset: const Offset(0, 3),
       ),
     ],
   ),
@@ -253,26 +240,26 @@ class CustomContainer extends StatelessWidget {
       ),
       const SizedBox(height: 20),
       Container(
-        width: 100, // Ancho del círculo
-        height: 100, // Alto del círculo
+        width: 100,
+        height: 100,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: Colors.black, // Color del borde (negro)
-            width: 4, // Ancho del borde (ajusta según tus preferencias)
+            color: Colors.black,
+            width: 4,
           ),
           boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5), // Color de la sombra
-                spreadRadius: 5, // Radio de propagación de la sombra
-                blurRadius: 7, // Radio de desenfoque de la sombra
-                offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
               ),
             ],
         ),
         child: const CircleAvatar(
-          radius: 48, // Radio del círculo interno
-          backgroundColor: Colors.transparent, // Fondo transparente para que el borde sea visible
+          radius: 48,
+          backgroundColor: Colors.transparent,
           backgroundImage: AssetImage('assets/animales/desierto/camello.jpg'),
         ),
       ),

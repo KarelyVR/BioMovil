@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
@@ -83,7 +81,6 @@ class Locations {
 Future<Locations> getGoogleOffices() async {
   const googleLocationsURL = 'https://about.google/static/data/locations.json';
 
-  // Retrieve the locations of Google offices
   try {
     final response = await http.get(Uri.parse(googleLocationsURL));
     if (response.statusCode == 200) {
@@ -93,7 +90,6 @@ Future<Locations> getGoogleOffices() async {
     print(e);
   }
 
-  // Fallback for when the above HTTP request fails.
   return Locations.fromJson(
     json.decode(
       await rootBundle.loadString('assets/locations.json'),

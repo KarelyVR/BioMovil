@@ -1,17 +1,15 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 Widget buildImageCell(String imagePath) {
   return Container(
-    margin: const EdgeInsets.all(8.0), // Margen entre las celdas de imagen
+    margin: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8.0), // Borde redondeado
+      borderRadius: BorderRadius.circular(8.0),
       boxShadow: [
         BoxShadow(
-          color: Colors.grey.withOpacity(0.5), // Sombra
+          color: Colors.grey.withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
           offset: const Offset(0, 3),
@@ -22,7 +20,7 @@ Widget buildImageCell(String imagePath) {
       borderRadius: BorderRadius.circular(8.0),
       child: Image.asset(
         imagePath,
-        fit: BoxFit.cover, // Ajusta la imagen al tamaño de la celda
+        fit: BoxFit.cover,
       ),
     ),
   );
@@ -82,7 +80,7 @@ class Itinerario extends StatelessWidget {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
+
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(
@@ -121,8 +119,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '9:00 am - 10:00 am',
                           textAlign: TextAlign.center,
@@ -145,8 +143,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '10:00 am - 12:00 pm',
                           textAlign: TextAlign.center,
@@ -169,8 +167,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '2:00 pm - 3:00 pm',
                           textAlign: TextAlign.center,
@@ -193,8 +191,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '3:00 pm - 5:00 pm',
                           textAlign: TextAlign.center,
@@ -223,8 +221,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '9:00 am - 10:00 am',
                           textAlign: TextAlign.center,
@@ -247,8 +245,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '10:00 am - 12:00 pm',
                           textAlign: TextAlign.center,
@@ -271,8 +269,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '2:00 pm - 3:00 pm',
                           textAlign: TextAlign.center,
@@ -295,8 +293,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '3:00 pm - 5:00 pm',
                           textAlign: TextAlign.center,
@@ -324,8 +322,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '9:00 am - 10:00 am',
                           textAlign: TextAlign.center,
@@ -348,8 +346,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '10:00 am - 12:00 pm',
                           textAlign: TextAlign.center,
@@ -372,8 +370,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '2:00 pm - 3:00 pm',
                           textAlign: TextAlign.center,
@@ -396,8 +394,8 @@ class Itinerario extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time_outlined), // Agrega aquí el icono que desees
-                        SizedBox(width: 8), // Añade un espacio entre el icono y el texto
+                        Icon(Icons.access_time_outlined),
+                        SizedBox(width: 8),
                         Text(
                           '3:00 pm - 5:00 pm',
                           textAlign: TextAlign.center,

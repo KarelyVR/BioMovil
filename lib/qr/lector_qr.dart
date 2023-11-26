@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api
-
 import 'package:biomovil/articulos/pangolin.dart';
 import 'package:biomovil/articulos/pez_matusalen.dart';
 import 'package:biomovil/articulos/tarantula.dart';
@@ -19,21 +17,21 @@ class LectorCQR extends StatelessWidget {
 
   void configureRoutes() {
     router.define(
-      '/articulo-1-pangolin', //pantalla pangolin
+      '/articulo-1-pangolin',
       handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, dynamic> params) => Pangolin(),
       ),
     );
 
     router.define(
-      '/articulo-2-matusalem', //pantalla pez
+      '/articulo-2-matusalem',
       handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, dynamic> params) => PezMatusalem(),
       ),
     );
 
     router.define(
-      '/articulo-3-tarantula', //pantalla tarantula
+      '/articulo-3-tarantula',
       handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, dynamic> params) => Tarantula(),
       ),
@@ -112,7 +110,6 @@ class _QRScreenState extends State<QRScreen> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(
@@ -136,7 +133,6 @@ class _QRScreenState extends State<QRScreen> {
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
-          // Text('Dirigirse a: $scannedData'),
         ],
       ),
     );
@@ -208,7 +204,6 @@ class _QRScreenState extends State<QRScreen> {
         isScanned = false;
         scannedData = '';
       });
-      // Habilitar la lectura del QR nuevamente
       controller.resumeCamera();
     }
 

@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
-
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
@@ -18,7 +16,7 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreenState extends State<SelectionScreen> {
   List<String> availableZones = ['Tropical', 'Sabana', 'Desierto'];
-  String selectedZone = 'Tropical'; // Valor predeterminado
+  String selectedZone = 'Tropical';
 
   Map<String, List<String>> animalsByZone = {
     'Tropical': ['Mandrill', 'Tucán', 'Puma', 'Tigre'],
@@ -52,7 +50,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Reiniciar el contenido de la página anterior
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -85,10 +82,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 onPressed: () async {
                   setState(() {
                     loading = true;
-                    // Combina las listas de animales y paradas seleccionadas
                     selectedPoints = [...selectedAnimals, ...selectedStops];
                   });
-                  await Future.delayed(const Duration(seconds: 2)); // Simular carga
+                  await Future.delayed(const Duration(seconds: 2));
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -149,7 +145,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
         ),
         ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(), // Deshabilitar el desplazamiento para la lista interna
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];

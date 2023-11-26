@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
 import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
 import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
@@ -9,7 +7,6 @@ import 'package:biomovil/themes/theme_provider.dart';
 import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:provider/provider.dart';
 
 void main() {
   runApp(
@@ -49,7 +46,6 @@ class Ajustes extends HookConsumerWidget {
     final appThemeState = ref.watch(appThemeStateNotifier);
     bool notificationsEnabled = false;
     bool locationAccessEnabled = true;
-    // bool darkModeEnabled = false;
 
     return MaterialApp(
       theme: AppTheme.lightTheme,
@@ -163,31 +159,6 @@ class Ajustes extends HookConsumerWidget {
                       color: Color.fromARGB(255, 194, 189, 189),
                       thickness: 2.0,
                     ),
-                    //modo oscuro
-                    // ListTile(
-                    //   title: Row(
-                    //     children: [
-                    //       Padding(
-                    //         padding: const EdgeInsets.only(right: 16.0),
-                    //         child: Text(
-                    //           'Modo oscuro',
-                    //           style: Theme.of(context)
-                    //               .textTheme
-                    //               .bodyMedium
-                    //               ?.copyWith(
-                    //                 fontWeight: FontWeight.bold,
-                    //               ),
-                    //         ),
-                    //       ),
-                    //       const Spacer(),
-                    //       const DarkModeSwitch(),
-                    //     ],
-                    //   ),
-                    // ),
-                    // const Divider(
-                    //   color: Color.fromARGB(255, 194, 189, 189),
-                    //   thickness: 2.0,
-                    // ),
                     ListTile(
                       title: Row(
                         children: [

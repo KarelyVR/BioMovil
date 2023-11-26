@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/animales/habitat_sabana/leon.dart';
 import 'package:biomovil/animales/habitat_sabana/jirafa.dart';
 import 'package:biomovil/animales/habitat_sabana/elefante.dart';
@@ -87,7 +85,6 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(

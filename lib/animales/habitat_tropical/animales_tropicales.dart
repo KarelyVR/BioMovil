@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:biomovil/animales/habitat_tropical/mandrill.dart';
 import 'package:biomovil/animales/habitat_tropical/puma.dart';
 import 'package:biomovil/animales/habitat_tropical/tigre.dart';
@@ -87,7 +85,6 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
-                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(
