@@ -4,7 +4,7 @@ import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:flutter/material.dart';
 
 class MyDropdownMenu extends StatelessWidget {
@@ -97,7 +97,7 @@ class NavigationDrawer extends StatelessWidget {
           title: const Text('Recorridos'),
           onTap: ()=>
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const RouteMap(),
+            builder: (context)=>const SelectionScreen(initialSelectedAnimals: [],),
             )),
         ),
         ListTile(
@@ -153,7 +153,7 @@ runApp(MaterialApp(
     '/pagina_principal': (context) => const PaginaPrincipal(),
     '/menu_habitats': (context) => MenuHabitats(),
     '/lector_qr': (context) => LectorCQR(),
-    '/recorridos': (context) => const RouteMap(),
+    '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
     '/ajustes': (context) => const Ajustes(),
   },
 ));

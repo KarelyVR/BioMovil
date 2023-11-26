@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
@@ -21,13 +21,6 @@ void main() {
     ),
   );
 }
-
-// class Ajustes extends StatefulWidget {
-//   const Ajustes({super.key});
-
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
 
 class Ajustes extends HookConsumerWidget {
   const Ajustes({Key? key}) : super(key: key);
@@ -124,30 +117,13 @@ class Ajustes extends HookConsumerWidget {
                             ),
                           ),
                           const Spacer(),
-                          Switch(
-                            value: notificationsEnabled,
-                            onChanged: (value) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Función en desarrollo'),
-                                    content: const Text(
-                                        'La función de Notificaciones actualmente se encuentra en desarrollo.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            activeColor: Colors.green,
-                          ),
+                         Switch(
+                          value: notificationsEnabled,
+                          onChanged: (value) {
+                            
+                          },
+                          activeColor: Colors.green,
+                        ),
                         ],
                       ),
                     ),

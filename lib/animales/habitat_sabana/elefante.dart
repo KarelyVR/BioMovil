@@ -1,13 +1,13 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_elefante.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/themes/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class _ElefanteState extends State<Elefante> {
   final APIElefante _animalAPI =
       APIElefante(); // Instancia de la clase AnimalAPI
   Map<String, dynamic> ElefanteInfo =
-      {}; // Almacenará los datos del tucán desde la API
+      {}; // Almacenará los datos del elefante desde la API
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _ElefanteState extends State<Elefante> {
     var info =
         await _animalAPI.fetchElefanteData(); // Llama al método de la API
     setState(() {
-      ElefanteInfo = info; // Actualiza los datos del tucán en el estado
+      ElefanteInfo = info; // Actualiza los datos del elefante en el estado
     });
   }
 
@@ -61,7 +61,7 @@ class _ElefanteState extends State<Elefante> {
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const RouteMap(),
+        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
         '/ajustes': (context) => const Ajustes(),
       },
     ));

@@ -1,11 +1,19 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, unused_local_variable, unused_element, unnecessary_import, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:math' show atan2, cos, pi, sin, sqrt;
+import 'dart:typed_data';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'dart:ui' as ui;
 
 class Polyline1 extends StatefulWidget {
+  final List<String> selectedPoints;
+
+  const Polyline1({required this.selectedPoints});
 
   @override
   State<Polyline1> createState() => _Polyline1State();
@@ -14,59 +22,191 @@ class Polyline1 extends StatefulWidget {
 class _Polyline1State extends State<Polyline1> {
 
   final Completer<GoogleMapController> _controller = Completer();
- 
 
   static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(25.725098328491715, -100.31325851892379),
     zoom: 15
   );
 
-  final Set<Marker> myMarker = {};
-  final Set<Polyline> _myPolyline = {};
 
-  List<LatLng> myPoints = [
-    const LatLng(25.723530728639723, -100.31588996140242), //camello
-    const LatLng(25.72581541820319, -100.31675433366625), //coyote
-    const LatLng(25.727651953561082, -100.31438138720091), //liebre
-    const LatLng(25.727174457104127, -100.31289727633997), //serpiente
-    const LatLng(25.729454, -100.307161), //avestruz
-    const LatLng(25.72504406489367, -100.31162518132197), //elefante
-    const LatLng(25.72816844513416, -100.31069607636253), //jirafa
-    const LatLng(25.72093772888926, -100.31371467851994), //leon
-    const LatLng(25.719376595627796, -100.31620581883989), //mandrill
-    const LatLng(25.718871429419682, -100.3109417424927), //puma
-    const LatLng(25.71322673037063, -100.31614316051954), //tigre
-    const LatLng(25.724133513174035, -100.31064160106247) //tucan
+  Uint8List? markerImage;
+
+  List<String> images = [
+    'assets/mandrill-marker.png',
+    'assets/tucan-marker.png',
+    'assets/puma-marker.png',
+    'assets/tigre-marker.png',
+    'assets/leon-marker.png',
+    'assets/jirafa-marker.png',
+    'assets/elefante-marker.png',
+    'assets/avestruz-marker.png',
+    'assets/baños.png',
+    'assets/evento.png',
+    'assets/baños.png',
+    'assets/restaurante.png',
+    'assets/baños.png',
+    'assets/liebre-marker.png',
+    'assets/evento.png',
+    'assets/serpiente-marker.png',
+    'assets/baños.png',
+    'assets/coyote-marker.png',
+    'assets/camello-marker.png',
   ];
+
+  // final Set<Marker> myMarker = {};
+  final Set<Polyline> _myPolyline = {};
+  final List<Marker> _markers = <Marker>[];
+
+//area delimitada del parque
+  List<LatLng> polygonPoints = const [
+    LatLng(25.728501691054486, -100.316870949178),
+    LatLng(25.730742305833193, -100.30665829150674),
+    LatLng(25.711140128124455, -100.31325762086122),
+    LatLng(25.708729370822947, -100.3166869634741),
+
+  ];
+
+//puntos en el marcador
+  List<LatLng> myPoints = const [
+     LatLng(25.72670021620236, -100.3158501262181), //mandrill
+     LatLng(25.72855225173869, -100.31517131278758), //tucan
+     LatLng(25.727853373793153, -100.3134063978682), //puma
+     LatLng(25.726906886537034, -100.31486868597997), //tigre
+     LatLng(25.729349114116648, -100.31149812513222), //leon
+     LatLng(25.72949906812703, -100.31009438412333), //jirafa
+     LatLng(25.730165206212476, -100.30855117545211), //elefante
+     LatLng(25.728557779673796, -100.30768312058856), //avestruz
+     LatLng(25.726733581232182, -100.31089508250031),//baño 1
+     LatLng(25.726656258522873, -100.31216108502232),//evento 1
+     LatLng(25.726772242567968, -100.31355583356353),//baño 2
+     LatLng(25.722403431958984, -100.31188213521487),//restaurante
+     LatLng(25.719600349564967, -100.3110238284203),//baño 3
+     LatLng(25.71765852555807, -100.31222692388545),//liebre
+     LatLng(25.71731917169152, -100.31402790220135),//evento 2
+     LatLng(25.714664864571322, -100.31365430904526),//serpiente
+     LatLng(25.71465129800604, -100.31653844957549),//baño 4
+     LatLng(25.71886018518749, -100.31468389834086),//coyote
+     LatLng(25.720905086852873, -100.31508169420816), //camello
+  ];
+
+//lista de nombres de animales mostradas en infoWindow de marker
+  List<String> animalNames = [
+    'Mandrill',
+    'Tucán',
+    'Puma',
+    'Tigre',
+    'León',
+    'Jirafa',
+    'Elefante',
+    'Avestruz',
+    'Baños',
+    'Salón de eventos 1',
+    'Baños',
+    'Area de restaurantes',
+    'Baños',
+    'Liebre',
+    'Salón de eventos 2',
+    'Serpiente',
+    'Baños',
+    'Coyote',
+    'Camello',
+  ];
+
+//lista de las imagenes de los marcadores
+  Future<Uint8List> getBytesFromAssets(String path, int width) async{
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),targetHeight: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+  }
 
   @override
   void initState(){
     super.initState();
     //packData();
+    loadData();
+  }
 
-    for(int a = 0; a<myPoints.length;a++){
-      myMarker.add(
+  //marcadores de animales
+  loadData() async{
+   for(int i=0; i< myPoints.length; i++){
+      final Uint8List markerIcon = await getBytesFromAssets(images[i], 100);
+      _markers.add(
         Marker(
-          markerId: MarkerId(a.toString()),
-          position: myPoints[a],
-          infoWindow: const InfoWindow(
-            title: 'Bioparque Estrella',
-            snippet: '10 de 10 estrellas'
+          markerId: MarkerId(i.toString()),
+          position: myPoints[i],
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          infoWindow: InfoWindow(
+            title: animalNames[i]
+          )
+        )
+      );
+      setState(() {
+        
+      });
+    }
+    
+    final animalCoordinates = {
+    'Mandrill': const LatLng(25.72670021620236, -100.3158501262181),
+    'Tucán': const LatLng(25.72855225173869, -100.31517131278758),
+    'Puma': const LatLng(25.727853373793153, -100.3134063978682),
+    'Tigre': const LatLng(25.726906886537034, -100.31486868597997),
+    'León': const LatLng(25.729349114116648, -100.31149812513222),
+    'Jirafa': const LatLng(25.72949906812703, -100.31009438412333),
+    'Elefante': const LatLng(25.730165206212476, -100.30855117545211),
+    'Avestruz': const LatLng(25.728557779673796, -100.30768312058856),
+    'Baño 1': const LatLng(25.726733581232182, -100.31089508250031),
+    'Evento 1': const LatLng(25.726656258522873, -100.31216108502232),
+    'Baño 2': const LatLng(25.726772242567968, -100.31355583356353),
+    'Restaurante': const LatLng(25.722403431958984, -100.31188213521487),
+    'Baño 3': const LatLng(25.719600349564967, -100.3110238284203),
+    'Liebre': const LatLng(25.71765852555807, -100.31222692388545),
+    'Evento 2': const LatLng(25.71731917169152, -100.31402790220135),
+    'Serpiente': const LatLng(25.714664864571322, -100.31365430904526),
+    'Baño 4': const LatLng(25.71465129800604, -100.31653844957549),
+    'Coyote': const LatLng(25.71886018518749, -100.31468389834086),
+    'Camello': const LatLng(25.720905086852873, -100.31508169420816),
+  };
+
+
+// Add polylines for the selected animals
+    for (int i = 0; i < widget.selectedPoints.length - 1; i++) {
+      String animal1 = widget.selectedPoints[i];
+      String animal2 = widget.selectedPoints[i + 1];
+
+      if (animalCoordinates.containsKey(animal1) && animalCoordinates.containsKey(animal2)) {
+        _myPolyline.add(
+          Polyline(
+            polylineId: PolylineId('$animal1-$animal2'),
+            points: [animalCoordinates[animal1]!, animalCoordinates[animal2]!],
+            color: Colors.purple,
           ),
-          icon: BitmapDescriptor.defaultMarker,
-        ),
-      );
-
-      setState(() {});
-
-      _myPolyline.add(
-        Polyline(polylineId: const PolylineId('Primero'),
-        points: myPoints,
-        color: Colors.cyan
-        ),
-      );
+        );
+      }
     }
   }
+
+  double calculateDistance(LatLng punto1, LatLng punto2) {
+    const double radioTierra = 6371.0; // Radio de la Tierra en kilómetros
+
+    double latitud1 = punto1.latitude * (pi / 180.0);
+    double longitud1 = punto1.longitude * (pi / 180.0);
+    double latitud2 = punto2.latitude * (pi / 180.0);
+    double longitud2 = punto2.longitude * (pi / 180.0);
+
+    double dLatitud = latitud2 - latitud1;
+    double dLongitud = longitud2 - longitud1;
+
+    double a = sin(dLatitud / 2) * sin(dLatitud / 2) +
+        cos(latitud1) * cos(latitud2) * sin(dLongitud / 2) * sin(dLongitud / 2);
+
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    double distancia = radioTierra * c;
+
+    return distancia;
+  }
+     
 
   //Encontrar ubicacion actual
   Future<Position> getUserLocation() async{
@@ -77,11 +217,12 @@ class _Polyline1State extends State<Polyline1> {
     return await Geolocator.getCurrentPosition();
   }
 
+//boton para ir a ubicacion actual
   packData(){
     getUserLocation().then((value)async{
       print('Mi ubicacion');
       print('${value.latitude} ${value.longitude}');
-      myMarker.add(
+      _markers.add(
         Marker(
           markerId: const MarkerId('Actual'),
           position: LatLng(value.latitude, value.longitude),
@@ -100,26 +241,49 @@ class _Polyline1State extends State<Polyline1> {
     });
   }
 
+//diseño de pagina
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mis rutas'),
+        title: const Text('Personaliza tu ruta'),
         centerTitle: true,
         backgroundColor: Colors.green,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            // Reiniciar el contenido de la página anterior
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>const SelectionScreen(initialSelectedAnimals: [],),
+              ),
+            );
+          },
+        ),
       ),
+      //mapa de google maps
       body: SafeArea(
         child: GoogleMap(
           initialCameraPosition: _initialPosition,
           mapType: MapType.normal,
-          markers: myMarker,
+          markers: Set<Marker>.of(_markers),
           polylines: _myPolyline,
+          polygons: {
+            Polygon(
+              polygonId: const PolygonId("1"),
+              points: polygonPoints,
+              fillColor: const Color(0xFF7A7A7A).withOpacity(0.2),
+              strokeWidth: 2,
+            ),
+          },
           onMapCreated: (GoogleMapController controller)
           {
             _controller.complete(controller);
           },
         ), 
       ),
+      //boton flotante de ubicacion actual
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pink,
         onPressed: ()
@@ -131,4 +295,5 @@ class _Polyline1State extends State<Polyline1> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
+
 }

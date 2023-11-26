@@ -3,11 +3,11 @@
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_avestruz.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:biomovil/themes/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class _AvestruzState extends State<Avestruz> {
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const RouteMap(),
+        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
         '/ajustes': (context) => const Ajustes(),
       },
     ));

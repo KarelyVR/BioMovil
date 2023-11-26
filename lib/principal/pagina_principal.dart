@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names
 
 import 'package:biomovil/principal/mas_informacion.dart';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
 // import 'package:biomovil/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
-import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:biomovil/themes/app_theme.dart';
@@ -33,7 +33,7 @@ class PaginaPrincipal extends HookConsumerWidget {
       home: const MainScreen(),
       routes: {
         '/menu_habitats': (context) => MenuHabitats(),
-        '/recorridos_ubicacion': (context) => Polyline1(),
+        '/recorridos_ubicacion': (context) =>  const SelectionScreen(initialSelectedAnimals: [],),
         '/galeria_imagenes': (context) => const Galeria(),
         '/lector_qr': (context) =>  LectorCQR(),
         '/menu_articulos': (context) =>  MenuArticulos(),
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
     const PantallaInicioWidget(),
     MenuHabitats(),
     const Text('Ubicación de Animales'), 
-    const RouteMap(),
+    const SelectionScreen(initialSelectedAnimals: [],),
     const Galeria(), 
     Itinerario(),
     MenuArticulos(),

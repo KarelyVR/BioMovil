@@ -3,8 +3,8 @@
 //import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
+import 'package:biomovil/recorridos/nuevo-recorrido.dart';
 //import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/recorridos_ubicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
@@ -20,7 +20,7 @@ void main() {
       //'/pagina_principal': (context) => const PaginaPrincipal(),
       '/menu_habitats': (context) => MenuHabitats(),
       //'/lector_qr': (context) =>  LectorCQR(),
-      '/recorridos': (context) => const RouteMap(),
+      '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
       '/ajustes': (context) => const Ajustes(),
     },
   ));
