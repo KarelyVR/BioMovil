@@ -1,5 +1,6 @@
 import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
+import 'package:biomovil/pantalla_ajustes/notificaciones/home_page.dart';
 import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
@@ -35,17 +36,23 @@ class Ajustes extends HookConsumerWidget {
     return await Geolocator.getCurrentPosition();
   }
 
-  void getCurrentLocation() async {
-    Position position = await determinePosition();
-    print(position.altitude);
-    print(position.latitude);
+  Future<void> getCurrentLocation() async {
+    ValueNotifier<bool> locationAccessEnabled = ValueNotifier<bool>(false);
+    Position position;
+    try {
+      position = await determinePosition();
+      print(position.altitude);
+      print(position.latitude);
+      locationAccessEnabled.value = true;
+    } catch (e) {
+      print("Error: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appThemeState = ref.watch(appThemeStateNotifier);
-    bool notificationsEnabled = false;
-    bool locationAccessEnabled = true;
+    bool locationAccessEnabled = false;
 
     return MaterialApp(
       theme: AppTheme.lightTheme,
@@ -97,36 +104,6 @@ class Ajustes extends HookConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListView(
                   children: [
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 50.0),
-                            child: Text(
-                              'Notificaciones',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          const Spacer(),
-                         Switch(
-                          value: notificationsEnabled,
-                          onChanged: (value) {
-                            
-                          },
-                          activeColor: Colors.green,
-                        ),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Color.fromARGB(255, 194, 189, 189),
-                      thickness: 2.0,
-                    ),
                     ListTile(
                       title: Row(
                         children: [
@@ -183,6 +160,37 @@ class Ajustes extends HookConsumerWidget {
                           MaterialPageRoute(
                             builder: (context) => const Comentarios(),
                           ),
+                        );
+                      },
+                    ),
+                    const Divider(
+                      color: Color.fromARGB(255, 194, 189, 189),
+                      thickness: 2.0,
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Text(
+                              'Notificaciones',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MyHomePage(title: 'Notificaciones')),
                         );
                       },
                     ),
