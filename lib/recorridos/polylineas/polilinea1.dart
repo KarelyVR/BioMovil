@@ -175,34 +175,8 @@ class _Polyline1State extends State<Polyline1> {
       }
     }
   }
-<<<<<<< Updated upstream
-
-  double calculateDistance(LatLng punto1, LatLng punto2) {
-    const double radioTierra = 6371.0;
-
-    double latitud1 = punto1.latitude * (pi / 180.0);
-    double longitud1 = punto1.longitude * (pi / 180.0);
-    double latitud2 = punto2.latitude * (pi / 180.0);
-    double longitud2 = punto2.longitude * (pi / 180.0);
-
-    double dLatitud = latitud2 - latitud1;
-    double dLongitud = longitud2 - longitud1;
-
-    double a = sin(dLatitud / 2) * sin(dLatitud / 2) +
-        cos(latitud1) * cos(latitud2) * sin(dLongitud / 2) * sin(dLongitud / 2);
-
-    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-    double distancia = radioTierra * c;
-
-    return distancia;
-  }
-     
-
-=======
     
   //Encontrar ubicacion actual
->>>>>>> Stashed changes
   Future<Position> getUserLocation() async{
     await Geolocator.requestPermission().then((value)
     {}).onError((error, stackTrace) {

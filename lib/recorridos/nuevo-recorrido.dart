@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
@@ -16,12 +18,8 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreenState extends State<SelectionScreen> {
   List<String> availableZones = ['Tropical', 'Sabana', 'Desierto'];
-<<<<<<< Updated upstream
-  String selectedZone = 'Tropical';
-=======
   String selectedZone = 'Tropical'; // Valor predeterminado
   
->>>>>>> Stashed changes
 
   Map<String, List<String>> animalsByZone = {
     'Tropical': ['Mandrill', 'Tucán', 'Puma', 'Tigre'],
@@ -182,32 +180,6 @@ Widget buildZoneSelection() {
           title,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-<<<<<<< Updated upstream
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
-            return CheckboxListTile(
-              title: Text(item),
-              value: selectedItems.contains(item),
-              onChanged: (value) {
-                setState(() {
-                  if (value!) {
-                    selectedItems.add(item);
-                  } else {
-                    selectedItems.remove(item);
-                  }
-                });
-              },
-            );
-          },
-        ),
-      ],
-    );
-  }
-=======
       ),
       ListView.builder(
         shrinkWrap: true,
@@ -236,5 +208,4 @@ Widget buildZoneSelection() {
 
 
 
->>>>>>> Stashed changes
 }
