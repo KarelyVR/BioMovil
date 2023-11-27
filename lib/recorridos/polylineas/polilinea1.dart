@@ -175,6 +175,7 @@ class _Polyline1State extends State<Polyline1> {
       }
     }
   }
+<<<<<<< Updated upstream
 
   double calculateDistance(LatLng punto1, LatLng punto2) {
     const double radioTierra = 6371.0;
@@ -198,6 +199,10 @@ class _Polyline1State extends State<Polyline1> {
   }
      
 
+=======
+    
+  //Encontrar ubicacion actual
+>>>>>>> Stashed changes
   Future<Position> getUserLocation() async{
     await Geolocator.requestPermission().then((value)
     {}).onError((error, stackTrace) {

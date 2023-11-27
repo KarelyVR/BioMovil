@@ -16,7 +16,12 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreenState extends State<SelectionScreen> {
   List<String> availableZones = ['Tropical', 'Sabana', 'Desierto'];
+<<<<<<< Updated upstream
   String selectedZone = 'Tropical';
+=======
+  String selectedZone = 'Tropical'; // Valor predeterminado
+  
+>>>>>>> Stashed changes
 
   Map<String, List<String>> animalsByZone = {
     'Tropical': ['Mandrill', 'Tucán', 'Puma', 'Tigre'],
@@ -31,6 +36,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
   List<String> selectedStops = [];
 
   List<String> selectedPoints = [];
+
+List<String> combineAnimalLists(List<String> selectedZones) {
+  List<String> combinedList = [];
+
+  for (String zone in selectedZones) {
+    combinedList.addAll(animalsByZone[zone] ?? []);
+  }
+
+  return combinedList;
+}
+
+
 
   bool loading = false;
 
@@ -64,9 +81,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildZoneSelection(),
-            buildCheckList(
+           buildCheckList(
               '¿Qué animales quieres ver?',
-              animalsByZone[selectedZone] ?? [],
+              combineAnimalLists(selectedZone.split(', ')),
               selectedAnimals,
             ),
             buildCheckList(
@@ -102,47 +119,70 @@ class _SelectionScreenState extends State<SelectionScreen> {
     );
   }
 
-  Widget buildZoneSelection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            '¿Qué zona deseas visitar?',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+Widget buildZoneSelection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          '¿Qué zona deseas visitar?',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        if (availableZones.isNotEmpty)
-          DropdownButton<String>(
-            value: selectedZone,
-            onChanged: (value) {
-              setState(() {
-                selectedZone = value!;
-              });
-            },
-            items: availableZones.map((zone) {
-              return DropdownMenuItem<String>(
-                value: zone,
-                child: Text(zone),
-              );
-            }).toList(),
+      ),
+      DropdownButton<List<String>>(
+        onChanged: (selectedZones) {
+          setState(() {
+            if (selectedZones!.contains('Todas las zonas')) {
+              // Si 'Todas las zonas' está seleccionado, muestra todos los animales
+              selectedZone = availableZones.join(', '); // Muestra todas las zonas como una cadena separada por comas
+            } else {
+              selectedZone = selectedZones!.join(', '); // Muestra las zonas seleccionadas como una cadena separada por comas
+            }
+          });
+        },
+        items: [
+          DropdownMenuItem<List<String>>(
+            value: availableZones,
+            child: const Text('Todas las zonas'),
           ),
-      ],
-    );
-  }
+          ...availableZones.map((zone) {
+            return DropdownMenuItem<List<String>>(
+              value: [zone],
+              child: Text(zone),
+            );
+          }).toList(),
+          const DropdownMenuItem<List<String>>(
+            value: ['Tropical', 'Sabana'],
+            child: Text('Tropical + Sabana'),
+          ),
+          const DropdownMenuItem<List<String>>(
+            value: ['Desierto', 'Sabana'],
+            child: Text('Desierto + Sabana'),
+          ),
+          const DropdownMenuItem<List<String>>(
+            value: ['Tropical', 'Desierto'],
+            child: Text('Tropical + Desierto'),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+
 
   Widget buildCheckList(String title, List<String> items, List<String> selectedItems) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
+<<<<<<< Updated upstream
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -167,4 +207,34 @@ class _SelectionScreenState extends State<SelectionScreen> {
       ],
     );
   }
+=======
+      ),
+      ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return CheckboxListTile(
+            title: Text(item),
+            value: selectedItems.contains(item),
+            onChanged: (value) {
+              setState(() {
+                if (value!) {
+                  selectedItems.add(item);
+                } else {
+                  selectedItems.remove(item);
+                }
+              });
+            },
+          );
+        },
+      ),
+    ],
+  );
+}
+
+
+
+>>>>>>> Stashed changes
 }
