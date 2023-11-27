@@ -1,7 +1,7 @@
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_serpiente.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
-import 'package:biomovil/recorridos/nuevo-recorrido.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';

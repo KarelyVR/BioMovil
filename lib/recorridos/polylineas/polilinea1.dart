@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print, unnecessary_import
+
 import 'dart:async';
-import 'dart:math' show atan2, cos, pi, sin, sqrt;
 import 'dart:typed_data';
-import 'package:biomovil/recorridos/nuevo-recorrido.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,7 +12,7 @@ import 'dart:ui' as ui;
 class Polyline1 extends StatefulWidget {
   final List<String> selectedPoints;
 
-  const Polyline1({required this.selectedPoints});
+  const Polyline1({super.key, required this.selectedPoints});
 
   @override
   State<Polyline1> createState() => _Polyline1State();
@@ -146,15 +147,15 @@ class _Polyline1State extends State<Polyline1> {
     'Jirafa': const LatLng(25.72949906812703, -100.31009438412333),
     'Elefante': const LatLng(25.730165206212476, -100.30855117545211),
     'Avestruz': const LatLng(25.728557779673796, -100.30768312058856),
-    'Baño 1': const LatLng(25.726733581232182, -100.31089508250031),
+    // 'Baño 1': const LatLng(25.726733581232182, -100.31089508250031),
     'Evento 1': const LatLng(25.726656258522873, -100.31216108502232),
-    'Baño 2': const LatLng(25.726772242567968, -100.31355583356353),
+    // 'Baño 2': const LatLng(25.726772242567968, -100.31355583356353),
     'Restaurante': const LatLng(25.722403431958984, -100.31188213521487),
-    'Baño 3': const LatLng(25.719600349564967, -100.3110238284203),
+    // 'Baño 3': const LatLng(25.719600349564967, -100.3110238284203),
     'Liebre': const LatLng(25.71765852555807, -100.31222692388545),
     'Evento 2': const LatLng(25.71731917169152, -100.31402790220135),
     'Serpiente': const LatLng(25.714664864571322, -100.31365430904526),
-    'Baño 4': const LatLng(25.71465129800604, -100.31653844957549),
+    // 'Baño 4': const LatLng(25.71465129800604, -100.31653844957549),
     'Coyote': const LatLng(25.71886018518749, -100.31468389834086),
     'Camello': const LatLng(25.720905086852873, -100.31508169420816),
   };

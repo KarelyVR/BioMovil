@@ -2,7 +2,7 @@ import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/nuevo-recorrido.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:flutter/material.dart';
 
 class MyDropdownMenu extends StatelessWidget {

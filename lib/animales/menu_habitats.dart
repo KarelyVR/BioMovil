@@ -1,6 +1,6 @@
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/nuevo-recorrido.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';

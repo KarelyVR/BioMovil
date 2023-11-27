@@ -1,5 +1,5 @@
 import 'package:biomovil/principal/mas_informacion.dart';
-import 'package:biomovil/recorridos/nuevo-recorrido.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/articulos/menu_articulos.dart';
