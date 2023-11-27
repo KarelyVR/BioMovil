@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,31 @@ class Mapa extends StatefulWidget {
 
 class _MapaState extends State<Mapa> {
   double _zoomLevel = 1.0;
+  late ReceivePort _receivePort;
+
+  @override
+  void initState() {
+    super.initState();
+    _receivePort = ReceivePort();
+    _initIsolate();
+  }
+
+  void _initIsolate() async {
+    await Isolate.spawn(_isolateEntryPoint, _receivePort.sendPort);
+    _receivePort.listen((message) {
+      // Manejar mensajes desde el isolate (si es necesario)
+    });
+  }
+
+  static void _isolateEntryPoint(SendPort sendPort) {
+    final receivePort = ReceivePort();
+    sendPort.send(receivePort.sendPort);
+
+    receivePort.listen((message) {
+      // Realizar procesamiento en segundo plano aquí (si es necesario)
+      // sendPort.send(result); // Enviar resultado de vuelta al main isolate
+    });
+  }
 
   void _zoomIn() {
     setState(() {

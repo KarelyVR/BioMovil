@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/nuevo_recorrido.dart';
-import 'package:flutter/material.dart';
 
 class MyDropdownMenu extends StatelessWidget {
   final List<String> items;
@@ -47,73 +47,98 @@ class NavigationDrawer extends StatelessWidget {
     padding: EdgeInsets.only(
       top: MediaQuery.of(context).padding.top,
     ),
+    child: Column(
+      children: [
+        SizedBox(height: 16), // Espacio encima de la imagen
+        Image.asset(
+          'assets/bioparque.png',
+          fit: BoxFit.contain,
+          width: 200,
+          height: 100,
+        ),
+      ],
+    ),
   );
   Widget buildMenuItems(BuildContext context) => Container(
     padding: const EdgeInsets.all(24),
     child: Wrap(
       runSpacing: 16,
       children: [
+        const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.home_outlined),
           title: const Text('Pagina principal'),
-          onTap: ()=>
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const PaginaPrincipal(),
-            )),
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const PaginaPrincipal(),
+            ),
+          ),
         ),
+        const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.pets_outlined),
           title: const Text('Animales'),
-          onTap: ()=>
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=> MenuHabitats(),
-            )),
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => MenuHabitats(),
+            ),
+          ),
         ),
         const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.qr_code_2_outlined),
           title: const Text('Escanear QR'),
-          onTap: ()=>
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=> LectorCQR(),
-            )),
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => LectorCQR(),
+            ),
+          ),
         ),
+        const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.map_outlined),
           title: const Text('Recorridos'),
-          onTap: ()=>
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const SelectionScreen(initialSelectedAnimals: [],),
-            )),
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const SelectionScreen(
+                initialSelectedAnimals: [],
+              ),
+            ),
+          ),
         ),
+        const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.settings_applications_outlined),
           title: const Text('Ajustes'),
-          onTap: ()=>
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context)=>const Ajustes(),
-            )),
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const Ajustes(),
+            ),
+          ),
         ),
+        const Divider(color: Colors.black54),
       ],
     ),
   );
 }
 
 void main() {
-runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-  initialRoute: '/',
-  routes: {
-    '/': (context) => const MyAppAnimalesTropicales(),
-    '/pagina_principal': (context) => const PaginaPrincipal(),
-    '/menu_habitats': (context) => MenuHabitats(),
-    '/lector_qr': (context) => LectorCQR(),
-    '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
-    '/ajustes': (context) => const Ajustes(),
-  },
-));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyAppAnimalesTropicales(),
+        '/pagina_principal': (context) => const PaginaPrincipal(),
+        '/menu_habitats': (context) => MenuHabitats(),
+        '/lector_qr': (context) => LectorCQR(),
+        '/recorridos': (context) =>
+        const SelectionScreen(initialSelectedAnimals: []),
+        '/ajustes': (context) => const Ajustes(),
+      },
+    ),
+  );
 }
-
 
 class MyAppAnimalesTropicales extends StatefulWidget {
   const MyAppAnimalesTropicales({super.key});
@@ -123,7 +148,8 @@ class MyAppAnimalesTropicales extends StatefulWidget {
       _MyAppAnimalesTropicalesState();
 }
 
-class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
+class _MyAppAnimalesTropicalesState
+    extends State<MyAppAnimalesTropicales> {
   final List<TropicalCardData> cardData = [
     TropicalCardData("Tucan", "assets/tucan.jpg"),
     TropicalCardData("Mandrill", "assets/mandrill.jpg"),
@@ -146,7 +172,7 @@ class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
       } else {
         filteredCardData = cardData
             .where((animal) =>
-                animal.habitat.toLowerCase().contains(keyword.toLowerCase()))
+            animal.habitat.toLowerCase().contains(keyword.toLowerCase()))
             .toList();
       }
     });
@@ -198,7 +224,8 @@ class _MyAppAnimalesTropicalesState extends State<MyAppAnimalesTropicales> {
                   Navigator.of(context).pushReplacementNamed('/lector_qr');
                   break;
                 case "Recorridos":
-                  Navigator.of(context).pushReplacementNamed('/recorridos');
+                  Navigator.of(context)
+                      .pushReplacementNamed('/recorridos');
                   break;
                 case "Ajustes":
                   Navigator.of(context).pushReplacementNamed('/ajustes');
