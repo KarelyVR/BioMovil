@@ -1,10 +1,12 @@
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 
 void main() => runApp(const Comentarios());
 
 class Comentarios extends StatelessWidget {
-  const Comentarios({super.key});
+  const Comentarios({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +17,43 @@ class Comentarios extends StatelessWidget {
 }
 
 class FeedbackScreen extends StatefulWidget {
-  const FeedbackScreen({super.key});
+  const FeedbackScreen({Key? key}) : super(key: key);
 
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _feedbackController = TextEditingController();
 
   Future<void> _onBackPressed() async {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const Ajustes()),
     );
+  }
+
+  Future<void> _sendEmail() async {
+    String username = 'tucorreo@gmail.com';
+    String password = 'tucontraseña';
+
+    final smtpServer = gmail(username, password);
+
+    final message = Message()
+      ..from = Address(username, 'Your Name')
+      ..recipients.add(_emailController.text) // Usar la dirección del usuario
+      ..subject = 'Comentario o Sugerencia'
+      ..text = 'Correo del usuario: ${_emailController.text}\n\n${_feedbackController.text}';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent. $e');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
   }
 
   @override
@@ -73,23 +99,33 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Correo electrónico',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              TextField(
                 controller: _feedbackController,
                 maxLines: 7,
                 decoration: const InputDecoration(
-                  hintText: 'Escribe aquí...',
+                  labelText: 'Escribe aquí...',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
+                  _sendEmail();
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Función en desarrollo'),
+                        title: const Text('Correo enviado'),
                         content: const Text(
-                            'La función de enviar comentarios actualmente se encuentra en desarrollo.'),
+                            'Tu comentario o sugerencia ha sido enviada por correo electrónico.'),
                         actions: [
                           TextButton(
                             onPressed: () {
@@ -114,6 +150,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   @override
   void dispose() {
+    _emailController.dispose();
     _feedbackController.dispose();
     super.dispose();
   }
