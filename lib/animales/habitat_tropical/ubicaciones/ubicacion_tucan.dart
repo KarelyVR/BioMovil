@@ -42,11 +42,11 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
   // static const LatLng destino = LatLng(25.724133513174035, -100.31064160106247);
 
   static const CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(25.725098328491715, -100.31325851892379),
-    zoom: 15
+      target: LatLng(25.725098328491715, -100.31325851892379),
+      zoom: 15
   );
 
-   Uint8List? markerImage;
+  Uint8List? markerImage;
 
   List<String> images = [
     'assets/tucan-marker.png',
@@ -79,14 +79,14 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
   ];
 
   List<LatLng> myPoints = const [
-     LatLng(25.72855225173869, -100.31517131278758), //tucan
-     LatLng(25.726733581232182, -100.31089508250031),//baño 1
-     LatLng(25.726656258522873, -100.31216108502232),//evento 1
-     LatLng(25.726772242567968, -100.31355583356353),//baño 2
-     LatLng(25.722403431958984, -100.31188213521487),//restaurante
-     LatLng(25.719600349564967, -100.3110238284203),//baño 3
-     LatLng(25.71731917169152, -100.31402790220135),//evento 2
-     LatLng(25.71465129800604, -100.31653844957549),//baño 4
+    LatLng(25.72855225173869, -100.31517131278758), //tucan
+    LatLng(25.726733581232182, -100.31089508250031),//baño 1
+    LatLng(25.726656258522873, -100.31216108502232),//evento 1
+    LatLng(25.726772242567968, -100.31355583356353),//baño 2
+    LatLng(25.722403431958984, -100.31188213521487),//restaurante
+    LatLng(25.719600349564967, -100.3110238284203),//baño 3
+    LatLng(25.71731917169152, -100.31402790220135),//evento 2
+    LatLng(25.71465129800604, -100.31653844957549),//baño 4
   ];
 
   List<String> description = [
@@ -113,28 +113,28 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
 
   loadData() async{
     //agregar marcadores de mis puntos
-   for(int i=0; i< myPoints.length; i++){
+    for(int i=0; i< myPoints.length; i++){
       final Uint8List markerIcon = await getBytesFromAssets(images[i], 100);
       _markers.add(
-        Marker(
-          markerId: MarkerId(i.toString()),
-          position: myPoints[i],
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          infoWindow: InfoWindow(
-            title: description[i]
+          Marker(
+              markerId: MarkerId(i.toString()),
+              position: myPoints[i],
+              icon: BitmapDescriptor.fromBytes(markerIcon),
+              infoWindow: InfoWindow(
+                  title: description[i]
+              )
           )
-        )
       );
       setState(() {
-        
+
       });
     }
   }
 
   void _onMapCreated(GoogleMapController controller) {
-  setState(() {
-    _mapController = controller;
-    // Llama a la función para enfocar el punto deseado.
+    setState(() {
+      _mapController = controller;
+      // Llama a la función para enfocar el punto deseado.
       focusOnPoint(const LatLng(25.72855225173869, -100.31517131278758));
     });
   }
@@ -146,13 +146,13 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
       );
     }
   }
-  
+
   LocationData? currentLocation;
 
   Future<void> getCurrentLocation() async {
     Location location = Location();
 
-   final ubicacion = await location.getLocation();
+    final ubicacion = await location.getLocation();
     setState(() {
       currentLocation = ubicacion;
     });
@@ -180,36 +180,36 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
       ),
     );
 
-  if (result.points.isNotEmpty) {
-    _myPolyline.clear(); // Elimina cualquier polilínea existente
-    result.points.forEach(
-      (PointLatLng point) => polylineCoordinates.add(
-        LatLng(point.latitude, point.longitude),
-      ),
-    );
+    if (result.points.isNotEmpty) {
+      _myPolyline.clear(); // Elimina cualquier polilínea existente
+      result.points.forEach(
+            (PointLatLng point) => polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        ),
+      );
 
-    Polyline polyline = Polyline(
-      polylineId: const PolylineId("route"),
-      points: polylineCoordinates,
-      color: Colors.orange,
-      width: 6,
-    );
+      Polyline polyline = Polyline(
+        polylineId: const PolylineId("route"),
+        points: polylineCoordinates,
+        color: Colors.orange,
+        width: 6,
+      );
 
-    _myPolyline.add(polyline); // Agregar la polilínea al conjunto _myPolyline
-    print("_myPolyline length: ${_myPolyline.length}");
-    setState(() {
-      print("Setting state");
-    });
+      _myPolyline.add(polyline); // Agregar la polilínea al conjunto _myPolyline
+      print("_myPolyline length: ${_myPolyline.length}");
+      setState(() {
+        print("Setting state");
+      });
+    }
   }
-}
 
   Future<Position> getUserLocation() async {
-  await Geolocator.requestPermission().then((value) {}).onError((error, stackTrace) {
-    print('error $error');
-  });
+    await Geolocator.requestPermission().then((value) {}).onError((error, stackTrace) {
+      print('error $error');
+    });
 
-  return await Geolocator.getCurrentPosition();
-}
+    return await Geolocator.getCurrentPosition();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -297,59 +297,59 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-  height: MediaQuery.of(context).size.height * 0.3,
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(30),
-      topRight: Radius.circular(30),
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.5),
-        spreadRadius: 5,
-        blurRadius: 7,
-        offset: const Offset(0, 3),
-      ),
-    ],
-  ),
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      const Text(
-        'Tucán',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+      height: MediaQuery.of(context).size.height * 0.3,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-      ),
-      const SizedBox(height: 20),
-      Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.black,
-            width: 4,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
           ),
-          boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-        ),
-        child: const CircleAvatar(
-          radius: 48,
-          backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/animales/tropical/tucan.jpg'),
-        ),
+        ],
       ),
-    ],
-  ),
-);
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Tucán',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.black,
+                width: 4,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: const CircleAvatar(
+              radius: 48,
+              backgroundColor: Colors.transparent,
+              backgroundImage: AssetImage('assets/animales/tropical/tucan.jpg'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

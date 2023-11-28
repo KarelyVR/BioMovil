@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'menu_articulos.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/themes/size_config.dart';
@@ -35,7 +37,7 @@ class Pangolin extends StatelessWidget {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(),
+                const FullScreenSlider(), //carrusel
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -44,8 +46,9 @@ class Pangolin extends StatelessWidget {
                       vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
+                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -71,6 +74,7 @@ class Pangolin extends StatelessWidget {
                             ),
                           ),
                         ),
+                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -92,7 +96,7 @@ class Pangolin extends StatelessWidget {
                               size: 28,
                             ),
                           ),
-                      ),
+                        ),
                       ],
                     ),
                   ),
@@ -101,47 +105,48 @@ class Pangolin extends StatelessWidget {
             ),
           ),
           Expanded(
-          child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Text(
-                        'Conservación del pangolín',
-                        style: kPoppinsBold.copyWith(
-                          color:kDarkBlue,
-                          fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                        ),
-                      ),
-                    ),
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
                   ),
-
-                        Padding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //texto grande del nombre del animal
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
                           child: Text(
-                            'El pangolín se encuentra entre los animales que más sufren de caza ilegal.\nEstas escurridizas criaturas están bajo amenaza, pero el descubrimiento de una especie misteriosa que resulta nueva para la ciencia podría ayudar a los conservacionistas a luchar contra su extinción, dicen los investigadores.\nLos científicos que estudian las escamas obtenidas por contrabando, confiscadas en Hong Kong y la provincia china de Yunnan entre 2012 y 2019, identificaron marcadores genéticos que no se han visto en ningún pangolín conocido.\nEl análisis genómico reveló que se trata de una novena especie, a la que el equipo denominó Manis mysteria.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
+                            'Conservación del pangolín',
+                            style: kPoppinsBold.copyWith(
+                              color:kDarkBlue,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
                             ),
                           ),
                         ),
-                        ],
                       ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: Text(
+                          'El pangolín se encuentra entre los animales que más sufren de caza ilegal.\nEstas escurridizas criaturas están bajo amenaza, pero el descubrimiento de una especie misteriosa que resulta nueva para la ciencia podría ayudar a los conservacionistas a luchar contra su extinción, dicen los investigadores.\nLos científicos que estudian las escamas obtenidas por contrabando, confiscadas en Hong Kong y la provincia china de Yunnan entre 2012 y 2019, identificaron marcadores genéticos que no se han visto en ningún pangolín conocido.\nEl análisis genómico reveló que se trata de una novena especie, a la que el equipo denominó Manis mysteria.',
+                          textAlign: TextAlign.justify,
+                          style: kPoppinsRegular.copyWith(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                            color: kDarkBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -151,7 +156,7 @@ class Pangolin extends StatelessWidget {
     );
   }
 
-  
+
 }
 
 final List<String> imageList = [
@@ -187,45 +192,45 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true,
+            autoPlay: true, // Activar la reproducción automática
             autoPlayInterval:
-                const Duration(seconds: 3),
+            const Duration(seconds: 3), // Intervalo entre cambios de imagen
           ),
           items: imageList
               .map((item) => Center(
-                    child: Image.asset(
-                      item,
-                      fit: BoxFit.cover,
-                      height: SizeConfig.blockSizeVertical! * 50,
-                      width: double.infinity,
-                    ),
-                  ))
+            child: Image.asset(
+              item,
+              fit: BoxFit.cover,
+              height: SizeConfig.blockSizeVertical! * 50,
+              width: double.infinity,
+            ),
+          ))
               .toList(),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: 20
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imageList
-                  .asMap()
-                  .entries
-                  .map((entry) => GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: SvgPicture.asset(
-                            _current == entry.key
-                                ? 'assets/carousel_indicator_enabled.svg'
-                                : 'assets/carousel_indicator_disabled.svg',
-                          ),
-                        ),
-                      ))
-                  .toList(),
-            )
+              padding: const EdgeInsets.only(
+                  bottom: 20
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imageList
+                    .asMap()
+                    .entries
+                    .map((entry) => GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: SvgPicture.asset(
+                      _current == entry.key
+                          ? 'assets/carousel_indicator_enabled.svg'
+                          : 'assets/carousel_indicator_disabled.svg',
+                    ),
+                  ),
+                ))
+                    .toList(),
+              )
           ),
         ),
       ],

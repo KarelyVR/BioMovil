@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
 import 'package:biomovil/pantalla_ajustes/notificaciones/home_page.dart';

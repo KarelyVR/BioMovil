@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unused_field, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, avoid_print
+
 import 'dart:async';
 import 'package:biomovil/animales/habitat_sabana/jirafa.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
@@ -42,14 +44,13 @@ class _UbicacionJirafaState extends State<UbicacionJirafa> {
   Future<void> getCurrentLocation() async {
     Location location = Location();
 
-   final ubicacion = await location.getLocation();
+    final ubicacion = await location.getLocation();
     setState(() {
       currentLocation = ubicacion;
     });
-   
+
 
     GoogleMapController googleMapController = await _controller.future;
-
   }
 
   Future<void> getPolyPoints() async {
@@ -63,30 +64,30 @@ class _UbicacionJirafaState extends State<UbicacionJirafa> {
 
     if (result.points.isNotEmpty) {
       result.points.forEach(
-        (PointLatLng point) => polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        )
+              (PointLatLng point) => polylineCoordinates.add(
+            LatLng(point.latitude, point.longitude),
+          )
       );
       setState(() {});
     }
   }
 
-    void setCustomMarkerIcon(){
+  void setCustomMarkerIcon(){
     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-destino.png").
+        ImageConfiguration.empty,
+        "assets/pin-destino.png").
     then((icon){
       sourceIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-actual.png").
+        ImageConfiguration.empty,
+        "assets/pin-actual.png").
     then((icon){
       destinationIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-origen.png").
+        ImageConfiguration.empty,
+        "assets/pin-origen.png").
     then((icon){
       currentLocationIcon = icon;
     });
@@ -95,7 +96,7 @@ class _UbicacionJirafaState extends State<UbicacionJirafa> {
   @override
   void initState() {
     super.initState();
-    _initializeData();
+    _initializeData(); // Llama a una función para iniciar la obtención de ubicación y puntos polilínea.
   }
 
   Future<void> _initializeData() async {
@@ -138,6 +139,7 @@ class _UbicacionJirafaState extends State<UbicacionJirafa> {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
+                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(
@@ -155,51 +157,51 @@ class _UbicacionJirafaState extends State<UbicacionJirafa> {
       drawer: const menu.NavigationDrawer(),
       body: Stack(
         children: [
-        currentLocation == null
-          ? const Center(child: Text("Cargando"))
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
-                zoom: 13.5,
-              ),
-              polylines: {
-                Polyline(
-                  polylineId: const PolylineId("route"),
-                  points: polylineCoordinates,
-                  color: Colors.blue,
-                  width: 6,
-                ),
-              },
-              markers: {
-                Marker(
-                  markerId: const MarkerId("currentLocation"),
-                  icon:currentLocationIcon,
-                  position: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId("source"),
-                  icon: sourceIcon,
-                  position: fuenteUbicacion,
-                ),
-                Marker(
-                  markerId: const MarkerId("destination"),
-                  icon: destinationIcon,
-                  position: destino,
-                ),
-              },
-              onMapCreated: (MapController){
-                _controller.complete(MapController);
-              },
+          currentLocation == null
+              ? const Center(child: Text("Cargando"))
+              : GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+              zoom: 13.5,
             ),
-            const Positioned(
+            polylines: {
+              Polyline(
+                polylineId: const PolylineId("route"),
+                points: polylineCoordinates,
+                color: Colors.blue,
+                width: 6,
+              ),
+            },
+            markers: {
+              Marker(
+                markerId: const MarkerId("currentLocation"),
+                icon:currentLocationIcon,
+                position: LatLng(
+                    currentLocation!.latitude!, currentLocation!.longitude!
+                ),
+              ),
+              Marker(
+                markerId: const MarkerId("source"),
+                icon: sourceIcon,
+                position: fuenteUbicacion,
+              ),
+              Marker(
+                markerId: const MarkerId("destination"),
+                icon: destinationIcon,
+                position: destino,
+              ),
+            },
+            onMapCreated: (MapController){
+              _controller.complete(MapController);
+            },
+          ),
+          const Positioned(
             bottom: 0,
             left: 0,
             right: 0,
-            child: CustomContainer(),
+            child: CustomContainer(), // Agrega el contenedor personalizado
           ),
-          ],
+        ],
       ),
     );
   }
@@ -212,59 +214,59 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-  height: MediaQuery.of(context).size.height * 0.3,
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(30),
-      topRight: Radius.circular(30),
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.5),
-        spreadRadius: 5,
-        blurRadius: 7,
-        offset: const Offset(0, 3),
-      ),
-    ],
-  ),
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      const Text(
-        'Jirafa',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+      height: MediaQuery.of(context).size.height * 0.3, // El 40% de la pantalla
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-      ),
-      const SizedBox(height: 20),
-      Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.black,
-            width: 4,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Color de la sombra
+            spreadRadius: 5, // Radio de propagación de la sombra
+            blurRadius: 7, // Radio de desenfoque de la sombra
+            offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
           ),
-          boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-        ),
-        child: const CircleAvatar(
-          radius: 48,
-          backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/animales/sabana/jirafa.jpg'),
-        ),
+        ],
       ),
-    ],
-  ),
-);
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Jirafa',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 100, // Ancho del círculo
+            height: 100, // Alto del círculo
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.black, // Color del borde (negro)
+                width: 4, // Ancho del borde (ajusta según tus preferencias)
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Color de la sombra
+                  spreadRadius: 5, // Radio de propagación de la sombra
+                  blurRadius: 7, // Radio de desenfoque de la sombra
+                  offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
+                ),
+              ],
+            ),
+            child: const CircleAvatar(
+              radius: 48, // Radio del círculo interno
+              backgroundColor: Colors.transparent, // Fondo transparente para que el borde sea visible
+              backgroundImage: AssetImage('assets/animales/sabana/jirafa.jpg'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

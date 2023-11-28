@@ -54,7 +54,7 @@ class _Polyline1State extends State<Polyline1> {
 
   final Set<Polyline> _myPolyline = {};
   final List<Marker> _markers = <Marker>[];
-
+  //area delimitada del parque
   List<LatLng> polygonPoints = const [
     LatLng(25.728501691054486, -100.316870949178),
     LatLng(25.730742305833193, -100.30665829150674),
@@ -64,27 +64,27 @@ class _Polyline1State extends State<Polyline1> {
   ];
 
   List<LatLng> myPoints = const [
-     LatLng(25.72670021620236, -100.3158501262181),
-     LatLng(25.72855225173869, -100.31517131278758),
-     LatLng(25.727853373793153, -100.3134063978682),
-     LatLng(25.726906886537034, -100.31486868597997),
-     LatLng(25.729349114116648, -100.31149812513222),
-     LatLng(25.72949906812703, -100.31009438412333),
-     LatLng(25.730165206212476, -100.30855117545211),
-     LatLng(25.728557779673796, -100.30768312058856),
-     LatLng(25.726733581232182, -100.31089508250031),
-     LatLng(25.726656258522873, -100.31216108502232),
-     LatLng(25.726772242567968, -100.31355583356353),
-     LatLng(25.722403431958984, -100.31188213521487),
-     LatLng(25.719600349564967, -100.3110238284203),
-     LatLng(25.71765852555807, -100.31222692388545),
-     LatLng(25.71731917169152, -100.31402790220135),
-     LatLng(25.714664864571322, -100.31365430904526),
-     LatLng(25.71465129800604, -100.31653844957549),
-     LatLng(25.71886018518749, -100.31468389834086),
-     LatLng(25.720905086852873, -100.31508169420816),
+     LatLng(25.72670021620236, -100.3158501262181), //mandrill
+     LatLng(25.72855225173869, -100.31517131278758), //tucan
+     LatLng(25.727853373793153, -100.3134063978682), //puma
+     LatLng(25.726906886537034, -100.31486868597997), //tigre
+     LatLng(25.729349114116648, -100.31149812513222), //leon
+     LatLng(25.72949906812703, -100.31009438412333), //jirafa
+     LatLng(25.730165206212476, -100.30855117545211), //elefante
+     LatLng(25.728557779673796, -100.30768312058856), //avestruz
+     LatLng(25.726733581232182, -100.31089508250031), //baño 1
+     LatLng(25.726656258522873, -100.31216108502232), //evento 1
+     LatLng(25.726772242567968, -100.31355583356353), //baño 2
+     LatLng(25.722403431958984, -100.31188213521487), //restaurante
+     LatLng(25.719600349564967, -100.3110238284203), //baño 3
+     LatLng(25.71765852555807, -100.31222692388545), //liebre
+     LatLng(25.71731917169152, -100.31402790220135), //evento 2
+     LatLng(25.714664864571322, -100.31365430904526), //serpiente
+     LatLng(25.71465129800604, -100.31653844957549), //baño 4
+     LatLng(25.71886018518749, -100.31468389834086), //coyote
+     LatLng(25.720905086852873, -100.31508169420816), //camello
   ];
-
+  //lista de nombres de animales mostradas en infoWindow de marker
   List<String> animalNames = [
     'Mandrill',
     'Tucán',
@@ -106,7 +106,7 @@ class _Polyline1State extends State<Polyline1> {
     'Coyote',
     'Camello',
   ];
-
+  //lista de las imagenes de los marcadores
   Future<Uint8List> getBytesFromAssets(String path, int width) async{
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),targetHeight: width);
@@ -119,7 +119,7 @@ class _Polyline1State extends State<Polyline1> {
     super.initState();
     loadData();
   }
-
+  //marcadores de animales
   loadData() async{
    for(int i=0; i< myPoints.length; i++){
       final Uint8List markerIcon = await getBytesFromAssets(images[i], 100);
@@ -160,7 +160,7 @@ class _Polyline1State extends State<Polyline1> {
     'Camello': const LatLng(25.720905086852873, -100.31508169420816),
   };
 
-
+   // Add polylines for the selected animals
     for (int i = 0; i < widget.selectedPoints.length - 1; i++) {
       String animal1 = widget.selectedPoints[i];
       String animal2 = widget.selectedPoints[i + 1];
@@ -185,7 +185,7 @@ class _Polyline1State extends State<Polyline1> {
     });
     return await Geolocator.getCurrentPosition();
   }
-
+  //boton para ir a ubicacion actual
   packData(){
     getUserLocation().then((value)async{
       print('Mi ubicacion');
@@ -208,7 +208,7 @@ class _Polyline1State extends State<Polyline1> {
       setState(() {});
     });
   }
-
+  //diseño de pagina
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,6 +219,7 @@ class _Polyline1State extends State<Polyline1> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
+            // Reiniciar el contenido de la página anterior
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -228,6 +229,7 @@ class _Polyline1State extends State<Polyline1> {
           },
         ),
       ),
+      //mapa de google maps
       body: SafeArea(
         child: GoogleMap(
           initialCameraPosition: _initialPosition,
@@ -248,6 +250,7 @@ class _Polyline1State extends State<Polyline1> {
           },
         ), 
       ),
+      //boton flotante de ubicacion actual
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pink,
         onPressed: ()

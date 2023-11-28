@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:biomovil/animales/habitat_desierto/camello.dart';
 import 'package:biomovil/animales/habitat_desierto/coyote.dart';
 import 'package:biomovil/animales/habitat_desierto/liebre.dart';
@@ -46,23 +48,23 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-        backgroundColor: Colors.green,
-        elevation: 0,
-        centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
           ),
-        ),
-        title: Text(
-          selectedMenuItem,
-          style: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+          title: Text(
+            selectedMenuItem,
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-        ),
           leading: InkWell(
             onTap: () {
               Navigator.push(
@@ -82,25 +84,26 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
           ),
 
           actions: [
-          Builder(
-            builder: (BuildContext context) {
-              return InkWell(
-                onTap: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: const Icon(
-                    Icons.sort_rounded,
-                    size: 28,
+            Builder(
+              builder: (BuildContext context) {
+                return InkWell(
+                  onTap: () {
+                    // Abre el drawer (menú lateral derecho)
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(
+                      Icons.sort_rounded,
+                      size: 28,
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      drawer: const menu.NavigationDrawer(),
+                );
+              },
+            ),
+          ],
+        ),
+        drawer: const menu.NavigationDrawer(),
         body: Column(
           children: <Widget>[
             Padding(
@@ -164,7 +167,7 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
     setState(() {
       filteredCardData = cardData
           .where((animal) =>
-              animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
+          animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
   }

@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import, unused_field, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, avoid_print
 import 'dart:async';
 import 'package:biomovil/animales/habitat_desierto/serpiente.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
@@ -94,7 +95,7 @@ class _UbicacionSerpienteState extends State<UbicacionSerpiente> {
   @override
   void initState() {
     super.initState();
-    _initializeData();
+    _initializeData(); // Llama a una función para iniciar la obtención de ubicación y puntos polilínea.
   }
 
   Future<void> _initializeData() async {
@@ -136,6 +137,7 @@ class _UbicacionSerpienteState extends State<UbicacionSerpiente> {
           Builder(
             builder: (BuildContext context) {
               return InkWell(
+                // Abre el drawer (menú lateral derecho)
                 onTap: () {
                   Scaffold.of(context).openDrawer();
                 },
@@ -196,7 +198,7 @@ class _UbicacionSerpienteState extends State<UbicacionSerpiente> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: CustomContainer(),
+            child: CustomContainer(), // Agrega el contenedor personalizado
           ),
           ],
       ),
@@ -211,7 +213,7 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-  height: MediaQuery.of(context).size.height * 0.3,
+  height: MediaQuery.of(context).size.height * 0.3, // El 40% de la pantalla
   decoration: BoxDecoration(
     color: Colors.white,
     borderRadius: const BorderRadius.only(
@@ -220,10 +222,10 @@ class CustomContainer extends StatelessWidget {
     ),
     boxShadow: [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.5),
-        spreadRadius: 5,
-        blurRadius: 7,
-        offset: const Offset(0, 3),
+        color: Colors.grey.withOpacity(0.5), // Color de la sombra
+        spreadRadius: 5, // Radio de propagación de la sombra
+        blurRadius: 7, // Radio de desenfoque de la sombra
+        offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
       ),
     ],
   ),
@@ -239,26 +241,26 @@ class CustomContainer extends StatelessWidget {
       ),
       const SizedBox(height: 20),
       Container(
-        width: 100,
-        height: 100,
+        width: 100, // Ancho del círculo
+        height: 100, // Alto del círculo
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: Colors.black,
-            width: 4,
+            color: Colors.black, // Color del borde (negro)
+            width: 4, // Ancho del borde (ajusta según tus preferencias)
           ),
           boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
+                color: Colors.grey.withOpacity(0.5), // Color de la sombra
+                spreadRadius: 5, // Radio de propagación de la sombra
+                blurRadius: 7, // Radio de desenfoque de la sombra
+                offset: const Offset(0, 3), // Desplazamiento de la sombra (eje x, eje y)
               ),
             ],
         ),
         child: const CircleAvatar(
-          radius: 48,
-          backgroundColor: Colors.transparent,
+          radius: 48, // Radio del círculo interno
+          backgroundColor: Colors.transparent, // Fondo transparente para que el borde sea visible
           backgroundImage: AssetImage('assets/animales/desierto/serpiente_cascabel.jpg'),
         ),
       ),

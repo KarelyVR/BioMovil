@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_camello.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -31,20 +32,20 @@ final List<String> menuItems = [
 ];
 
 class _CamelloState extends State<Camello> {
-  final APICamello _animalAPI = APICamello();
+  final APICamello _animalAPI = APICamello(); // Instancia de la clase AnimalAPI
   Map<String, dynamic> CamelloInfo =
-      {};
+      {}; // Almacenará los datos del tucán desde la API
 
   @override
   void initState() {
     super.initState();
-    fetchCamelloInfo();
+    fetchCamelloInfo(); // Llama a la función para obtener los datos del tucán al inicio
   }
 
   void fetchCamelloInfo() async {
-    var info = await _animalAPI.fetchCamelloData();
+    var info = await _animalAPI.fetchCamelloData(); // Llama al método de la API
     setState(() {
-      CamelloInfo = info;
+      CamelloInfo = info; // Actualiza los datos del tucán en el estado
     });
   }
 
@@ -80,7 +81,7 @@ class _CamelloState extends State<Camello> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(),
+                const FullScreenSlider(), //carrusel
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -90,8 +91,9 @@ class _CamelloState extends State<Camello> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
+                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -119,6 +121,7 @@ class _CamelloState extends State<Camello> {
                             ),
                           ),
                         ),
+                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -159,6 +162,7 @@ class _CamelloState extends State<Camello> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -173,6 +177,7 @@ class _CamelloState extends State<Camello> {
                             ),
                           ),
                         ),
+                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -183,6 +188,7 @@ class _CamelloState extends State<Camello> {
                           ),
                           height: 40,
                           width: double.infinity,
+                          //boton para escuchar el sonido del animal
                           child: ElevatedButton(
                             child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
@@ -196,7 +202,7 @@ class _CamelloState extends State<Camello> {
                             vertical: 12,
                           ),
                           child: CamelloInfo
-                                  .isNotEmpty
+                                  .isNotEmpty // Verifica si los datos están presentes
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -260,7 +266,7 @@ class _CamelloState extends State<Camello> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(),
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -310,9 +316,9 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true,
+            autoPlay: true, // Activar la reproducción automática
             autoPlayInterval:
-                const Duration(seconds: 3),
+                const Duration(seconds: 3), // Intervalo entre cambios de imagen
           ),
           items: imageList
               .map((item) => Center(

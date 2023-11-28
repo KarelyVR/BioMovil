@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:biomovil/animales/habitat_tropical/mandrill.dart';
 import 'package:biomovil/animales/habitat_tropical/puma.dart';
 import 'package:biomovil/animales/habitat_tropical/tigre.dart';
@@ -46,60 +48,61 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-        backgroundColor: Colors.green,
-        elevation: 0,
-        centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
-          ),
-        ),
-        title: Text(
-          selectedMenuItem,
-          style: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MenuHabitats(),
-              ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 28,
+          backgroundColor: Colors.green,
+          elevation: 0,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
             ),
           ),
-        ),
-        actions: [
-          Builder(
-            builder: (BuildContext context) {
-              return InkWell(
-                onTap: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: const Icon(
-                    Icons.sort_rounded,
-                    size: 28,
-                  ),
+          title: Text(
+            selectedMenuItem,
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          leading: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MenuHabitats(),
                 ),
               );
             },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 28,
+              ),
+            ),
           ),
-        ],
-      ),
-      drawer: const menu.NavigationDrawer(),
+          actions: [
+            Builder(
+              builder: (BuildContext context) {
+                return InkWell(
+                  onTap: () {
+                    // Abre el drawer (menú lateral derecho)
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(
+                      Icons.sort_rounded,
+                      size: 28,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        drawer: const menu.NavigationDrawer(),
         body: Column(
           children: <Widget>[
             Padding(
@@ -163,7 +166,7 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
     setState(() {
       filteredCardData = cardData
           .where((animal) =>
-              animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
+          animal.animalIndex.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
   }

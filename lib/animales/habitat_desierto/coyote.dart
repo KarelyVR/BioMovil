@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_coyote.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -31,20 +33,20 @@ final List<String> menuItems = [
 ];
 
 class _CoyoteState extends State<Coyote> {
-  final APICoyote _animalAPI = APICoyote();
+  final APICoyote _animalAPI = APICoyote(); // Instancia de la clase AnimalAPI
   Map<String, dynamic> CoyoteInfo =
-      {};
+      {}; // Almacenará los datos del tucán desde la API
 
   @override
   void initState() {
     super.initState();
-    fetchCoyoteInfo();
+    fetchCoyoteInfo(); // Llama a la función para obtener los datos del tucán al inicio
   }
 
   void fetchCoyoteInfo() async {
-    var info = await _animalAPI.fetchCoyoteData();
+    var info = await _animalAPI.fetchCoyoteData(); // Llama al método de la API
     setState(() {
-      CoyoteInfo = info;
+      CoyoteInfo = info; // Actualiza los datos del coyote en el estado
     });
   }
 
@@ -80,7 +82,7 @@ class _CoyoteState extends State<Coyote> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(),
+                const FullScreenSlider(), //carrusel
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -90,10 +92,11 @@ class _CoyoteState extends State<Coyote> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                        MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
                         InkWell(
-                          onTap: () {
+                          //boton para volver atras
+                        onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -119,6 +122,7 @@ class _CoyoteState extends State<Coyote> {
                             ),
                           ),
                         ),
+                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -159,6 +163,7 @@ class _CoyoteState extends State<Coyote> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -173,6 +178,7 @@ class _CoyoteState extends State<Coyote> {
                             ),
                           ),
                         ),
+                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -184,7 +190,8 @@ class _CoyoteState extends State<Coyote> {
                           height: 40,
                           width: double.infinity,
                           child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
+                            //boton para escuchar el sonido del animal
+                          child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
                               playAudio();
                             },
@@ -196,7 +203,7 @@ class _CoyoteState extends State<Coyote> {
                             vertical: 12,
                           ),
                           child: CoyoteInfo
-                                  .isNotEmpty
+                                  .isNotEmpty // Verifica si los datos están presentes
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -260,7 +267,7 @@ class _CoyoteState extends State<Coyote> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(),
+                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

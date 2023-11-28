@@ -65,6 +65,7 @@ class MoreInfoScreen extends StatelessWidget {
             builder: (BuildContext context) {
               return InkWell(
                 onTap: () {
+                  // Abre el drawer (menú lateral derecho)
                   Scaffold.of(context).openDrawer();
                 },
                 child: Container(

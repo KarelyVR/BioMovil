@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'menu_articulos.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/themes/size_config.dart';
@@ -35,7 +37,7 @@ class Tarantula extends StatelessWidget {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(),
+                const FullScreenSlider(), //carrusel
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -44,8 +46,9 @@ class Tarantula extends StatelessWidget {
                       vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
+                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -71,6 +74,7 @@ class Tarantula extends StatelessWidget {
                             ),
                           ),
                         ),
+                        //boton de pagina principal
                         InkWell(
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
@@ -92,7 +96,7 @@ class Tarantula extends StatelessWidget {
                               size: 28,
                             ),
                           ),
-                      ),
+                        ),
                       ],
                     ),
                   ),
@@ -101,47 +105,48 @@ class Tarantula extends StatelessWidget {
             ),
           ),
           Expanded(
-          child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Text(
-                        'Descubren en Tailandia una especie de tarántula azul eléctrica',
-                        style: kPoppinsBold.copyWith(
-                          color:kDarkBlue,
-                          fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                        ),
-                      ),
-                    ),
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
                   ),
-
-                        Padding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //texto grande del nombre del animal
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
                           child: Text(
-                            'Basta observar el cielo y el mar para pensar que la naturaleza parece favorecer el azul, al igual que nosotros los humanos. Pero no es así: la realidad es que este color es poco frecuente en la naturaleza, sobre todo en "una tonalidad azul-violeta parecida al color de las chispas eléctricas", que es como un equipo de investigadores ha descrito una nueva especie de tarántula del sur de Tailandia.\n\nLa araña, que puede medir casi 12 centímetros, luce vetas iridiscentes de color neón en las patas, el dorso y las piezas bucales. El espécimen, llamado Chilobrachys natanicharum, ya era conocido en el comercio de animales de compañía como tarántula azul eléctrica, pero un reciente estudio publicado en la revista Zookeys ha confirmado finalmente que se trata de una especie única.\n\nSegún Sarah J. Kariko, bióloga evolutiva de la Universidad de Harvard (Estados Unidos), de las 900 especies de tarántulas conocidas, sólo un 4% tienen coloración azul.\n\nAunque los pigmentos forman otros colores en los animales, como el rojo y el amarillo, el proceso es diferente con el azul. Cuando les da la luz, las nanoestructuras de las células reflejan un color azul a nuestros ojos, explica Kariko, que no participó en el nuevo estudio.\n\nEstos colores estructurales a menudo crean iridiscencia, dice Ling Li, profesor asociado de Virginia Tech (Estados Unidos) que colabora con Kariko en el estudio de los colores de las arañas.',
-                            textAlign: TextAlign.justify,
-                            style: kPoppinsRegular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                              color: kDarkBlue,
+                            'Descubren en Tailandia una especie de tarántula azul eléctrica',
+                            style: kPoppinsBold.copyWith(
+                              color:kDarkBlue,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
                             ),
                           ),
                         ),
-                        ],
                       ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: Text(
+                          'Basta observar el cielo y el mar para pensar que la naturaleza parece favorecer el azul, al igual que nosotros los humanos. Pero no es así: la realidad es que este color es poco frecuente en la naturaleza, sobre todo en "una tonalidad azul-violeta parecida al color de las chispas eléctricas", que es como un equipo de investigadores ha descrito una nueva especie de tarántula del sur de Tailandia.\n\nLa araña, que puede medir casi 12 centímetros, luce vetas iridiscentes de color neón en las patas, el dorso y las piezas bucales. El espécimen, llamado Chilobrachys natanicharum, ya era conocido en el comercio de animales de compañía como tarántula azul eléctrica, pero un reciente estudio publicado en la revista Zookeys ha confirmado finalmente que se trata de una especie única.\n\nSegún Sarah J. Kariko, bióloga evolutiva de la Universidad de Harvard (Estados Unidos), de las 900 especies de tarántulas conocidas, sólo un 4% tienen coloración azul.\n\nAunque los pigmentos forman otros colores en los animales, como el rojo y el amarillo, el proceso es diferente con el azul. Cuando les da la luz, las nanoestructuras de las células reflejan un color azul a nuestros ojos, explica Kariko, que no participó en el nuevo estudio.\n\nEstos colores estructurales a menudo crean iridiscencia, dice Ling Li, profesor asociado de Virginia Tech (Estados Unidos) que colabora con Kariko en el estudio de los colores de las arañas.',
+                          textAlign: TextAlign.justify,
+                          style: kPoppinsRegular.copyWith(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                            color: kDarkBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -151,7 +156,7 @@ class Tarantula extends StatelessWidget {
     );
   }
 
-  
+
 }
 
 final List<String> imageList = [
@@ -187,45 +192,45 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true,
+            autoPlay: true, // Activar la reproducción automática
             autoPlayInterval:
-                const Duration(seconds: 3),
+            const Duration(seconds: 3), // Intervalo entre cambios de imagen
           ),
           items: imageList
               .map((item) => Center(
-                    child: Image.asset(
-                      item,
-                      fit: BoxFit.cover,
-                      height: SizeConfig.blockSizeVertical! * 50,
-                      width: double.infinity,
-                    ),
-                  ))
+            child: Image.asset(
+              item,
+              fit: BoxFit.cover,
+              height: SizeConfig.blockSizeVertical! * 50,
+              width: double.infinity,
+            ),
+          ))
               .toList(),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: 20
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imageList
-                  .asMap()
-                  .entries
-                  .map((entry) => GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: SvgPicture.asset(
-                            _current == entry.key
-                                ? 'assets/carousel_indicator_enabled.svg'
-                                : 'assets/carousel_indicator_disabled.svg',
-                          ),
-                        ),
-                      ))
-                  .toList(),
-            )
+              padding: const EdgeInsets.only(
+                  bottom: 20
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imageList
+                    .asMap()
+                    .entries
+                    .map((entry) => GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: SvgPicture.asset(
+                      _current == entry.key
+                          ? 'assets/carousel_indicator_enabled.svg'
+                          : 'assets/carousel_indicator_disabled.svg',
+                    ),
+                  ),
+                ))
+                    .toList(),
+              )
           ),
         ),
       ],
