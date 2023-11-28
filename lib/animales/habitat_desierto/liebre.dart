@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names, library_private_types_in_public_api
 
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_liebre.dart';
@@ -19,6 +19,8 @@ import 'apis_desierto/api_liebre.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Liebre extends StatefulWidget {
+  const Liebre({super.key});
+
   @override
   _LiebreState createState() => _LiebreState();
 }
@@ -55,7 +57,7 @@ class _LiebreState extends State<Liebre> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Liebre(),
+        '/': (context) => const Liebre(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -267,7 +269,7 @@ class _LiebreState extends State<Liebre> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

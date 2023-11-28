@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/pantalla_ajustes/notificaciones/Services/notifi_service.dart';
 
@@ -14,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late Timer _timer;
   int _notificationId = 0;
-  List<Map<String, String>> _notificationMessages = [
+  final List<Map<String, String>> _notificationMessages = [
     {
       'title': '¡Tu safari está por comenzar!',
       'body': 'El safari comenzará en 10 minutos.'
@@ -113,7 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>const Ajustes(),
+              ),
+            );
           },
         ),
       ),
@@ -126,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: [
                 const Text(
-                  '  Activar notificaciones',
+                  'Activar notificaciones',
                   style: TextStyle(
                     fontSize: 19,
                     color: Colors.black,
@@ -134,12 +140,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(width: 15),
                 ElevatedButton(
-                  child: Text(_notificationsActive ? 'Desactivar' : 'Activar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         _notificationsActive ? Colors.red : Colors.green,
                   ),
                   onPressed: _toggleNotifications,
+                  child: Text(_notificationsActive ? 'Desactivar' : 'Activar'),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tigre.dart';
@@ -19,6 +19,8 @@ import 'apis_tropical/api_tigre.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Tigre extends StatefulWidget {
+  const Tigre({super.key});
+
   @override
   _TigreState createState() => _TigreState();
 }
@@ -55,7 +57,7 @@ class _TigreState extends State<Tigre> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Tigre(),
+        '/': (context) => const Tigre(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -267,7 +269,7 @@ class _TigreState extends State<Tigre> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

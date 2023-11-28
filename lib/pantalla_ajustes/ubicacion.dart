@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Ubicacion extends StatefulWidget {
+  const Ubicacion({super.key});
+
   @override
   _UbicacionState createState() => _UbicacionState();
 }

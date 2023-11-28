@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'Services/notifi_service.dart';
 import 'home_page.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_serpiente.dart';
@@ -19,6 +19,8 @@ import 'apis_desierto/api_serpiente.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Serpiente extends StatefulWidget {
+  const Serpiente({super.key});
+
   @override
   _SerpienteState createState() => _SerpienteState();
 }
@@ -57,7 +59,7 @@ class _SerpienteState extends State<Serpiente> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Serpiente(),
+        '/': (context) => const Serpiente(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -269,7 +271,7 @@ class _SerpienteState extends State<Serpiente> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

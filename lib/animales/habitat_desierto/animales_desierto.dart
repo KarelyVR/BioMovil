@@ -133,22 +133,22 @@ class _AnimalesDesierto extends State<AnimalesDesierto> {
                       if (data.animalIndex == "Camello") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Camello()),
+                          MaterialPageRoute(builder: (context) => const Camello()),
                         );
                       } else if (data.animalIndex == "Coyote") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Coyote()),
+                          MaterialPageRoute(builder: (context) => const Coyote()),
                         );
                       } else if (data.animalIndex == "Serpiente de cascabel") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Serpiente()),
+                          MaterialPageRoute(builder: (context) => const Serpiente()),
                         );
                       } else if (data.animalIndex == "Liebre") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Liebre()),
+                          MaterialPageRoute(builder: (context) => const Liebre()),
                         );
                       }
                     },

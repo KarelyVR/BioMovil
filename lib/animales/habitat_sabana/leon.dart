@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names, library_private_types_in_public_api
 
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_leon.dart';
@@ -19,6 +19,8 @@ import 'apis_sabana/api_leon.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Leon extends StatefulWidget {
+  const Leon({super.key});
+
   @override
   _LeonState createState() => _LeonState();
 }
@@ -55,7 +57,7 @@ class _LeonState extends State<Leon> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Leon(),
+        '/': (context) => const Leon(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -258,7 +260,7 @@ class _LeonState extends State<Leon> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

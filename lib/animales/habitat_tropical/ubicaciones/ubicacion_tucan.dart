@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import, unnecessary_import, unused_local_variable, avoid_function_literals_in_foreach_calls, non_constant_identifier_names
 
 import 'dart:async';
 import 'dart:typed_data';
@@ -43,13 +43,13 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
 
   static const CameraPosition _initialPosition = CameraPosition(
       target: LatLng(25.725098328491715, -100.31325851892379),
-      zoom: 15
+      zoom: 16
   );
 
   Uint8List? markerImage;
 
   List<String> images = [
-    'assets/tucan-marker.png',
+    'assets/tigre-marker.png',
     'assets/baños.png',
     'assets/evento.png',
     'assets/baños.png',
@@ -73,6 +73,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
 
   List<LatLng> polygonPoints = const [
     LatLng(25.728501691054486, -100.316870949178),
+    LatLng(25.730560561980912, -100.3116352460716),
     LatLng(25.730742305833193, -100.30665829150674),
     LatLng(25.711140128124455, -100.31325762086122),
     LatLng(25.708729370822947, -100.3166869634741),
@@ -90,7 +91,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
   ];
 
   List<String> description = [
-    'Tucán',
+    'Tigre',
     'Baños',
     'Salón de eventos 1',
     'Baños',
@@ -168,6 +169,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
       google_api_key,
       const PointLatLng(25.72855225173869, -100.31517131278758),
       PointLatLng(currentPosition.latitude, currentPosition.longitude),
+       travelMode: TravelMode.walking,
     );
 
     _markers.add(
@@ -227,7 +229,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Tucan(),
+                builder: (context) => const Tucan(),
               ),
             );
           },

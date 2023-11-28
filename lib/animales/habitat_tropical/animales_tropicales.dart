@@ -132,22 +132,22 @@ class _AnimalesTropicales extends State<AnimalesTropicales> {
                       if (data.animalIndex == "Tucan") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Tucan()),
+                          MaterialPageRoute(builder: (context) => const Tucan()),
                         );
                       } else if (data.animalIndex == "Mandrill") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Mandrill()),
+                          MaterialPageRoute(builder: (context) => const Mandrill()),
                         );
                       } else if (data.animalIndex == "Tigre") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Tigre()),
+                          MaterialPageRoute(builder: (context) => const Tigre()),
                         );
                       } else if (data.animalIndex == "Puma") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Puma()),
+                          MaterialPageRoute(builder: (context) => const Puma()),
                         );
                       }
                     },

@@ -101,7 +101,7 @@ class Ajustes extends HookConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Ubicacion(),
+                            builder: (context) => const Ubicacion(),
                           ),
                         );
                       },

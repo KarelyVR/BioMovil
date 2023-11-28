@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_avestruz.dart';
@@ -19,6 +19,8 @@ import 'apis_sabana/api_avestruz.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Avestruz extends StatefulWidget {
+  const Avestruz({super.key});
+
   @override
   _AvestruzState createState() => _AvestruzState();
 }
@@ -57,7 +59,7 @@ class _AvestruzState extends State<Avestruz> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Avestruz(),
+        '/': (context) => const Avestruz(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -268,7 +270,7 @@ class _AvestruzState extends State<Avestruz> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

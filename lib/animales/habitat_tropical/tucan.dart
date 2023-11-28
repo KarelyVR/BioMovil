@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
@@ -19,6 +19,8 @@ import 'apis_tropical/api_tucan.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Tucan extends StatefulWidget {
+  const Tucan({super.key});
+
   @override
   _TucanState createState() => _TucanState();
 }
@@ -55,7 +57,7 @@ class _TucanState extends State<Tucan> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Tucan(),
+        '/': (context) => const Tucan(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -244,7 +246,7 @@ class _TucanState extends State<Tucan> {
                                   tucanInfo['characteristics']
                                   ['weight'] ??
                                       'N/A'),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               Center(
@@ -264,7 +266,7 @@ class _TucanState extends State<Tucan> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );
@@ -365,14 +367,14 @@ Widget _buildInfoRow(String title, String content) {
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: RichText(
       text: TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.black87,
         ),
         children: [
           TextSpan(
             text: '$title: ',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -70,7 +70,7 @@ class MenuHabitats extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PaginaPrincipal(),
+                  builder: (context) => const PaginaPrincipal(),
                 ),
               );
             },

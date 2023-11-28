@@ -51,7 +51,7 @@ class NavigationDrawer extends StatelessWidget {
     ),
     child: Column(
       children: [
-        SizedBox(height: 16), // Espacio encima de la imagen
+        const SizedBox(height: 16), // Espacio encima de la imagen
         Image.asset(
           'assets/bioparque.png',
           fit: BoxFit.contain,

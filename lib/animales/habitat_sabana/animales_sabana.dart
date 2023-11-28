@@ -132,22 +132,22 @@ class _AnimalesTropicales extends State<AnimalesSabana> {
                       if (data.animalIndex == "León") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Leon()),
+                          MaterialPageRoute(builder: (context) => const Leon()),
                         );
                       } else if (data.animalIndex == "Jirafa") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Jirafa()),
+                          MaterialPageRoute(builder: (context) => const Jirafa()),
                         );
                       } else if (data.animalIndex == "Elefante") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Elefante()),
+                          MaterialPageRoute(builder: (context) => const Elefante()),
                         );
                       } else if (data.animalIndex == "Avestruz") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Avestruz()),
+                          MaterialPageRoute(builder: (context) => const Avestruz()),
                         );
                       }
                     },

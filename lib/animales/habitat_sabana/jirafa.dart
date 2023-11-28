@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_jirafa.dart';
@@ -19,6 +19,8 @@ import 'apis_sabana/api_jirafa.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Jirafa extends StatefulWidget {
+  const Jirafa({super.key});
+
   @override
   _JirafaState createState() => _JirafaState();
 }
@@ -55,7 +57,7 @@ class _JirafaState extends State<Jirafa> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Jirafa(),
+        '/': (context) => const Jirafa(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -266,7 +268,7 @@ class _JirafaState extends State<Jirafa> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

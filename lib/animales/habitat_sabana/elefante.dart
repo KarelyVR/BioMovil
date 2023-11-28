@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names, library_private_types_in_public_api
 
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_elefante.dart';
@@ -19,6 +19,8 @@ import 'apis_sabana/api_elefante.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Elefante extends StatefulWidget {
+  const Elefante({super.key});
+
   @override
   _ElefanteState createState() => _ElefanteState();
 }
@@ -57,7 +59,7 @@ class _ElefanteState extends State<Elefante> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Elefante(),
+        '/': (context) => const Elefante(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -268,7 +270,7 @@ class _ElefanteState extends State<Elefante> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

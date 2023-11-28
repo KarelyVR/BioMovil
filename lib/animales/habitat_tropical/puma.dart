@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_puma.dart';
@@ -19,6 +19,8 @@ import 'apis_tropical/api_puma.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Puma extends StatefulWidget {
+  const Puma({super.key});
+
   @override
   _PumaState createState() => _PumaState();
 }
@@ -55,7 +57,7 @@ class _PumaState extends State<Puma> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Puma(),
+        '/': (context) => const Puma(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -259,7 +261,7 @@ class _PumaState extends State<Puma> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

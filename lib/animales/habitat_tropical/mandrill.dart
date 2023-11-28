@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api
 
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -19,6 +19,8 @@ import 'apis_tropical/api_mandrill.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Mandrill extends StatefulWidget {
+  const Mandrill({super.key});
+
   @override
   _MandrillState createState() => _MandrillState();
 }
@@ -57,7 +59,7 @@ class _MandrillState extends State<Mandrill> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Mandrill(),
+        '/': (context) => const Mandrill(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -269,7 +271,7 @@ class _MandrillState extends State<Mandrill> {
                               ),
                             ],
                           )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

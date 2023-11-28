@@ -4,6 +4,8 @@ import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -126,12 +128,12 @@ class MoreInfoScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Mapa()),
+                  MaterialPageRoute(builder: (context) => const Mapa()),
                 );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
-                minimumSize: Size(150, 50),
+                minimumSize: const Size(150, 50),
               ),
               child: const Text(
                 'Ver en el Mapa',

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:biomovil/articulos/e_renovable.dart';
 import 'package:biomovil/articulos/marpol.dart';
 import 'package:biomovil/articulos/panda.dart';
@@ -15,7 +17,7 @@ import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 class LectorCQR extends StatelessWidget {
   final FluroRouter router = FluroRouter();
 
-  LectorCQR({Key? key}) {
+  LectorCQR({super.key}) {
     configureRoutes();
   }
 

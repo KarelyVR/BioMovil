@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_camello.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -18,6 +18,8 @@ import 'apis_desierto/api_camello.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Camello extends StatefulWidget {
+  const Camello({super.key});
+
   @override
   _CamelloState createState() => _CamelloState();
 }
@@ -54,7 +56,7 @@ class _CamelloState extends State<Camello> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Camello(),
+        '/': (context) => const Camello(),
         '/pagina_principal': (context) => const PaginaPrincipal(),
         '/menu_habitats': (context) => MenuHabitats(),
         '/lector_qr': (context) => LectorCQR(),
@@ -266,7 +268,7 @@ class _CamelloState extends State<Camello> {
                                     ),
                                   ],
                                 )
-                              : CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                         ),
                       ]),
                 );

@@ -1,22 +1,13 @@
-import 'dart:isolate';
+// ignore_for_file: library_private_types_in_public_api
 
+import 'dart:isolate';
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Mapa(),
-    );
-  }
-}
 
 class Mapa extends StatefulWidget {
+  const Mapa({super.key});
+
   @override
   _MapaState createState() => _MapaState();
 }
@@ -65,7 +56,7 @@ class _MapaState extends State<Mapa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ubicación'),
+        title: const Text('Ubicación'),
         backgroundColor: Colors.green,
         elevation: 0,
         centerTitle: true,
@@ -84,7 +75,7 @@ class _MapaState extends State<Mapa> {
               ),
             );
           },
-          child: Icon(Icons.arrow_back, color: Colors.white),
+          child: const Icon(Icons.arrow_back, color: Colors.white),
         ),
       ),
       body: Center(
@@ -109,13 +100,13 @@ class _MapaState extends State<Mapa> {
           FloatingActionButton(
             onPressed: _zoomIn,
             backgroundColor: Colors.green,
-            child: Icon(Icons.add, color: Colors.black),
+            child: const Icon(Icons.add, color: Colors.black),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             onPressed: _zoomOut,
             backgroundColor: Colors.green,
-            child: Icon(Icons.remove, color: Colors.black),
+            child: const Icon(Icons.remove, color: Colors.black),
           ),
         ],
       ),
