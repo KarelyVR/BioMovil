@@ -129,7 +129,7 @@ class MoreInfoScreen extends StatelessWidget {
                 child: const Text(
                   'Ver en el Mapa',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 15,
                   ),
                 ),
