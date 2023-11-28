@@ -6,7 +6,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings('logo_bioparque');
+        const AndroidInitializationSettings('logo_noti');
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,

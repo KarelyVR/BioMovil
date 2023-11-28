@@ -3,17 +3,6 @@ import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MoreInfoScreen(),
-    );
-  }
-}
-
 class MoreInfoScreen extends StatelessWidget {
   MoreInfoScreen({super.key});
   final List<String> menuItems = [
@@ -120,26 +109,29 @@ class MoreInfoScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Text(
-              'Montemorelos, Nuevo León, México',
+              'Av. Universidad, Pedro de Alba s/n, Ciudad Universitaria, 66455 San Nicolás de los Garza, N.L., México',
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Mapa()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                minimumSize: const Size(150, 50),
-              ),
-              child: const Text(
-                'Ver en el Mapa',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
+            Container(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Mapa()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  minimumSize: const Size(150, 50),
+                ),
+                child: const Text(
+                  'Ver en el Mapa',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ),
@@ -160,8 +152,8 @@ class MoreInfoScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Text(
-              'Alimentación de animales: Todos los días de 10am a 4pn horas. \n'
-              'Espectáculo de aves: Sábados y domingos a las 2pm horas en el anfiteatro principal.\n',
+              'Alimentación de animales: Todos los días de 10 AM a 4 PM. \n'
+              'Espectáculo de aves: Sábados y domingos a las 2 PM en el anfiteatro principal.\n',
               style: TextStyle(fontSize: 16),
             ),
           ],

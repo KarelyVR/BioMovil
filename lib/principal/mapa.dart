@@ -1,9 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, unused_field
 
 import 'dart:isolate';
+import 'dart:async';
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Mapa extends StatefulWidget {
   const Mapa({super.key});
@@ -13,7 +14,23 @@ class Mapa extends StatefulWidget {
 }
 
 class _MapaState extends State<Mapa> {
-  double _zoomLevel = 1.0;
+
+  final Completer<GoogleMapController> _controller = Completer();
+
+  static const CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(25.725098328491715, -100.31325851892379), 
+    zoom: 15
+  );
+
+  //area delimitada del parque
+  List<LatLng> polygonPoints = const [
+    LatLng(25.728501691054486, -100.316870949178),
+    LatLng(25.730742305833193, -100.30665829150674),
+    LatLng(25.711140128124455, -100.31325762086122),
+    LatLng(25.708729370822947, -100.3166869634741),
+
+  ];
+
   late ReceivePort _receivePort;
 
   @override
@@ -25,49 +42,28 @@ class _MapaState extends State<Mapa> {
 
   void _initIsolate() async {
     await Isolate.spawn(_isolateEntryPoint, _receivePort.sendPort);
-    _receivePort.listen((message) {
-      // Manejar mensajes desde el isolate (si es necesario)
-    });
+    _receivePort.listen((message) {});
   }
 
   static void _isolateEntryPoint(SendPort sendPort) {
     final receivePort = ReceivePort();
     sendPort.send(receivePort.sendPort);
 
-    receivePort.listen((message) {
-      // Realizar procesamiento en segundo plano aquí (si es necesario)
-      // sendPort.send(result); // Enviar resultado de vuelta al main isolate
-    });
+    receivePort.listen((message) {});
   }
 
-  void _zoomIn() {
-    setState(() {
-      _zoomLevel += 0.5;
-    });
-  }
-
-  void _zoomOut() {
-    setState(() {
-      _zoomLevel -= 0.5;
-    });
-  }
-
+  //diseño de pagina
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ubicación'),
-        backgroundColor: Colors.green,
-        elevation: 0,
+        title: const Text('Ubicacion del bioparque'),
         centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
-          ),
-        ),
-        leading: InkWell(
-          onTap: () {
+        backgroundColor: Colors.green,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            // Reiniciar el contenido de la página anterior
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -75,40 +71,26 @@ class _MapaState extends State<Mapa> {
               ),
             );
           },
-          child: const Icon(Icons.arrow_back, color: Colors.white),
         ),
       ),
-      body: Center(
-        child: GestureDetector(
-          onScaleUpdate: (details) {
-            setState(() {
-              _zoomLevel = details.scale;
-            });
-          },
-          child: Transform.scale(
-            scale: _zoomLevel,
-            child: Image.asset(
-              'assets/mapa_mas_info.jpg',
+      //mapa de google maps
+      body: SafeArea(
+        child: GoogleMap(
+          initialCameraPosition: _initialPosition,
+          mapType: MapType.normal,
+          polygons: {
+            Polygon(
+              polygonId: const PolygonId("1"),
+              points: polygonPoints,
+              fillColor: const Color(0xFF7A7A7A).withOpacity(0.2),
+              strokeWidth: 2,
             ),
-          ),
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: _zoomIn,
-            backgroundColor: Colors.green,
-            child: const Icon(Icons.add, color: Colors.black),
-          ),
-          const SizedBox(height: 16),
-          FloatingActionButton(
-            onPressed: _zoomOut,
-            backgroundColor: Colors.green,
-            child: const Icon(Icons.remove, color: Colors.black),
-          ),
-        ],
+          },
+          onMapCreated: (GoogleMapController controller)
+          {
+            _controller.complete(controller);
+          },
+        ), 
       ),
     );
   }
