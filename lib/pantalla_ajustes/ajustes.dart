@@ -4,12 +4,12 @@ import 'package:biomovil/pantalla_ajustes/ayuda.dart';
 import 'package:biomovil/pantalla_ajustes/comentarios.dart';
 import 'package:biomovil/pantalla_ajustes/notificaciones/home_page.dart';
 import 'package:biomovil/pantalla_ajustes/terminos_condiciones.dart';
+import 'package:biomovil/pantalla_ajustes/ubicacion.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/themes/theme_provider.dart';
 import 'package:biomovil/themes/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(
@@ -25,36 +25,9 @@ void main() {
 class Ajustes extends HookConsumerWidget {
   const Ajustes({Key? key}) : super(key: key);
 
-  Future<Position> determinePosition() async {
-    LocationPermission permission;
-    permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error("error");
-      }
-    }
-    return await Geolocator.getCurrentPosition();
-  }
-
-  Future<void> getCurrentLocation() async {
-    ValueNotifier<bool> locationAccessEnabled = ValueNotifier<bool>(false);
-    Position position;
-    try {
-      position = await determinePosition();
-      print(position.altitude);
-      print(position.latitude);
-      locationAccessEnabled.value = true;
-    } catch (e) {
-      print("Error: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appThemeState = ref.watch(appThemeStateNotifier);
-    bool locationAccessEnabled = false;
 
     return MaterialApp(
       theme: AppTheme.lightTheme,
@@ -112,7 +85,7 @@ class Ajustes extends HookConsumerWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: Text(
-                              'Acceso a ubicación',
+                              'Ubicacion',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
@@ -122,17 +95,16 @@ class Ajustes extends HookConsumerWidget {
                             ),
                           ),
                           const Spacer(),
-                          Switch(
-                            value: locationAccessEnabled,
-                            onChanged: (value) async {
-                              if (value) {
-                                getCurrentLocation();
-                              }
-                            },
-                            activeColor: Colors.green,
-                          ),
                         ],
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Ubicacion(),
+                          ),
+                        );
+                      },
                     ),
                     const Divider(
                       color: Color.fromARGB(255, 194, 189, 189),
@@ -192,7 +164,7 @@ class Ajustes extends HookConsumerWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  MyHomePage(title: 'Notificaciones')),
+                                  const MyHomePage(title: 'Notificaciones')),
                         );
                       },
                     ),

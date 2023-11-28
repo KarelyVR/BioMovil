@@ -4,7 +4,9 @@ import 'home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   NotificationService().initNotification();
+
   runApp(const notificaciones());
 }
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:biomovil/pantalla_ajustes/notificaciones/Services/notifi_service.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -56,7 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   int _currentMessageIndex = 0;
-  bool _notificationsActive = false;
+  bool _notificationsActive =
+      false; // Nuevo estado para activar o desactivar las notificaciones
 
   @override
   void initState() {
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 40), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 70), (timer) {
       if (_notificationsActive) {
         _sendNotification();
       }
@@ -97,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _notificationsActive = !_notificationsActive;
     });
+
+    if (_notificationsActive) {
+      _sendNotification();
+    }
   }
 
   @override
@@ -106,75 +111,72 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Colors.green,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
               children: [
                 const Text(
-                  '    Activar notificaciones',
+                  '  Activar notificaciones',
                   style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 19,
+                    color: Colors.black,
                   ),
                 ),
+                const SizedBox(width: 15),
                 ElevatedButton(
-                  child: Text(_notificationsActive ? 'ON' : 'OFF'),
-                  onPressed: () {
-                    _toggleNotifications();
-                  },
+                  child: Text(_notificationsActive ? 'Desactivar' : 'Activar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
-                        _notificationsActive ? Colors.green : Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        _notificationsActive ? Colors.red : Colors.green,
                   ),
+                  onPressed: _toggleNotifications,
                 ),
-                const SizedBox(
-                  height: 20,
-                  width: 20,
-                )
               ],
             ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Column(
-                children: [
-                  Text(
-                    '¡No te pierdas ni un solo momento en nuestro increíble bioparque! Activa las notificaciones y sumérgete en una experiencia única llena de aventuras, descubrimientos y eventos emocionantes.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    'Recibe alertas instantáneas sobre las actividades diarias: desde las alimentaciones especiales hasta las charlas educativas con nuestros expertos en conservación. No te perderás las exhibiciones fascinantes ni las oportunidades para interactuar de cerca con la diversa vida silvestre que habita en nuestro bioparque.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                ],
-              ),
+          ),
+          const SizedBox(
+            height: 20,
+            width: 20,
+          ),
+          Container(
+            padding: const EdgeInsets.all(15),
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10),
             ),
-          ],
-        ),
+            child: const Column(
+              children: [
+                Text(
+                  '¡No te pierdas ni un solo momento en nuestro increíble bioparque! Activa las notificaciones y sumérgete en una experiencia única llena de aventuras, descubrimientos y eventos emocionantes.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Recibe alertas instantáneas sobre las actividades diarias: desde las alimentaciones especiales hasta las charlas educativas con nuestros expertos en conservación. No te perderás las exhibiciones fascinantes ni las oportunidades para interactuar de cerca con la diversa vida silvestre que habita en nuestro bioparque.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 15),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
