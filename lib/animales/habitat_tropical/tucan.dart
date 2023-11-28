@@ -266,7 +266,13 @@ class _TucanState extends State<Tucan> {
                               ),
                             ],
                           )
-                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : Center(
+                            child: Container(
+                              width: 40, // Ajusta el ancho según tus necesidades
+                              height: 40, // Ajusta el alto según tus necesidades
+                              child: CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                            ),
+                          ),
                         ),
                       ]),
                 );

@@ -44,6 +44,7 @@ dependencies:
   geodesy: ^0.10.2
   flutter_keyboard_visibility: ^5.4.1
   fluttertoast: ^8.2.4
+  jetpack: ^1.0.3
 
 dev_dependencies:
   flutter_test:

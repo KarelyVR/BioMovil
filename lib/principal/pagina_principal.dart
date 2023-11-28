@@ -11,6 +11,9 @@ import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:jetpack/jetpack.dart';
+
+
 
 class PaginaPrincipal extends HookConsumerWidget {
   const PaginaPrincipal({super.key});
@@ -62,9 +65,10 @@ class _MainScreenState extends State<MainScreen> {
 
 class PantallaInicioWidget extends StatelessWidget {
   const PantallaInicioWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
+    //Obtener ancho de la pantalla
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,

@@ -164,10 +164,9 @@ class _MandrillState extends State<Mandrill> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
-                  child: Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //texto grande del nombre del animal
                         Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -182,7 +181,6 @@ class _MandrillState extends State<Mandrill> {
                             ),
                           ),
                         ),
-                        //este es el boton de audio
                         Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: kPaddingHorizontal,
@@ -193,7 +191,6 @@ class _MandrillState extends State<Mandrill> {
                           ),
                           height: 40,
                           width: double.infinity,
-                          //boton para escuchar el sonido del animal
                           child: ElevatedButton(
                             child: const Text('¡Escucha su sonido!'),
                             onPressed: () {
@@ -206,61 +203,45 @@ class _MandrillState extends State<Mandrill> {
                             horizontal: kPaddingHorizontal,
                             vertical: 12,
                           ),
-                          child: mandrillInfo
-                              .isNotEmpty // Verifica si los datos están presentes
+                          child: mandrillInfo.isNotEmpty
                               ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildInfoRow(
                                   'Nombre científico',
-                                  mandrillInfo['taxonomy']
-                                  ['scientific_name'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['scientific_name'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Reino',
-                                  mandrillInfo['taxonomy']['kingdom'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['kingdom'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Clase',
-                                  mandrillInfo['taxonomy']['class'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['class'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Orden',
-                                  mandrillInfo['taxonomy']['order'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['order'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Familia',
-                                  mandrillInfo['taxonomy']['family'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['family'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Género',
-                                  mandrillInfo['taxonomy']['genus'] ??
-                                      'N/A'),
+                                  mandrillInfo['taxonomy']['genus'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Promedio de vida',
-                                  mandrillInfo['characteristics']
-                                  ['lifespan'] ??
-                                      'N/A'),
+                                  mandrillInfo['characteristics']['lifespan'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Velocidad Máxima',
-                                  mandrillInfo['characteristics']
-                                  ['top_speed'] ??
-                                      'N/A'),
+                                  mandrillInfo['characteristics']['top_speed'] ?? 'N/A'),
                               _buildInfoRow(
                                   'Peso',
-                                  mandrillInfo['characteristics']
-                                  ['weight'] ??
-                                      'N/A'),
+                                  mandrillInfo['characteristics']['weight'] ?? 'N/A'),
                               const SizedBox(
                                 height: 30,
                               ),
                               Center(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                      const UbicacionMandrill(),
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const UbicacionMandrill(),
                                     ));
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -271,9 +252,12 @@ class _MandrillState extends State<Mandrill> {
                               ),
                             ],
                           )
-                              : const CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                              : const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
-                      ]),
+                      ],
+                ),
                 );
               },
             ),
