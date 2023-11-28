@@ -49,7 +49,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
   Uint8List? markerImage;
 
   List<String> images = [
-    'assets/tigre-marker.png',
+    'assets/tucan-marker.png',
     'assets/baños.png',
     'assets/evento.png',
     'assets/baños.png',
@@ -91,7 +91,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
   ];
 
   List<String> description = [
-    'Tigre',
+    'Tucan',
     'Baños',
     'Salón de eventos 1',
     'Baños',
