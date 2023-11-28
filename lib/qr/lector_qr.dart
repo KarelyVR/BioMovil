@@ -1,3 +1,6 @@
+import 'package:biomovil/articulos/e_renovable.dart';
+import 'package:biomovil/articulos/marpol.dart';
+import 'package:biomovil/articulos/panda.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -38,6 +41,30 @@ class LectorCQR extends StatelessWidget {
       handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, dynamic> params) =>
             Tarantula(),
+      ),
+    );
+
+    router.define(
+      '/articulo-4-panda',
+      handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, dynamic> params) =>
+            Panda(),
+      ),
+    );
+
+    router.define(
+      '/articulo-5-contaminacion',
+      handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, dynamic> params) =>
+            Contaminacion(),
+      ),
+    );
+
+    router.define(
+      '/articulo-6-erenovables',
+      handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, dynamic> params) =>
+            Renovables(),
       ),
     );
   }
@@ -238,7 +265,13 @@ class _QRScreenState extends State<QRScreen> {
       LectorCQR().router.navigateTo(context, scannedData, replace: true);
     } else if (scannedData == '/articulo-3-tarantula') {
       LectorCQR().router.navigateTo(context, scannedData, replace: true);
-    } else {
+    }else if (scannedData == '/articulo-4-panda') {
+      LectorCQR().router.navigateTo(context, scannedData, replace: true);
+    }else if (scannedData == '/articulo-5-contaminacion') {
+      LectorCQR().router.navigateTo(context, scannedData, replace: true);
+    }else if (scannedData == '/articulo-6-erenovables') {
+      LectorCQR().router.navigateTo(context, scannedData, replace: true);
+    }else {
       _showErrorAlertDialog(context);
     }
   }

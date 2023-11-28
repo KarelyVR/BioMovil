@@ -1,12 +1,18 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:biomovil/animales/habitat_tropical/tucan.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class UbicacionTucan extends StatefulWidget {
   const UbicacionTucan({super.key});
@@ -16,7 +22,10 @@ class UbicacionTucan extends StatefulWidget {
 }
 
 class _UbicacionTucanState extends State<UbicacionTucan> {
+
   final Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController? _mapController;
+
   final List<String> menuItems = [
     "Pagina principal",
     "Animales",
@@ -28,15 +37,117 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
 
   String google_api_key =
       "AIzaSyB0TLjPkqVU3gavsbEFl_29z85d_3FnUnM";
-  static const LatLng fuenteUbicacion = LatLng(25.72494, -100.31341);
-  static const LatLng destino = LatLng(25.724133513174035, -100.31064160106247);
+
+  // static const LatLng fuenteUbicacion = LatLng(25.72494, -100.31341);
+  // static const LatLng destino = LatLng(25.724133513174035, -100.31064160106247);
+
+  static const CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(25.725098328491715, -100.31325851892379),
+    zoom: 15
+  );
+
+   Uint8List? markerImage;
+
+  List<String> images = [
+    'assets/tucan-marker.png',
+    'assets/baños.png',
+    'assets/evento.png',
+    'assets/baños.png',
+    'assets/restaurante.png',
+    'assets/baños.png',
+    'assets/evento.png',
+    'assets/baños.png',
+  ];
+
+  Future<Uint8List> getBytesFromAssets(String path, int width) async{
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),targetHeight: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+  }
+
+  final Set<Polyline> _myPolyline = {};
+  final List<Marker> _markers = <Marker>[];
 
   List<LatLng> polylineCoordinates = [];
-  LocationData? currentLocation;
 
-  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+  List<LatLng> polygonPoints = const [
+    LatLng(25.728501691054486, -100.316870949178),
+    LatLng(25.730742305833193, -100.30665829150674),
+    LatLng(25.711140128124455, -100.31325762086122),
+    LatLng(25.708729370822947, -100.3166869634741),
+  ];
+
+  List<LatLng> myPoints = const [
+     LatLng(25.72855225173869, -100.31517131278758), //tucan
+     LatLng(25.726733581232182, -100.31089508250031),//baño 1
+     LatLng(25.726656258522873, -100.31216108502232),//evento 1
+     LatLng(25.726772242567968, -100.31355583356353),//baño 2
+     LatLng(25.722403431958984, -100.31188213521487),//restaurante
+     LatLng(25.719600349564967, -100.3110238284203),//baño 3
+     LatLng(25.71731917169152, -100.31402790220135),//evento 2
+     LatLng(25.71465129800604, -100.31653844957549),//baño 4
+  ];
+
+  List<String> description = [
+    'Tucán',
+    'Baños',
+    'Salón de eventos 1',
+    'Baños',
+    'Area de restaurantes',
+    'Baños',
+    'Salón de eventos 2',
+    'Baños',
+  ];
+
+  @override
+  void initState(){
+    super.initState();
+    loadMapData();
+  }
+
+  void loadMapData() async {
+    await loadData();
+    await getPolyPoints();
+  }
+
+  loadData() async{
+    //agregar marcadores de mis puntos
+   for(int i=0; i< myPoints.length; i++){
+      final Uint8List markerIcon = await getBytesFromAssets(images[i], 100);
+      _markers.add(
+        Marker(
+          markerId: MarkerId(i.toString()),
+          position: myPoints[i],
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          infoWindow: InfoWindow(
+            title: description[i]
+          )
+        )
+      );
+      setState(() {
+        
+      });
+    }
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+  setState(() {
+    _mapController = controller;
+    // Llama a la función para enfocar el punto deseado.
+      focusOnPoint(const LatLng(25.72855225173869, -100.31517131278758));
+    });
+  }
+
+  void focusOnPoint(LatLng targetPoint) async {
+    if (_mapController != null) {
+      await _mapController!.animateCamera(
+        CameraUpdate.newLatLng(targetPoint),
+      );
+    }
+  }
+  
+  LocationData? currentLocation;
 
   Future<void> getCurrentLocation() async {
     Location location = Location();
@@ -45,64 +156,60 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
     setState(() {
       currentLocation = ubicacion;
     });
-   
 
     GoogleMapController googleMapController = await _controller.future;
-
   }
 
   Future<void> getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
+    Position currentPosition = await getUserLocation();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       google_api_key,
-      PointLatLng(fuenteUbicacion.latitude, fuenteUbicacion.longitude),
-      PointLatLng(destino.latitude, destino.longitude),
+      const PointLatLng(25.72855225173869, -100.31517131278758),
+      PointLatLng(currentPosition.latitude, currentPosition.longitude),
     );
 
-    if (result.points.isNotEmpty) {
-      result.points.forEach(
-        (PointLatLng point) => polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        )
-      );
-      setState(() {});
-    }
-  }
+    _markers.add(
+      Marker(
+        markerId: const MarkerId('currentLocationMarker'),
+        position: LatLng(currentPosition.latitude, currentPosition.longitude),
+        infoWindow: const InfoWindow(
+          title: 'Ubicación Actual',
+        ),
+      ),
+    );
 
-    void setCustomMarkerIcon(){
-    BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-destino.png").
-    then((icon){
-      sourceIcon = icon;
-    });
-    BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-actual.png").
-    then((icon){
-      destinationIcon = icon;
-    });
-    BitmapDescriptor.fromAssetImage(
-      ImageConfiguration.empty, 
-    "assets/pin-origen.png").
-    then((icon){
-      currentLocationIcon = icon;
-    });
-  }
+  if (result.points.isNotEmpty) {
+    _myPolyline.clear(); // Elimina cualquier polilínea existente
+    result.points.forEach(
+      (PointLatLng point) => polylineCoordinates.add(
+        LatLng(point.latitude, point.longitude),
+      ),
+    );
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeData();
-  }
+    Polyline polyline = Polyline(
+      polylineId: const PolylineId("route"),
+      points: polylineCoordinates,
+      color: Colors.orange,
+      width: 6,
+    );
 
-  Future<void> _initializeData() async {
-    await getCurrentLocation();
-    await getPolyPoints();
-    setCustomMarkerIcon();
-    setState(() {});
+    _myPolyline.add(polyline); // Agregar la polilínea al conjunto _myPolyline
+    print("_myPolyline length: ${_myPolyline.length}");
+    setState(() {
+      print("Setting state");
+    });
   }
+}
+
+  Future<Position> getUserLocation() async {
+  await Geolocator.requestPermission().then((value) {}).onError((error, stackTrace) {
+    print('error $error');
+  });
+
+  return await Geolocator.getCurrentPosition();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +219,7 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "Ubicación",
+          "Ubicación del animal",
           style: TextStyle(color: kWhite, fontSize: 20),
         ),
         leading: InkWell(
@@ -154,51 +261,30 @@ class _UbicacionTucanState extends State<UbicacionTucan> {
       drawer: const menu.NavigationDrawer(),
       body: Stack(
         children: [
-        currentLocation == null
-          ? const Center(child: Text("Cargando"))
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
-                zoom: 13.5,
+          GoogleMap(
+            initialCameraPosition: _initialPosition,
+            mapType: MapType.normal,
+            markers: Set<Marker>.of(_markers),
+            polylines: _myPolyline,
+            polygons: {
+              Polygon(
+                polygonId: const PolygonId("1"),
+                points: polygonPoints,
+                fillColor: const Color(0xFF7A7A7A).withOpacity(0.2),
+                strokeWidth: 2,
               ),
-              polylines: {
-                Polyline(
-                  polylineId: const PolylineId("route"),
-                  points: polylineCoordinates,
-                  color: Colors.blue,
-                  width: 6,
-                ),
-              },
-              markers: {
-                Marker(
-                  markerId: const MarkerId("currentLocation"),
-                  icon:currentLocationIcon,
-                  position: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId("source"),
-                  icon: sourceIcon,
-                  position: fuenteUbicacion,
-                ),
-                Marker(
-                  markerId: const MarkerId("destination"),
-                  icon: destinationIcon,
-                  position: destino,
-                ),
-              },
-              onMapCreated: (MapController){
-                _controller.complete(MapController);
-              },
-            ),
-            const Positioned(
+            },
+            onMapCreated: (GoogleMapController controller) {
+              _onMapCreated(controller);
+            },
+          ),
+          const Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: CustomContainer(),
           ),
-          ],
+        ],
       ),
     );
   }
