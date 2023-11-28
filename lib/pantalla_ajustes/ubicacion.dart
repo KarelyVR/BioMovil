@@ -30,13 +30,41 @@ class _UbicacionState extends State<Ubicacion> {
   Color buttonColor = Colors.green; // Color predeterminado
 
 // En el método getCurrentLocation
+  void showLocationDisableDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Desactivar ubicación'),
+          content: const Text(
+              'Para desactivar el acceso a tu ubicación, ve a la configuración de la aplicación.'),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Colors.green,
+                  ),
+                )),
+          ],
+        );
+      },
+    );
+  }
+
   void getCurrentLocation() async {
     Position position = await determinePosition();
     print(position.altitude);
     print(position.latitude);
     setState(() {
-      // Cambiar el color del botón si se permite el acceso a la ubicación
-      buttonColor = Colors.red; // Cambia el color a lo que desees
+      if (buttonColor == Colors.green) {
+        buttonColor = Colors.red; // Cambia el color a lo que desees
+      } else if (buttonColor == Colors.red) {
+        showLocationDisableDialog(); // Mostrar el diálogo cuando se intenta desactivar la ubicación
+      }
     });
   }
 
