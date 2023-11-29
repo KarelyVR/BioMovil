@@ -130,7 +130,6 @@ class Pangolin extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: kPaddingHorizontal,

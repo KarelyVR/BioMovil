@@ -174,7 +174,7 @@ Widget buildZoneSelection() {
               // Si 'Todas las zonas' está seleccionado, muestra todos los animales
               selectedZone = availableZones.join(', '); // Muestra todas las zonas como una cadena separada por comas
             } else {
-              selectedZone = selectedZones.join(', '); // Muestra las zonas seleccionadas como una cadena separada por comas
+              selectedZone = selectedZones.join(', '); 
             }
           });
         },
