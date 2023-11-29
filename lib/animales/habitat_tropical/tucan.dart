@@ -1,18 +1,14 @@
 // Importa los paquetes y archivos necesarios
+// ignore_for_file: sized_box_for_whitespace, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
-import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/themes/app_styles.dart';
-import 'package:biomovil/qr/lector_qr.dart';
-import 'package:biomovil/pantalla_ajustes/ajustes.dart';
-import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'apis_tropical/api_tucan.dart';
 
 // Define el reproductor de audio como una variable global
@@ -239,7 +235,7 @@ class _TucanState extends State<Tucan> {
                           child: Container(
                             width: 40,
                             height: 40,
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(),
                           ),
                         ),
                       ),

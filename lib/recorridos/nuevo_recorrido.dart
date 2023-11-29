@@ -3,6 +3,7 @@
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:biomovil/recorridos/polylineas/polilinea1.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class SelectionScreen extends StatefulWidget {
   final List<String> initialSelectedAnimals;
@@ -47,22 +48,6 @@ List<String> combineAnimalLists(List<String> selectedZones) {
 
   bool loading = false;
 
-  //  void _showMultiSelect(List<String> items, List<String> selectedItems) async {
-  //   final List<String>? results = await showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return MultiSelect(items: items);
-  //     },
-  //   );
-
-  //   if (results != null) {
-  //     setState(() {
-  //       selectedItems.clear();
-  //       selectedItems.addAll(results);
-  //     });
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -73,21 +58,61 @@ List<String> combineAnimalLists(List<String> selectedZones) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personaliza tu ruta'),
-        centerTitle: true,
         backgroundColor: Colors.green,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: const Text(
+          'Personaliza tu ruta',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>const PaginaPrincipal(),
+                builder: (context) => const PaginaPrincipal(),
               ),
             );
           },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
+          ),
         ),
+        actions: [
+          Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
+      drawer: const menu.NavigationDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,14 +167,6 @@ Widget buildZoneSelection() {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
-      // ElevatedButton(
-      //     onPressed: () {
-      //       _showMultiSelect(availableZones, selectedZone.split(', '));
-      //     },
-      //     child: const Text('Seleccionar zonas'),
-      //   ),
-      //   // Opcional: Mostrar las zonas seleccionadas
-      //   Text('Zonas seleccionadas: $selectedZone'),
       DropdownButton<List<String>>(
         onChanged: (selectedZones) {
           setState(() {
@@ -201,14 +218,6 @@ Widget buildZoneSelection() {
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
-      // ElevatedButton(
-      //     onPressed: () {
-      //       _showMultiSelect(items, selectedItems);
-      //     },
-      //     child: const Text('Seleccionar elementos'),
-      //   ),
-      //   // Opcional: Mostrar los elementos seleccionados
-      //   Text('Elementos seleccionados: ${selectedItems.join(', ')}'),
       ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -235,65 +244,3 @@ Widget buildZoneSelection() {
 }
 }
 
-
-// class MultiSelect extends StatefulWidget {
-//   final List<String> items;
-//   const MultiSelect({Key? key, required this.items}) : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _MultiSelectState();
-// }
-
-// class _MultiSelectState extends State<MultiSelect> {
-//   // this variable holds the selected items
-//   final List<String> _selectedItems = [];
-
-// // This function is triggered when a checkbox is checked or unchecked
-//   void _itemChange(String itemValue, bool isSelected) {
-//     setState(() {
-//       if (isSelected) {
-//         _selectedItems.add(itemValue);
-//       } else {
-//         _selectedItems.remove(itemValue);
-//       }
-//     });
-//   }
-//     // this function is called when the Cancel button is pressed
-//   void _cancel() {
-//     Navigator.pop(context);
-//   }
-
-// // this function is called when the Submit button is tapped
-//   void _submit() {
-//     Navigator.pop(context, _selectedItems);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       title: const Text('Select Topics'),
-//       content: SingleChildScrollView(
-//         child: ListBody(
-//           children: widget.items
-//               .map((item) => CheckboxListTile(
-//                     value: _selectedItems.contains(item),
-//                     title: Text(item),
-//                     controlAffinity: ListTileControlAffinity.leading,
-//                     onChanged: (isChecked) => _itemChange(item, isChecked!),
-//                   ))
-//               .toList(),
-//         ),
-//       ),
-//       actions: [
-//         TextButton(
-//           onPressed: _cancel,
-//           child: const Text('Cancel'),
-//         ),
-//         ElevatedButton(
-//           onPressed: _submit,
-//           child: const Text('Enviar'),
-//         ),
-//       ],
-//     );
-//   }
-// }

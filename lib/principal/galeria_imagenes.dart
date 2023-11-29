@@ -1,8 +1,10 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class DetalleImagen extends StatelessWidget {
   const DetalleImagen({required this.imagePaths, required this.initialIndex, Key? key}) : super(key: key);
@@ -60,14 +62,61 @@ class Galeria extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Galería de Fotos',
-          style: TextStyle(
-            fontSize: 24,
+        backgroundColor: Colors.green,
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
           ),
         ),
-        backgroundColor: Colors.green,
+        title: const Text(
+          'Galeria de imágenes',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PaginaPrincipal(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
+          ),
+        ),
+        actions: [
+          Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
+      drawer: const menu.NavigationDrawer(),
       body: GridView.extent(
         maxCrossAxisExtent: 200,
         mainAxisSpacing: 8.0,

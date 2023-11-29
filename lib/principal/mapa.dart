@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 
 class Mapa extends StatefulWidget {
   const Mapa({super.key});
@@ -57,13 +58,25 @@ class _MapaState extends State<Mapa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ubicacion del bioparque'),
-        centerTitle: true,
         backgroundColor: Colors.green,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Reiniciar el contenido de la página anterior
+        elevation: 0,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
+        title: const Text(
+          'Ubicación del bioparque',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -71,8 +84,35 @@ class _MapaState extends State<Mapa> {
               ),
             );
           },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 28,
+            ),
+          ),
         ),
+        actions: [
+          Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  // Abre el drawer (menú lateral derecho)
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.sort_rounded,
+                    size: 28,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
+      drawer: const menu.NavigationDrawer(),
       //mapa de google maps
       body: SafeArea(
         child: GoogleMap(

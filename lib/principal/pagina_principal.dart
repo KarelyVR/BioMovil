@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers, non_constant_identifier_names, unused_local_variable
 
 import 'package:biomovil/principal/mas_informacion.dart';
 import 'package:biomovil/recorridos/nuevo_recorrido.dart';
@@ -11,9 +11,6 @@ import 'package:biomovil/principal/galeria_imagenes.dart';
 import 'package:biomovil/principal/itinerario.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:jetpack/jetpack.dart';
-
-
 
 class PaginaPrincipal extends HookConsumerWidget {
   const PaginaPrincipal({super.key});

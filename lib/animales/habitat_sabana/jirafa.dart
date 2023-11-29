@@ -1,22 +1,15 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api
+// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:biomovil/animales/habitat_sabana/apis_sabana/api_jirafa.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_jirafa.dart';
 import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
-import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/themes/app_styles.dart';
-import 'package:biomovil/qr/lector_qr.dart';
-import 'package:biomovil/pantalla_ajustes/ajustes.dart';
-import 'package:biomovil/principal/pagina_principal.dart';
-import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/size_config.dart';
-import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
-import 'apis_sabana/api_jirafa.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 
