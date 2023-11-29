@@ -1,8 +1,8 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
+// ignore_for_file: avoid_print, library_private_types_in_public_api
 
-import 'package:jetpack/jetpack.dart';
-import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
+import 'package:biomovil/animales/habitat_sabana/apis_sabana/api_avestruz.dart';
 import 'package:biomovil/animales/habitat_sabana/ubicaciones/ubicacion_avestruz.dart';
+import 'package:biomovil/animales/habitat_sabana/animales_sabana.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/qr/lector_qr.dart';
@@ -10,6 +10,7 @@ import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/size_config.dart';
+import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,57 +21,44 @@ import 'apis_sabana/api_avestruz.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Avestruz extends StatefulWidget {
-  const Avestruz({super.key});
+  const Avestruz({Key? key}) : super(key: key);
 
   @override
   _AvestruzState createState() => _AvestruzState();
 }
 
 final player = AudioPlayer();
-final List<String> menuItems = [
-  "Pagina principal",
-  "Animales",
-  "Codigo QR",
-  "Ubicacion",
-  "Ajustes",
+final List<String> imageList = [
+  'assets/animales/sabana/avestruz1.jpg',
+  'assets/animales/sabana/avestruz2.jpg',
+  'assets/animales/sabana/avestruz3.jpg'
 ];
 
 class _AvestruzState extends State<Avestruz> {
-  final APIAvestruz _animalAPI =
-  APIAvestruz(); // Instancia de la clase AnimalAPI
-  Map<String, dynamic> AvestruzInfo =
-  {}; // Almacenará los datos del tucán desde la API
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final APIAvestruz _animalAPI = APIAvestruz();
+  late Map<String, dynamic> AvestruzInfo;
 
   @override
   void initState() {
     super.initState();
-    fetchAvestruzInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    AvestruzInfo = {};
+    fetchDataInIsolate();
   }
 
-  void fetchAvestruzInfo() async {
-    var info =
-    await _animalAPI.fetchAvestruzData(); // Llama al método de la API
-    setState(() {
-      AvestruzInfo = info; // Actualiza los datos del tucán en el estado
-    });
+  void fetchDataInIsolate() async {
+    // Supongamos que aquí tienes la lógica para cargar los datos
+    // de manera asíncrona, por ejemplo, desde una API.
+    try {
+      var loadedData = await _animalAPI.fetchAvestruzData();
+      setState(() {
+        AvestruzInfo = loadedData;
+      });
+    } catch (e) {
+      print("Error cargando datos: $e");
+      // Manejar el error según tus necesidades
+    }
   }
-
-  void main() {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Avestruz(),
-        '/pagina_principal': (context) => const PaginaPrincipal(),
-        '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
-        '/ajustes': (context) => const Ajustes(),
-      },
-    ));
-  }
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +93,8 @@ class _AvestruzState extends State<Avestruz> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const AnimalesSabana()),
+                                  builder: (context) =>
+                                  const AnimalesSabana()),
                             );
                           },
                           child: Container(
@@ -152,7 +141,7 @@ class _AvestruzState extends State<Avestruz> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -165,121 +154,115 @@ class _AvestruzState extends State<Avestruz> {
                     horizontal: 10,
                   ),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //texto grande del nombre del animal
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Avestruz',
-                              style: kPoppinsBold.copyWith(
-                                color: kDarkBlue,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //este es el boton de audio
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
-                          ),
-                          height: 40,
-                          width: double.infinity,
-                          //boton para escuchar el sonido del animal
-                          child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
-                            onPressed: () {
-                              playAudio();
-                            },
-                          ),
-                        ),
-                        Padding(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
-                          child: AvestruzInfo
-                              .isNotEmpty // Verifica si los datos están presentes
-                              ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildInfoRow(
-                                  'Nombre científico',
-                                  AvestruzInfo['taxonomy']
-                                  ['scientific_name'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Reino',
-                                  AvestruzInfo['taxonomy']['kingdom'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Clase',
-                                  AvestruzInfo['taxonomy']['class'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Orden',
-                                  AvestruzInfo['taxonomy']['order'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Familia',
-                                  AvestruzInfo['taxonomy']['family'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Género',
-                                  AvestruzInfo['taxonomy']['genus'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Promedio de vida',
-                                  AvestruzInfo['characteristics']
-                                  ['lifespan'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Altura',
-                                  AvestruzInfo['characteristics']
-                                  ['height'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Peso',
-                                  AvestruzInfo['characteristics']
-                                  ['weight'] ??
-                                      'N/A'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                      const UbicacionAvestruz(),
-                                    ));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amber[800],
-                                  ),
-                                  child: const Text('Ver Ubicación'),
-                                ),
-                              ),
-                            ],
-                          )
-                              : Center(
-                            child: Container(
-                              width: 40, // Ajusta el ancho según tus necesidades
-                              height: 40, // Ajusta el alto según tus necesidades
-                              child: CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                          child: Text(
+                            'Avestruz',
+                            style: kPoppinsBold.copyWith(
+                              color: Colors.blue, // Cambiado a color de ejemplo
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
                             ),
                           ),
                         ),
-                      ]),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 10,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
+                        ),
+                        height: 40,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          child: const Text('¡Escucha su sonido!'),
+                          onPressed: () {
+                            playAudio();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: AvestruzInfo.isNotEmpty
+                            ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildInfoRow(
+                                'Nombre científico',
+                                AvestruzInfo['taxonomy']
+                                ['scientific_name'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Reino',
+                                AvestruzInfo['taxonomy']['kingdom'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Clase',
+                                AvestruzInfo['taxonomy']['class'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Orden',
+                                AvestruzInfo['taxonomy']['order'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Familia',
+                                AvestruzInfo['taxonomy']['family'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Género',
+                                AvestruzInfo['taxonomy']['genus'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Promedio de vida',
+                                AvestruzInfo['characteristics']
+                                ['lifespan'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Altura',
+                                AvestruzInfo['characteristics']
+                                ['height'] ??
+                                    'N/A'),
+                            _buildInfoRow(
+                                'Peso',
+                                AvestruzInfo['characteristics']
+                                ['weight'] ??
+                                    'N/A'),
+                            const SizedBox(
+                              height: 30,
+                            ),
+
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                    builder: (context) =>
+                                    const UbicacionAvestruz(),
+                                  ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amber[800],
+                                ),
+                                child: const Text('Ver Ubicación'),
+                              ),
+                            ),
+                          ],
+                        )
+                            : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -292,19 +275,38 @@ class _AvestruzState extends State<Avestruz> {
   void playAudio() async {
     await player.play(AssetSource('avestruz.mp3'));
   }
+
+  Widget _buildInfoRow(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+          children: [
+            TextSpan(
+              text: '$title: ',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextSpan(
+              text: content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-final List<String> imageList = [
-  'assets/animales/sabana/avestruz1.jpg',
-  'assets/animales/sabana/avestruz2.jpg',
-  'assets/animales/sabana/avestruz3.jpg'
-];
-
 class FullScreenSlider extends StatefulWidget {
-  const FullScreenSlider({super.key});
+  const FullScreenSlider({Key? key}) : super(key: key);
 
   @override
-  State<FullScreenSlider> createState() => _FullScreenSliderState();
+  _FullScreenSliderState createState() => _FullScreenSliderState();
 }
 
 class _FullScreenSliderState extends State<FullScreenSlider> {
@@ -369,29 +371,4 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
-}
-
-Widget _buildInfoRow(String title, String content) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.black87,
-        ),
-        children: [
-          TextSpan(
-            text: '$title: ',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: content,
-          ),
-        ],
-      ),
-    ),
-  );
 }

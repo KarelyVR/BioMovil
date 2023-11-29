@@ -1,13 +1,16 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api, non_constant_identifier_names
-import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
+// ignore_for_file: avoid_print, library_private_types_in_public_api
+
+import 'package:biomovil/animales/habitat_desierto/apis_desierto/api_camello.dart';
 import 'package:biomovil/animales/habitat_desierto/ubicaciones/ubicacion_camello.dart';
+import 'package:biomovil/animales/habitat_desierto/animales_desierto.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
-import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/app_styles.dart';
 import 'package:biomovil/qr/lector_qr.dart';
 import 'package:biomovil/pantalla_ajustes/ajustes.dart';
 import 'package:biomovil/principal/pagina_principal.dart';
+import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/size_config.dart';
+import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,55 +21,44 @@ import 'apis_desierto/api_camello.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Camello extends StatefulWidget {
-  const Camello({super.key});
+  const Camello({Key? key}) : super(key: key);
 
   @override
   _CamelloState createState() => _CamelloState();
 }
 
 final player = AudioPlayer();
-final List<String> menuItems = [
-  "Pagina principal",
-  "Animales",
-  "Codigo QR",
-  "Ubicacion",
-  "Ajustes",
+final List<String> imageList = [
+  'assets/animales/desierto/camello1.jpeg',
+  'assets/animales/desierto/camello2.jpg',
+  'assets/animales/desierto/camello3.jpeg'
 ];
 
 class _CamelloState extends State<Camello> {
-  final APICamello _animalAPI = APICamello(); // Instancia de la clase AnimalAPI
-  Map<String, dynamic> CamelloInfo =
-      {}; // Almacenará los datos del tucán desde la API
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final APICamello _animalAPI = APICamello();
+  late Map<String, dynamic> CamelloInfo;
 
   @override
   void initState() {
     super.initState();
-    fetchCamelloInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    CamelloInfo = {};
+    fetchDataInIsolate();
   }
 
-  void fetchCamelloInfo() async {
-    var info = await _animalAPI.fetchCamelloData(); // Llama al método de la API
-    setState(() {
-      CamelloInfo = info; // Actualiza los datos del tucán en el estado
-    });
+  void fetchDataInIsolate() async {
+    // Supongamos que aquí tienes la lógica para cargar los datos
+    // de manera asíncrona, por ejemplo, desde una API.
+    try {
+      var loadedData = await _animalAPI.fetchCamelloData();
+      setState(() {
+        CamelloInfo = loadedData;
+      });
+    } catch (e) {
+      print("Error cargando datos: $e");
+      // Manejar el error según tus necesidades
+    }
   }
-
-  void main() {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Camello(),
-        '/pagina_principal': (context) => const PaginaPrincipal(),
-        '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
-        '/ajustes': (context) => const Ajustes(),
-      },
-    ));
-  }
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +85,7 @@ class _CamelloState extends State<Camello> {
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, //separa los iconos
+                      MainAxisAlignment.spaceBetween, //separa los iconos
                       children: [
                         //boton para volver atras
                         InkWell(
@@ -102,7 +94,7 @@ class _CamelloState extends State<Camello> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const AnimalesDesierto()),
+                                  const AnimalesDesierto()),
                             );
                           },
                           child: Container(
@@ -149,7 +141,7 @@ class _CamelloState extends State<Camello> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -162,121 +154,114 @@ class _CamelloState extends State<Camello> {
                     horizontal: 10,
                   ),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //texto grande del nombre del animal
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Camello',
-                              style: kPoppinsBold.copyWith(
-                                color: kDarkBlue,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //este es el boton de audio
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
-                          ),
-                          height: 40,
-                          width: double.infinity,
-                          //boton para escuchar el sonido del animal
-                          child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
-                            onPressed: () {
-                              playAudio();
-                            },
-                          ),
-                        ),
-                        Padding(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
-                          child: CamelloInfo
-                                  .isNotEmpty // Verifica si los datos están presentes
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildInfoRow(
-                                        'Nombre científico',
-                                        CamelloInfo['taxonomy']
-                                                ['scientific_name'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Reino',
-                                        CamelloInfo['taxonomy']['kingdom'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Clase',
-                                        CamelloInfo['taxonomy']['class'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Orden',
-                                        CamelloInfo['taxonomy']['order'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Familia',
-                                        CamelloInfo['taxonomy']['family'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Género',
-                                        CamelloInfo['taxonomy']['genus'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Promedio de vida',
-                                        CamelloInfo['characteristics']
-                                                ['lifespan'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Altura',
-                                        CamelloInfo['characteristics']
-                                                ['height'] ??
-                                            'N/A'),
-                                    _buildInfoRow(
-                                        'Peso',
-                                        CamelloInfo['characteristics']
-                                                ['weight'] ??
-                                            'N/A'),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    Center(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                const UbicacionCamello(),
-                                          ));
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.amber[800],
-                                        ),
-                                        child: const Text('Ver Ubicación'),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Center(
-                            child: Container(
-                              width: 40, // Ajusta el ancho según tus necesidades
-                              height: 40, // Ajusta el alto según tus necesidades
-                              child: CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
+                          child: Text(
+                            'Camello',
+                            style: kPoppinsBold.copyWith(
+                              color: Colors.blue, // Cambiado a color de ejemplo
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
                             ),
                           ),
                         ),
-                      ]),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 10,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
+                        ),
+                        height: 40,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          child: const Text('¡Escucha su sonido!'),
+                          onPressed: () {
+                            playAudio();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: CamelloInfo.isNotEmpty
+                            ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildInfoRow(
+                                  'Nombre científico',
+                                  CamelloInfo['taxonomy']
+                                  ['scientific_name'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Reino',
+                                  CamelloInfo['taxonomy']['kingdom'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Clase',
+                                  CamelloInfo['taxonomy']['class'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Orden',
+                                  CamelloInfo['taxonomy']['order'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Familia',
+                                  CamelloInfo['taxonomy']['family'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Género',
+                                  CamelloInfo['taxonomy']['genus'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Promedio de vida',
+                                  CamelloInfo['characteristics']
+                                  ['lifespan'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Altura',
+                                  CamelloInfo['characteristics']
+                                  ['height'] ??
+                                      'N/A'),
+                              _buildInfoRow(
+                                  'Peso',
+                                  CamelloInfo['characteristics']
+                                  ['weight'] ??
+                                      'N/A'),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                      const UbicacionCamello(),
+                                    ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.amber[800],
+                                  ),
+                                  child: const Text('Ver Ubicación'),
+                                ),
+                              ),
+                            ],
+                        )
+                            : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -289,19 +274,38 @@ class _CamelloState extends State<Camello> {
   void playAudio() async {
     await player.play(AssetSource('camello.mp3'));
   }
+
+  Widget _buildInfoRow(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+          children: [
+            TextSpan(
+              text: '$title: ',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextSpan(
+              text: content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-final List<String> imageList = [
-  'assets/animales/desierto/camello1.jpeg',
-  'assets/animales/desierto/camello2.jpg',
-  'assets/animales/desierto/camello3.jpeg'
-];
-
 class FullScreenSlider extends StatefulWidget {
-  const FullScreenSlider({super.key});
+  const FullScreenSlider({Key? key}) : super(key: key);
 
   @override
-  State<FullScreenSlider> createState() => _FullScreenSliderState();
+  _FullScreenSliderState createState() => _FullScreenSliderState();
 }
 
 class _FullScreenSliderState extends State<FullScreenSlider> {
@@ -326,17 +330,17 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
             initialPage: _current,
             autoPlay: true, // Activar la reproducción automática
             autoPlayInterval:
-                const Duration(seconds: 3), // Intervalo entre cambios de imagen
+            const Duration(seconds: 3), // Intervalo entre cambios de imagen
           ),
           items: imageList
               .map((item) => Center(
-                    child: Image.asset(
-                      item,
-                      fit: BoxFit.cover,
-                      height: SizeConfig.blockSizeVertical! * 50,
-                      width: double.infinity,
-                    ),
-                  ))
+            child: Image.asset(
+              item,
+              fit: BoxFit.cover,
+              height: SizeConfig.blockSizeVertical! * 50,
+              width: double.infinity,
+            ),
+          ))
               .toList(),
         ),
         Align(
@@ -349,16 +353,16 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
                   .asMap()
                   .entries
                   .map((entry) => GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: SvgPicture.asset(
-                            _current == entry.key
-                                ? 'assets/carousel_indicator_enabled.svg'
-                                : 'assets/carousel_indicator_disabled.svg',
-                          ),
-                        ),
-                      ))
+                onTap: () => _controller.animateToPage(entry.key),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: SvgPicture.asset(
+                    _current == entry.key
+                        ? 'assets/carousel_indicator_enabled.svg'
+                        : 'assets/carousel_indicator_disabled.svg',
+                  ),
+                ),
+              ))
                   .toList(),
             ),
           ),
@@ -366,29 +370,4 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
-}
-
-Widget _buildInfoRow(String title, String content) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.black87,
-        ),
-        children: [
-          TextSpan(
-            text: '$title: ',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: content,
-          ),
-        ],
-      ),
-    ),
-  );
 }

@@ -19,57 +19,44 @@ import 'apis_tropical/api_mandrill.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Mandrill extends StatefulWidget {
-  const Mandrill({super.key});
+  const Mandrill({Key? key}) : super(key: key);
 
   @override
   _MandrillState createState() => _MandrillState();
 }
 
 final player = AudioPlayer();
-final List<String> menuItems = [
-  "Pagina principal",
-  "Animales",
-  "Codigo QR",
-  "Ubicacion",
-  "Ajustes",
+final List<String> imageList = [
+  'assets/animales/tropical/mandrill1.jpeg',
+  'assets/animales/tropical/mandrill5.jpg',
+  'assets/animales/tropical/mandrill3.jpg'
 ];
 
 class _MandrillState extends State<Mandrill> {
-  final APIMandrill _animalAPI =
-  APIMandrill(); // Instancia de la clase AnimalAPI
-  Map<String, dynamic> mandrillInfo =
-  {}; // Almacenará los datos del tucán desde la API
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final APIMandrill _animalAPI = APIMandrill();
+  late Map<String, dynamic> mandrillInfo;
 
   @override
   void initState() {
     super.initState();
-    fetchMandrillInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    mandrillInfo = {};
+    fetchDataInIsolate();
   }
 
-  void fetchMandrillInfo() async {
-    var info =
-    await _animalAPI.fetchMandrillData(); // Llama al método de la API
-    setState(() {
-      mandrillInfo = info; // Actualiza los datos del tucán en el estado
-    });
+  void fetchDataInIsolate() async {
+    // Supongamos que aquí tienes la lógica para cargar los datos
+    // de manera asíncrona, por ejemplo, desde una API.
+    try {
+      var loadedData = await _animalAPI.fetchMandrillData();
+      setState(() {
+        mandrillInfo = loadedData;
+      });
+    } catch (e) {
+      print("Error cargando datos: $e");
+      // Manejar el error según tus necesidades
+    }
   }
-
-  void main() {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Mandrill(),
-        '/pagina_principal': (context) => const PaginaPrincipal(),
-        '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
-        '/ajustes': (context) => const Ajustes(),
-      },
-    ));
-  }
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -164,100 +151,100 @@ class _MandrillState extends State<Mandrill> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Mandrill',
-                              style: kPoppinsBold.copyWith(
-                                color: kDarkBlue,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
-                          ),
-                          height: 40,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
-                            onPressed: () {
-                              playAudio();
-                            },
-                          ),
-                        ),
-                        Padding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
-                          child: mandrillInfo.isNotEmpty
-                              ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildInfoRow(
-                                  'Nombre científico',
-                                  mandrillInfo['taxonomy']['scientific_name'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Reino',
-                                  mandrillInfo['taxonomy']['kingdom'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Clase',
-                                  mandrillInfo['taxonomy']['class'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Orden',
-                                  mandrillInfo['taxonomy']['order'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Familia',
-                                  mandrillInfo['taxonomy']['family'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Género',
-                                  mandrillInfo['taxonomy']['genus'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Promedio de vida',
-                                  mandrillInfo['characteristics']['lifespan'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Velocidad Máxima',
-                                  mandrillInfo['characteristics']['top_speed'] ?? 'N/A'),
-                              _buildInfoRow(
-                                  'Peso',
-                                  mandrillInfo['characteristics']['weight'] ?? 'N/A'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const UbicacionMandrill(),
-                                    ));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amber[800],
-                                  ),
-                                  child: const Text('Ver Ubicación'),
-                                ),
-                              ),
-                            ],
-                          )
-                              : const Center(
-                            child: CircularProgressIndicator(),
+                          child: Text(
+                            'Mandrill',
+                            style: kPoppinsBold.copyWith(
+                              color: Colors.blue, // Cambiado a color de ejemplo
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
+                            ),
                           ),
                         ),
-                      ],
-                ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 10,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
+                        ),
+                        height: 40,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          child: const Text('¡Escucha su sonido!'),
+                          onPressed: () {
+                            playAudio();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: mandrillInfo.isNotEmpty
+                            ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildInfoRow(
+                                'Nombre científico',
+                                mandrillInfo['taxonomy']['scientific_name'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Reino',
+                                mandrillInfo['taxonomy']['kingdom'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Clase',
+                                mandrillInfo['taxonomy']['class'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Orden',
+                                mandrillInfo['taxonomy']['order'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Familia',
+                                mandrillInfo['taxonomy']['family'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Género',
+                                mandrillInfo['taxonomy']['genus'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Promedio de vida',
+                                mandrillInfo['characteristics']['lifespan'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Velocidad Máxima',
+                                mandrillInfo['characteristics']['top_speed'] ?? 'N/A'),
+                            _buildInfoRow(
+                                'Peso',
+                                mandrillInfo['characteristics']['weight'] ?? 'N/A'),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const UbicacionMandrill(),
+                                  ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amber[800],
+                                ),
+                                child: const Text('Ver Ubicación'),
+                              ),
+                            ),
+                          ],
+                        )
+                            : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -270,19 +257,38 @@ class _MandrillState extends State<Mandrill> {
   void playAudio() async {
     await player.play(AssetSource('mandrill.mp3'));
   }
+
+  Widget _buildInfoRow(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+          children: [
+            TextSpan(
+              text: '$title: ',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextSpan(
+              text: content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-final List<String> imageList = [
-  'assets/animales/tropical/mandrill1.jpeg',
-  'assets/animales/tropical/mandrill5.jpg',
-  'assets/animales/tropical/mandrill3.jpg'
-];
-
 class FullScreenSlider extends StatefulWidget {
-  const FullScreenSlider({super.key});
+  const FullScreenSlider({Key? key}) : super(key: key);
 
   @override
-  State<FullScreenSlider> createState() => _FullScreenSliderState();
+  _FullScreenSliderState createState() => _FullScreenSliderState();
 }
 
 class _FullScreenSliderState extends State<FullScreenSlider> {
@@ -347,29 +353,4 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
-}
-
-Widget _buildInfoRow(String title, String content) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.black87,
-        ),
-        children: [
-          TextSpan(
-            text: '$title: ',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: content,
-          ),
-        ],
-      ),
-    ),
-  );
 }
