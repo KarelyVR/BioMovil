@@ -1,5 +1,5 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api
-
+// Importa los paquetes y archivos necesarios
+import 'package:flutter/material.dart';
 import 'package:biomovil/animales/habitat_tropical/animales_tropicales.dart';
 import 'package:biomovil/animales/habitat_tropical/ubicaciones/ubicacion_tucan.dart';
 import 'package:biomovil/animales/menu_habitats.dart';
@@ -10,71 +10,44 @@ import 'package:biomovil/principal/pagina_principal.dart';
 import 'package:biomovil/recorridos/nuevo_recorrido.dart';
 import 'package:biomovil/themes/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:biomovil/animales/menu_desplegable.dart' as menu;
 import 'apis_tropical/api_tucan.dart';
 
+// Define el reproductor de audio como una variable global
 AudioPlayer audioPlayer = AudioPlayer();
 
 class Tucan extends StatefulWidget {
-  const Tucan({super.key});
+  const Tucan({Key? key}) : super(key: key);
 
   @override
   _TucanState createState() => _TucanState();
 }
 
 final player = AudioPlayer();
-final List<String> menuItems = [
-  "Pagina principal",
-  "Animales",
-  "Codigo QR",
-  "Ubicacion",
-  "Ajustes",
-];
 
 class _TucanState extends State<Tucan> {
-  final APITucan _animalAPI = APITucan(); // Instancia de la clase AnimalAPI
-  Map<String, dynamic> tucanInfo =
-  {}; // Almacenará los datos del tucán desde la API
+  final APITucan _animalAPI = APITucan();
+  Map<String, dynamic> tucanInfo = {};
 
   @override
   void initState() {
     super.initState();
-    fetchTucanInfo(); // Llama a la función para obtener los datos del tucán al inicio
+    fetchTucanInfo();
   }
 
   void fetchTucanInfo() async {
-    var info = await _animalAPI.fetchTucanData(); // Llama al método de la API
+    var info = await _animalAPI.fetchTucanData();
     setState(() {
-      tucanInfo = info; // Actualiza los datos del tucán en el estado
+      tucanInfo = info;
     });
   }
-
-  void main() {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Tucan(),
-        '/pagina_principal': (context) => const PaginaPrincipal(),
-        '/menu_habitats': (context) => MenuHabitats(),
-        '/lector_qr': (context) => LectorCQR(),
-        '/recorridos': (context) => const SelectionScreen(initialSelectedAnimals: [],),
-        '/ajustes': (context) => const Ajustes(),
-      },
-    ));
-  }
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      key: scaffoldKey,
-      drawer: const menu.NavigationDrawer(),
       backgroundColor: kLightWhite,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +57,7 @@ class _TucanState extends State<Tucan> {
             height: SizeConfig.blockSizeVertical! * 40,
             child: Stack(
               children: [
-                const FullScreenSlider(), //carrusel
+                const FullScreenSlider(),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -93,10 +66,8 @@ class _TucanState extends State<Tucan> {
                       vertical: 40,
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween, //separa los iconos
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //boton para volver atras
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -112,7 +83,7 @@ class _TucanState extends State<Tucan> {
                               color: kWhite,
                               boxShadow: const [
                                 BoxShadow(
-                                  color: kDarkBlue,
+                                  color: Colors.blue, // Cambiado a color de ejemplo
                                   blurRadius: 6,
                                 ),
                               ],
@@ -124,10 +95,9 @@ class _TucanState extends State<Tucan> {
                             ),
                           ),
                         ),
-                        //boton de pagina principal
                         InkWell(
                           onTap: () {
-                            scaffoldKey.currentState?.openDrawer();
+                            Scaffold.of(context).openDrawer();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
@@ -135,7 +105,7 @@ class _TucanState extends State<Tucan> {
                               color: kWhite,
                               boxShadow: const [
                                 BoxShadow(
-                                  color: kDarkBlue,
+                                  color: Colors.blue, // Cambiado a color de ejemplo
                                   blurRadius: 6,
                                 ),
                               ],
@@ -163,118 +133,118 @@ class _TucanState extends State<Tucan> {
                     horizontal: 10,
                   ),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //texto grande del nombre del animal
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Tucán',
-                              style: kPoppinsBold.copyWith(
-                                color: kDarkBlue,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //este es el boton de audio
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
-                          ),
-                          height: 40,
-                          width: double.infinity,
-                          //boton para escuchar el sonido del animal
-                          child: ElevatedButton(
-                            child: const Text('¡Escucha su sonido!'),
-                            onPressed: () {
-                              playAudio();
-                            },
-                          ),
-                        ),
-                        Padding(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: kPaddingHorizontal,
-                            vertical: 12,
+                            horizontal: 20,
                           ),
-                          child: tucanInfo
-                              .isNotEmpty // Verifica si los datos están presentes
-                              ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildInfoRow(
-                                  'Nombre científico', 'Toucan'),
-                              _buildInfoRow(
-                                  'Reino',
-                                  tucanInfo['taxonomy']['kingdom'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Clase',
-                                  tucanInfo['taxonomy']['class'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Orden',
-                                  tucanInfo['taxonomy']['order'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Familia',
-                                  tucanInfo['taxonomy']['family'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Género',
-                                  tucanInfo['taxonomy']['genus'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Promedio de vida',
-                                  tucanInfo['characteristics']
-                                  ['lifespan'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Altura',
-                                  tucanInfo['characteristics']
-                                  ['height'] ??
-                                      'N/A'),
-                              _buildInfoRow(
-                                  'Peso',
-                                  tucanInfo['characteristics']
-                                  ['weight'] ??
-                                      'N/A'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
+                          child: Text(
+                            'Tucán',
+                            style: kPoppinsBold.copyWith(
+                              color: Colors.blue, // Cambiado a color de ejemplo
+                              fontSize: SizeConfig.blockSizeHorizontal! * 7,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 10,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.blockSizeHorizontal! * 2.5,
+                        ),
+                        height: 40,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          child: const Text('¡Escucha su sonido!'),
+                          onPressed: () {
+                            playAudio();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 12,
+                        ),
+                        child: tucanInfo.isNotEmpty
+                            ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildInfoRow(
+                              'Nombre científico',
+                              'Toucan',
+                            ),
+                            _buildInfoRow(
+                              'Reino',
+                              tucanInfo['taxonomy']['kingdom'] ?? 'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Clase',
+                              tucanInfo['taxonomy']['class'] ?? 'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Orden',
+                              tucanInfo['taxonomy']['order'] ?? 'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Familia',
+                              tucanInfo['taxonomy']['family'] ?? 'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Género',
+                              tucanInfo['taxonomy']['genus'] ?? 'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Promedio de vida',
+                              tucanInfo['characteristics']['lifespan'] ??
+                                  'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Altura',
+                              tucanInfo['characteristics']['height'] ??
+                                  'N/A',
+                            ),
+                            _buildInfoRow(
+                              'Peso',
+                              tucanInfo['characteristics']['weight'] ??
+                                  'N/A',
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
                                       builder: (context) =>
                                       const UbicacionTucan(),
-                                    ));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amber[800],
-                                  ),
-                                  child: const Text('Ver Ubicación'),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amber[800],
                                 ),
+                                child: const Text('Ver Ubicación'),
                               ),
-                            ],
-                          )
-                              : Center(
-                            child: Container(
-                              width: 40, // Ajusta el ancho según tus necesidades
-                              height: 40, // Ajusta el alto según tus necesidades
-                              child: CircularProgressIndicator(), // Muestra un indicador de carga si los datos aún no han sido obtenidos
                             ),
+                          ],
+                        )
+                            : Center(
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(),
                           ),
                         ),
-                      ]),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -287,16 +257,41 @@ class _TucanState extends State<Tucan> {
   void playAudio() async {
     await player.play(AssetSource('tucan.mp3'));
   }
+
+  Widget _buildInfoRow(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+          children: [
+            TextSpan(
+              text: '$title: ',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextSpan(
+              text: content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 final List<String> imageList = [
   'assets/animales/tropical/toucan1.jpg',
   'assets/animales/tropical/toucan2.jpg',
-  'assets/animales/tropical/toucan3.jpg'
+  'assets/animales/tropical/toucan3.jpg',
 ];
 
 class FullScreenSlider extends StatefulWidget {
-  const FullScreenSlider({super.key});
+  const FullScreenSlider({Key? key}) : super(key: key);
 
   @override
   State<FullScreenSlider> createState() => _FullScreenSliderState();
@@ -322,19 +317,20 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               });
             },
             initialPage: _current,
-            autoPlay: true, // Activar la reproducción automática
-            autoPlayInterval:
-            const Duration(seconds: 3), // Intervalo entre cambios de imagen
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
           ),
           items: imageList
-              .map((item) => Center(
-            child: Image.asset(
-              item,
-              fit: BoxFit.cover,
-              height: SizeConfig.blockSizeVertical! * 50,
-              width: double.infinity,
+              .map(
+                (item) => Center(
+              child: Image.asset(
+                item,
+                fit: BoxFit.cover,
+                height: SizeConfig.blockSizeVertical! * 50,
+                width: double.infinity,
+              ),
             ),
-          ))
+          )
               .toList(),
         ),
         Align(
@@ -348,17 +344,19 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
               children: imageList
                   .asMap()
                   .entries
-                  .map((entry) => GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: SvgPicture.asset(
-                    _current == entry.key
-                        ? 'assets/carousel_indicator_enabled.svg'
-                        : 'assets/carousel_indicator_disabled.svg',
+                  .map(
+                    (entry) => GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: SvgPicture.asset(
+                      _current == entry.key
+                          ? 'assets/carousel_indicator_enabled.svg'
+                          : 'assets/carousel_indicator_disabled.svg',
+                    ),
                   ),
                 ),
-              ))
+              )
                   .toList(),
             ),
           ),
@@ -366,29 +364,4 @@ class _FullScreenSliderState extends State<FullScreenSlider> {
       ],
     );
   }
-}
-
-Widget _buildInfoRow(String title, String content) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.black87,
-        ),
-        children: [
-          TextSpan(
-            text: '$title: ',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: content,
-          ),
-        ],
-      ),
-    ),
-  );
 }
